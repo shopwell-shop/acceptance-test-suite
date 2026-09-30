@@ -1,0 +1,4 @@
+interface:
+  display_name: "Shopwell ATS"
+  short_description: "Guide Codex through Shopwell ATS work"
+  default_prompt: "Use the shopwell-ats skill to inspect, update, or extend the Shopwell Acceptance Test Suite."

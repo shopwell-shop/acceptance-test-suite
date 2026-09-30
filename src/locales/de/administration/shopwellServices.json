@@ -1,0 +1,23 @@
+{
+    "headings": {
+        "futureProofStore": "Zukunftssicher mit Shopwell Services"
+    },
+    "buttons": {
+        "activateServices": "Services aktivieren",
+        "grantPermissions": "Berechtigungen erteilen",
+        "deactivate": "Deaktivieren",
+        "exploreNow": "Jetzt erkunden"
+    },
+    "modals": {
+        "deactivateServices": "Shopwell Services deaktivieren"
+    },
+    "messages": {
+        "accessDenied": "Zugriff verweigert"
+    },
+    "links": {
+        "shopwellServices": "Shopwell Services"
+    },
+    "dashboard": {
+        "shopwellServicesIntroduction": "Introducing Shopwell Services"
+    }
+}
