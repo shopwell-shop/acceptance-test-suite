@@ -10,8 +10,8 @@
         "test-data",
         "testing"
     ],
-    "license": "MIT",
-    "author": "shopwell AG",
+    "license": "Apache-2.0",
+    "author": "Shopwell",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/shopwell-shop/acceptance-test-suite.git"
