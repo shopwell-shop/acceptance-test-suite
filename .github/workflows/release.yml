@@ -10,6 +10,8 @@ permissions:
 jobs:
     release-please:
         runs-on: ubuntu-latest
+        env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         steps:
             - uses: octo-sts/action@v1.1.1
               id: sts-release
@@ -30,9 +32,10 @@ jobs:
               with:
                   node-version: "lts/*"
                   cache: "npm"
+                  registry-url: "https://registry.npmjs.org"
               if: ${{ steps.release.outputs.release_created }}
             - run: npm ci
               if: ${{ steps.release.outputs.release_created }}
-            # authentication happens automatically via OIDC. See https://www.npmjs.com/package/@shopwell-ag/acceptance-test-suite/access for more details.
+            # Authentication uses the organization NPM_TOKEN secret.
             - run: npm publish
               if: ${{ steps.release.outputs.release_created }}
