@@ -76,7 +76,7 @@ services:
 
     init:
         <<: [*service, *shopwell-volumes]
-        image: ghcr.io/shopwell/acceptance-test-suite/test-image:${SHOPWELL_VERSION:-trunk}
+        image: ghcr.io/shopwell-shop/acceptance-test-suite/test-image:${SHOPWELL_VERSION:-trunk}
         build:
             context: .
             dockerfile: test-image.Dockerfile
