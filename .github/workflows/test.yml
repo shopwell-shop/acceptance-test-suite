@@ -110,6 +110,7 @@ jobs:
                   retention-days: 7
 
     test-saas:
+        if: ${{ vars.SAAS_TESTS_ENABLED == 'true' }}
         timeout-minutes: 15
         runs-on: ubuntu-latest
         concurrency: saas # only allow one job at a time
