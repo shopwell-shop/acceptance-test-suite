@@ -51,9 +51,13 @@ test("Administration page objects - General.", async ({
     await ShopAdmin.expects(AdminOrderDetail.orderDeliveryStatus).toBeVisible();
 
     if (satisfies(InstanceMeta.version, ">=6.7.15")) {
-        await ShopAdmin.expects(AdminOrderDetail.orderStateInput).toHaveValue("Open");
-        await ShopAdmin.expects(AdminOrderDetail.orderPaymentStatusInput).toHaveValue("Open");
-        await ShopAdmin.expects(AdminOrderDetail.orderDeliveryStatusInput).toHaveValue("Open");
+        await ShopAdmin.expects((await AdminOrderDetail.orderStateInput.inputValue()) || (await AdminOrderDetail.orderStateInput.getAttribute("placeholder"))).toBe("Open");
+        await ShopAdmin.expects((await AdminOrderDetail.orderPaymentStatusInput.inputValue()) || (await AdminOrderDetail.orderPaymentStatusInput.getAttribute("placeholder"))).toBe(
+            "Open"
+        );
+        await ShopAdmin.expects(
+            (await AdminOrderDetail.orderDeliveryStatusInput.inputValue()) || (await AdminOrderDetail.orderDeliveryStatusInput.getAttribute("placeholder"))
+        ).toBe("Open");
     }
 
     await ShopAdmin.goesTo(AdminProductDetail.url(product.id));

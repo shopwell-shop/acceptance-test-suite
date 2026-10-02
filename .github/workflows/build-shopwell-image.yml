@@ -15,7 +15,7 @@ jobs:
         steps:
             - name: Generate versions
               id: versions
-              uses: shopwell-shop/github-actions/versions@eb1996603ef58244d59e0ce6aeb2cb5af2fc4d66
+              uses: shopwell-shop/github-actions/versions@8c8189363e2ddc0a47ba08be5a9c55bd42dce3b5
 
     build-test-image:
         runs-on: ubuntu-24.04
