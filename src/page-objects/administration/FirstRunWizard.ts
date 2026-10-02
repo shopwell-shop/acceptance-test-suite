@@ -130,9 +130,9 @@ export class FirstRunWizard implements PageObject {
         this.doneHeader = page.locator(".sw-modal__title", { hasText: translate("administration:firstRunWizard:headers.done") });
         this.extensionStoreHeading = page.locator(".sw-first-run-wizard-store__heading");
         this.frwSuccessText = page.getByText(translate("administration:firstRunWizard:text.allDone"), { exact: true });
-        this.documentationLink = page.locator('[href*="https://docs.shopwell.com/en"]');
-        this.forumLink = page.locator('[href*="https://forum.shopwell.com/"]');
-        this.roadmapLink = page.locator('[href*="https://www.shopwell.com/en/roadmap/"]');
+        this.documentationLink = page.locator('[href*="https://docs.shopwell.cn/en"]');
+        this.forumLink = page.locator('[href*="https://forum.shopwell.cn/"]');
+        this.roadmapLink = page.locator('[href*="https://www.shopwell.cn/en/roadmap/"]');
     }
 
     url() {

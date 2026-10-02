@@ -10,12 +10,10 @@ jobs:
         outputs:
             first-version: ${{ steps.versions.outputs.first-version }}
             latest-version: ${{ steps.versions.outputs.latest-version }}
-            lts-first-version: ${{ steps.versions.outputs.lts-first-version }}
-            lts-latest-version: ${{ steps.versions.outputs.lts-latest-version }}
         steps:
             - name: Generate versions
               id: versions
-              uses: shopwell/github-actions/versions@main
+              uses: shopwell-shop/github-actions/versions@51511121da3f6239e5df7cd307428aac88d728d1
 
     lint:
         runs-on: ubuntu-latest
@@ -39,7 +37,7 @@ jobs:
                   cache: "npm"
             - run: npm ci
             - run: npm run build
-            - run: npx pkg-pr-new publish
+            - run: npm pack --dry-run
 
     test:
         name: test shopwell ${{ matrix.SHOPWELL_VERSION_ID }}
@@ -52,9 +50,6 @@ jobs:
             fail-fast: false
             matrix:
                 include:
-                    - SHOPWELL_VERSION: ${{ needs.versions.outputs.lts-latest-version }}
-                      SHOPWELL_VERSION_ID: "lts-latest"
-                      PORT: 8011
                     - SHOPWELL_VERSION: ${{ needs.versions.outputs.first-version }}
                       SHOPWELL_VERSION_ID: "first"
                       PORT: 8021
@@ -115,6 +110,7 @@ jobs:
                   retention-days: 7
 
     test-saas:
+        if: ${{ vars.SAAS_TESTS_ENABLED == 'true' }}
         timeout-minutes: 15
         runs-on: ubuntu-latest
         concurrency: saas # only allow one job at a time

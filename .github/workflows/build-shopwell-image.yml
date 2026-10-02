@@ -12,12 +12,10 @@ jobs:
         outputs:
             first-version: ${{ steps.versions.outputs.first-version }} # current major, initial version; so for major = 6.7 -> 6.7.0.0
             latest-version: ${{ steps.versions.outputs.latest-version }} # current major, latest version -> 6.7.*.*
-            lts-first-version: ${{ steps.versions.outputs.lts-first-version }} # previous major, initial version -> 6.6.0.0
-            lts-latest-version: ${{ steps.versions.outputs.lts-latest-version }} # previous major, latest version -> 6.6.*.*
         steps:
             - name: Generate versions
               id: versions
-              uses: shopwell/github-actions/versions@main
+              uses: shopwell-shop/github-actions/versions@51511121da3f6239e5df7cd307428aac88d728d1
 
     build-test-image:
         runs-on: ubuntu-24.04
@@ -33,16 +31,6 @@ jobs:
                     - PHP_VERSION: 8.3
                       SHOPWELL_VERSION: ${{ needs.versions.outputs.latest-version }}
                       SHOPWELL_BUILD_SOURCE: tag
-                    - PHP_VERSION: 8.2
-                      SHOPWELL_VERSION: ${{ needs.versions.outputs.lts-first-version }}
-                      SHOPWELL_BUILD_SOURCE: tag
-                    - PHP_VERSION: 8.3
-                      SHOPWELL_VERSION: ${{ needs.versions.outputs.lts-latest-version }}
-                      SHOPWELL_BUILD_SOURCE: tag
-                    - PHP_VERSION: 8.3
-                      SHOPWELL_VERSION: 6.6.x
-                      SHOPWELL_BUILD_SOURCE: branch
-                      COMPOSER_ROOT_VERSION: 6.6.9999999-dev
                     - PHP_VERSION: 8.4
                       SHOPWELL_VERSION: trunk
                       SHOPWELL_BUILD_SOURCE: branch

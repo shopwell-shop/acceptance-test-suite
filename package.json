@@ -1,6 +1,6 @@
 {
     "name": "@shopwell-ag/acceptance-test-suite",
-    "version": "12.21.2",
+    "version": "12.21.3",
     "description": "Shopwell Acceptance Test Suite",
     "keywords": [
         "fixtures",
@@ -40,7 +40,7 @@
     },
     "dependencies": {
         "@axe-core/playwright": "4.11.1",
-        "@shopwell/api-client": "1.6.0",
+        "@shopwell/api-client": "1.5.1",
         "axe-html-reporter": "2.2.11",
         "compare-versions": "6.1.1",
         "fast-png": "8.0.0",
