@@ -3,9 +3,17 @@ import type { Browser, BrowserContext, Page } from "@playwright/test";
 import { mockApiCalls } from "./ApiMocks";
 import { clearDelayedCache } from "./Cache";
 import { translate } from "./LanguageHelper";
+import enAdministrationLogin from "../locales/en/administration/login.json" with { type: "json" };
+import zhAdministrationLogin from "../locales/zh/administration/login.json" with { type: "json" };
 import type { DefaultSalesChannelTypes } from "../fixtures/DefaultSalesChannel";
 import type { FixtureTypes } from "../types/FixtureTypes";
 import type { User } from "../types/ShopwellTypes";
+
+function localizedLabelPattern(...labels: string[]): RegExp {
+    const escapedLabels = [...new Set(labels)].map((label) => label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+
+    return new RegExp(`^(?:${escapedLabels.join("|")})$`);
+}
 
 /**
  * Creates a new admin page context (login page) without the actual login.
@@ -58,11 +66,18 @@ export function hideSymfonyToolbarOnReload(page: Page): void {
  */
 export async function loginToAdministration(adminLoginPage: Page, merchant: User, AdminApiContext: FixtureTypes["AdminApiContext"]): Promise<Page> {
     // Create locators at runtime when language is properly set
-    const usernamePattern = new RegExp(`${translate("administration:login:username")}|${translate("administration:login:emailAddress")}`);
-    const passwordLabel = translate("administration:login:password");
+    const usernamePattern = localizedLabelPattern(
+        translate("administration:login:username"),
+        translate("administration:login:emailAddress"),
+        enAdministrationLogin.username,
+        enAdministrationLogin.emailAddress,
+        zhAdministrationLogin.username,
+        zhAdministrationLogin.emailAddress
+    );
+    const passwordPattern = localizedLabelPattern(translate("administration:login:password"), enAdministrationLogin.password, zhAdministrationLogin.password);
 
     await adminLoginPage.getByLabel(usernamePattern).fill(merchant.username);
-    await adminLoginPage.getByLabel(passwordLabel, { exact: true }).fill(merchant.password);
+    await adminLoginPage.getByLabel(passwordPattern).fill(merchant.password);
 
     const config = (await (await AdminApiContext.get("./_info/config")).json()) as { bundles: Record<string, { js: string[] | undefined }> };
 
@@ -74,8 +89,8 @@ export async function loginToAdministration(adminLoginPage: Page, merchant: User
         }
     }
 
-    const loginButtonLabel = translate("administration:login:loginButton");
-    await adminLoginPage.getByRole("button", { name: loginButtonLabel, exact: true }).click();
+    const loginButtonPattern = localizedLabelPattern(translate("administration:login:loginButton"), enAdministrationLogin.loginButton, zhAdministrationLogin.loginButton);
+    await adminLoginPage.getByRole("button", { name: loginButtonPattern }).click();
 
     // wait for all plugin js to be loaded
     await Promise.all(jsLoadingPromises);
