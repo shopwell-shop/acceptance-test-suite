@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0 (2026-10-02)
+
+
+### Bug Fixes
+
+* **page-objects:** correct First Run Wizard domains ([7ae824f](https://github.com/shopwell-shop/acceptance-test-suite/commit/7ae824fec065cec599209f6ceecf9bfefd97d268))
+* **release:** add stable publication recovery ([#2](https://github.com/shopwell-shop/acceptance-test-suite/issues/2)) ([f59a123](https://github.com/shopwell-shop/acceptance-test-suite/commit/f59a1232db218ff84fb24e63459466e3658c6ae2))
+
 ## [12.21.2](https://github.com/shopwell-shop/acceptance-test-suite/compare/v12.21.1...v12.21.2) (2026-09-29)
 
 
