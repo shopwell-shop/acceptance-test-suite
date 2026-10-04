@@ -1,6 +1,6 @@
 {
     "name": "@shopwell-ag/acceptance-test-suite",
-    "version": "12.21.3",
+    "version": "12.21.4",
     "description": "Shopwell Acceptance Test Suite",
     "keywords": [
         "fixtures",

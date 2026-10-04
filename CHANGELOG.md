@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.21.4](https://github.com/shopwell-shop/acceptance-test-suite/compare/v12.21.3...v12.21.4) (2026-10-04)
+
+
+### Bug Fixes
+
+* **page-objects:** support labeled Meteor selects ([#3](https://github.com/shopwell-shop/acceptance-test-suite/issues/3)) ([f09231e](https://github.com/shopwell-shop/acceptance-test-suite/commit/f09231eee8e4e640a941d67e80088b100e06f17f))
+
 ## [12.21.2](https://github.com/shopwell-shop/acceptance-test-suite/compare/v12.21.1...v12.21.2) (2026-09-29)
 
 
