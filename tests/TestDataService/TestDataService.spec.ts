@@ -23,9 +23,8 @@ import {
 } from "../../src";
 
 test("Data Service", async ({ TestDataService, AdminApiContext }) => {
-    const customer = await TestDataService.createCustomer({ firstName: "Luke", lastName: "Skywalker" });
-    expect(customer.firstName).toEqual("Luke");
-    expect(customer.lastName).toEqual("Skywalker");
+    const customer = await TestDataService.createCustomer({ name: "Luke Skywalker" });
+    expect(customer.name).toEqual("Luke Skywalker");
 
     const paymentMethod = await TestDataService.createBasicPaymentMethod({ name: "Custom payment method" });
     expect(paymentMethod.name).toEqual("Custom payment method");
@@ -128,15 +127,13 @@ test("Data Service", async ({ TestDataService, AdminApiContext }) => {
     expect(review.title).toEqual("Custom review title");
     expect(review.points).toEqual(5);
 
-    const merchant = await TestDataService.createUser({ firstName: "Han", lastName: "Solo" });
-    expect(merchant.firstName).toEqual("Han");
-    expect(merchant.lastName).toEqual("Solo");
+    const merchant = await TestDataService.createUser({ name: "Han Solo" });
+    expect(merchant.name).toEqual("Han Solo");
 
-    const merchantWithBasicRole = await TestDataService.createUser({ firstName: "Mi", lastName: "How" });
+    const merchantWithBasicRole = await TestDataService.createUser({ name: "Mi How" });
     const aclRole = await TestDataService.createAclRole({ name: "Custom role" });
     await TestDataService.assignAclRoleUser(aclRole.id, merchantWithBasicRole.id);
-    expect(merchantWithBasicRole.firstName).toEqual("Mi");
-    expect(merchantWithBasicRole.lastName).toEqual("How");
+    expect(merchantWithBasicRole.name).toEqual("Mi How");
     expect(aclRole.name).toEqual("Custom role");
 
     // Test data clean-up with deactivated cleansing process

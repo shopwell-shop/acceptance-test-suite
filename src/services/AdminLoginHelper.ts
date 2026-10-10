@@ -104,7 +104,7 @@ export async function loginToAdministration(adminLoginPage: Page, merchant: User
     await adminLoginPage.waitForURL((url) => {
         return url.hash !== "#login";
     });
-    await expect(adminLoginPage.getByText(merchant.firstName + " " + merchant.lastName).first()).toBeVisible({ timeout: 60000 });
+    await expect(adminLoginPage.getByText(merchant.name).first()).toBeVisible({ timeout: 60000 });
 
     return adminLoginPage;
 }

@@ -4,8 +4,7 @@ export type NewsletterRecipient = components["schemas"]["NewsletterRecipient"] &
     id: string;
     email: string;
     salesChannelId: string;
-    firstName: string;
-    lastName: string;
+    name: string;
 };
 
 export type SalesChannel = components["schemas"]["SalesChannel"] & {
@@ -20,8 +19,7 @@ export type Customer = Omit<components["schemas"]["Customer"], "defaultShippingA
     id: string;
     password: string;
     defaultShippingAddress: {
-        firstName: string;
-        lastName: string;
+        name: string;
         city: string;
         street: string;
         zipcode: string;
@@ -29,8 +27,7 @@ export type Customer = Omit<components["schemas"]["Customer"], "defaultShippingA
         salutationId: string;
     };
     defaultBillingAddress: {
-        firstName: string;
-        lastName: string;
+        name: string;
         city: string;
         street: string;
         zipcode: string;
@@ -56,8 +53,7 @@ export type CustomerAddress = components["schemas"]["CustomerAddress"] & {
 export interface Address {
     id: string;
     salutation: string;
-    firstName: string;
-    lastName: string;
+    name: string;
     company: string;
     department: string;
     street: string;
@@ -192,8 +188,7 @@ export type Order = Omit<components["schemas"]["Order"], "deliveries" | "price">
     id: string;
     orderNumber: string;
     orderCustomer: {
-        firstName: string;
-        lastName: string;
+        name: string;
         email: string;
     };
     price: {
@@ -282,8 +277,7 @@ export interface RegistrationData {
     isCommercial: boolean;
     isGuest: boolean;
     salutation: string;
-    firstName: string;
-    lastName: string;
+    name: string;
     email: string;
     password: string;
     street: string;

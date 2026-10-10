@@ -16,8 +16,7 @@ export class ContactForm extends Home implements PageObject {
     public readonly contactSuccessModal: Locator | undefined;
     public readonly contactWrapper: Locator;
     public readonly salutationSelect: Locator;
-    public readonly firstNameInput: Locator;
-    public readonly lastNameInput: Locator;
+    public readonly nameInput: Locator;
     public readonly emailInput: Locator;
     public readonly phoneInput: Locator;
     public readonly subjectInput: Locator;
@@ -57,8 +56,7 @@ export class ContactForm extends Home implements PageObject {
 
         this.basicCaptcha = this.contactWrapper.locator(".basic-captcha");
         this.salutationSelect = this.contactWrapper.getByLabel(translate("storefront:contact:form.salutation"));
-        this.firstNameInput = this.contactWrapper.getByLabel(translate("storefront:contact:form.firstName"));
-        this.lastNameInput = this.contactWrapper.getByLabel(translate("storefront:contact:form.lastName"));
+        this.nameInput = this.contactWrapper.getByLabel(translate("storefront:contact:form.name"));
         this.emailInput = this.contactWrapper.getByLabel(translate("storefront:contact:form.emailAddress"));
         this.phoneInput = this.contactWrapper.getByLabel(translate("storefront:contact:form.phone"));
         this.subjectInput = this.contactWrapper.getByLabel(translate("storefront:contact:form.subject"));

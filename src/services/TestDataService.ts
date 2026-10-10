@@ -179,8 +179,7 @@ export class TestDataService {
         const recipientPayload = {
             email: customer.email,
             salesChannelId: this.defaultSalesChannel.id,
-            firstName: customer.firstName ?? `Test ${hash.id}`,
-            lastName: customer.lastName ?? `User ${hash.id}`,
+            name: customer.name || `Test ${hash.id}`,
             hash: customer.id || hash.uuid,
             status: "direct",
             languageId: customer.languageId ?? this.defaultLanguageId,
@@ -2532,8 +2531,7 @@ export class TestDataService {
         overrides: Partial<Customer> = {}
     ): Partial<Customer> {
         const { id, uuid: customerUuid } = this.IdProvider.getIdPair();
-        const firstName = "John";
-        const lastName = "Goldblum";
+        const name = "John Goldblum";
 
         const addressData = getCountryAddressData();
 
@@ -2545,8 +2543,7 @@ export class TestDataService {
             languageId: languageId,
 
             defaultShippingAddress: {
-                firstName: firstName,
-                lastName: lastName,
+                name: name,
                 city: addressData.city,
                 street: addressData.street,
                 zipcode: addressData.postalCode,
@@ -2554,8 +2551,7 @@ export class TestDataService {
                 salutationId: salutationId,
             },
             defaultBillingAddress: {
-                firstName: firstName,
-                lastName: lastName,
+                name: name,
                 city: addressData.city,
                 street: addressData.street,
                 zipcode: addressData.postalCode,
@@ -2563,8 +2559,7 @@ export class TestDataService {
                 salutationId: salutationId,
             },
 
-            firstName: firstName,
-            lastName: lastName,
+            name: name,
 
             salesChannelId: salesChannelId,
             groupId: customerGroupId,
@@ -2582,8 +2577,7 @@ export class TestDataService {
         const basicUser = {
             id: userUuid,
             username: userName,
-            firstName: `${userId} user`,
-            lastName: `${userId} user`,
+            name: `${userId} user`,
             email: `user${userId}@example.com`,
             password: "shopwell",
             localeId: localId,
@@ -2640,8 +2634,7 @@ export class TestDataService {
             shippingOrderAddress: {
                 id: customerAddress.id,
                 salutationId: customerAddress.salutationId,
-                firstName: customerAddress.firstName,
-                lastName: customerAddress.lastName,
+                name: customerAddress.name,
                 street: customerAddress.street,
                 zipcode: customerAddress.zipcode,
                 city: customerAddress.city,
@@ -2775,8 +2768,7 @@ export class TestDataService {
             orderCustomer: {
                 customerId: customer.id,
                 email: customer.email,
-                firstName: customer.firstName,
-                lastName: customer.lastName,
+                name: customer.name,
                 salutationId: customer.salutationId,
             },
             shippingCosts: {
@@ -3041,8 +3033,7 @@ export class TestDataService {
             id: customerAddressUuid,
             customerId: customerId,
             countryId: this.defaultCountryId,
-            firstName: "Peter",
-            lastName: "Venkman",
+            name: "Peter Venkman",
             zipcode: "10013",
             street: "14 N Moore Street",
             city: "New York",

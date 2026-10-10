@@ -7,8 +7,7 @@ export class AccountProfile extends BaseAccount {
     public readonly page: Page;
     public readonly instanceMeta: HelperFixtureTypes["InstanceMeta"];
     public readonly salutationSelect: Locator;
-    public readonly firstNameInput: Locator;
-    public readonly lastNameInput: Locator;
+    public readonly nameInput: Locator;
     public readonly saveProfileButton: Locator;
 
     public readonly changeEmailButton: Locator;
@@ -35,8 +34,7 @@ export class AccountProfile extends BaseAccount {
         this.page = page;
         this.instanceMeta = instanceMeta;
         this.salutationSelect = page.getByLabel(translate("storefront:account:common.salutation"));
-        this.firstNameInput = page.getByLabel(translate("storefront:account:common.firstName"));
-        this.lastNameInput = page.getByLabel(translate("storefront:account:common.lastName"));
+        this.nameInput = page.getByLabel(translate("storefront:account:common.name"));
         this.saveProfileButton = page.locator("#profilePersonalForm").getByRole("button", { name: translate("storefront:account:profile.saveChanges") });
 
         this.changeEmailButton = page.getByRole("button", { name: translate("storefront:account:profile.changeEmail") });

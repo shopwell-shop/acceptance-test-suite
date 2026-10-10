@@ -32,8 +32,7 @@ export const test = base.extend<Omit<FixtureTypes, "AdminSession">, PageContextW
             const adminUser: User = {
                 id: uuid,
                 username: `admin_${id}`,
-                firstName: `${id} admin`,
-                lastName: `${id} admin`,
+                name: `${id} admin`,
                 localeId: SalesChannelBaseConfig.currentLocaleId,
                 email: `admin_${id}@example.com`,
                 timeZone: "Europe/Berlin",
@@ -74,7 +73,7 @@ export const test = base.extend<Omit<FixtureTypes, "AdminSession">, PageContextW
 
         await page.goto("./");
         await page.waitForURL((url) => url.hash.startsWith("#/") && !url.hash.startsWith("#/login"));
-        await expect(page.getByText(AdminSession.user.firstName + " " + AdminSession.user.lastName).first()).toBeVisible({ timeout: 60000 });
+        await expect(page.getByText(AdminSession.user.name).first()).toBeVisible({ timeout: 60000 });
         await expect(page.locator(".sw-skeleton")).toHaveCount(0);
 
         LanguageHelper.setForContext(page.context() as unknown as Record<string, unknown>, languageHelper);

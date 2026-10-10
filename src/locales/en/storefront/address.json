@@ -1,8 +1,7 @@
 {
     "common": {
         "salutation": "Salutation",
-        "firstName": "First name",
-        "lastName": "Last name",
+        "name": "Name",
         "company": "Company",
         "department": "Department",
         "street": "Street",

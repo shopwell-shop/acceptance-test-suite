@@ -15,8 +15,7 @@ export const Register = base.extend<{ Register: Task }, FixtureTypes>({
             isCommercial: false,
             isGuest: false,
             salutation: "Mr.",
-            firstName: "Jeff",
-            lastName: "Goldblum",
+            name: "Jeff Goldblum",
             email: `${IdProvider.getIdPair().uuid}@test.com`,
             password: "shopwell",
             ...countryDefaults,
@@ -39,8 +38,7 @@ export const Register = base.extend<{ Register: Task }, FixtureTypes>({
 
                 await ShopCustomer.presses(StorefrontAccountLogin.salutationSelect);
                 await StorefrontAccountLogin.salutationSelect.selectOption(registrationData.salutation);
-                await ShopCustomer.fillsIn(StorefrontAccountLogin.firstNameInput, registrationData.firstName);
-                await ShopCustomer.fillsIn(StorefrontAccountLogin.lastNameInput, registrationData.lastName);
+                await ShopCustomer.fillsIn(StorefrontAccountLogin.nameInput, registrationData.name);
 
                 // Deprecation warning for the 'isCommercial' argument
                 if (registrationData.isCommercial || isCommercial) {

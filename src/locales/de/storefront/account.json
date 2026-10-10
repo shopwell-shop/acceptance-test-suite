@@ -1,8 +1,7 @@
 {
     "common": {
         "salutation": "Anrede",
-        "firstName": "Vorname",
-        "lastName": "Nachname",
+        "name": "Name",
         "company": "Firma",
         "department": "Abteilung",
         "back": "Zurück",

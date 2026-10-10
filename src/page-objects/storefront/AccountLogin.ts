@@ -17,8 +17,7 @@ export class AccountLogin implements PageObject {
     public readonly billingAddressFormArea: Locator;
     public readonly accountTypeSelect: Locator;
     public readonly salutationSelect: Locator;
-    public readonly firstNameInput: Locator;
-    public readonly lastNameInput: Locator;
+    public readonly nameInput: Locator;
     public readonly companyInput: Locator;
     public readonly departmentInput: Locator;
     public readonly vatRegNoInput: Locator;
@@ -41,8 +40,7 @@ export class AccountLogin implements PageObject {
     public readonly differentShippingAddressCheckbox: Locator;
     public readonly registerShippingAddressFormArea: Locator;
     public readonly shippingAddressSalutationSelect: Locator;
-    public readonly shippingAddressFirstNameInput: Locator;
-    public readonly shippingAddressLastNameInput: Locator;
+    public readonly shippingAddressNameInput: Locator;
     public readonly shippingAddressStreetAddressInput: Locator;
     public readonly shippingAddressCityInput: Locator;
     public readonly shippingAddressCountryInput: Locator;
@@ -66,8 +64,7 @@ export class AccountLogin implements PageObject {
             .locator(".form-group")
             .filter({ has: page.getByLabel(translate("storefront:login:register.salutation")) })
             .locator(".form-select");
-        this.firstNameInput = this.personalFormArea.getByLabel(translate("storefront:login:register.firstName"));
-        this.lastNameInput = this.personalFormArea.getByLabel(translate("storefront:login:register.lastName"));
+        this.nameInput = this.personalFormArea.getByLabel(translate("storefront:login:register.name"));
         this.companyInput = this.personalFormArea.getByLabel(translate("storefront:login:register.company"));
         this.departmentInput = this.personalFormArea.getByLabel(translate("storefront:login:register.department"));
         this.vatRegNoInput = this.personalFormArea.locator('input[id="vatIds"]');
@@ -83,15 +80,14 @@ export class AccountLogin implements PageObject {
             .locator(".form-group")
             .filter({ has: page.getByLabel(translate("storefront:login:register.salutation")) })
             .locator(".form-select");
-        this.shippingAddressFirstNameInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.firstName"));
-        this.shippingAddressLastNameInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.lastName"));
+        this.shippingAddressNameInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.name"));
         this.shippingAddressStreetAddressInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.streetAddress"));
         this.shippingAddressCityInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.city"));
         this.shippingAddressCountryInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.country"));
         this.shippingAddressPostalCodeInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.postalCode"));
         this.shippingAddressStateInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.state"));
         // The submit label differs between storefront account registration and checkout registration.
-        this.registerButton = page.locator("form.register-form button[type=\"submit\"]");
+        this.registerButton = page.locator('form.register-form button[type="submit"]');
         this.logoutLink = page.getByRole("link", { name: translate("storefront:login:logout") });
         this.successAlert = page.getByText(translate("storefront:login:successfulLogout"));
         this.passwordUpdatedAlert = page.getByText(translate("storefront:login:passwordUpdated"));

@@ -9,8 +9,7 @@ export const AddNewAddress = base.extend<{ AddNewAddress: Task }, FixtureTypes>(
             return async function AddNewAddress() {
                 await ShopCustomer.presses(StorefrontAccountAddresses.addNewAddressButton);
 
-                await ShopCustomer.fillsIn(StorefrontAccountAddressCreate.firstNameInput, address.firstName);
-                await ShopCustomer.fillsIn(StorefrontAccountAddressCreate.lastNameInput, address.lastName);
+                await ShopCustomer.fillsIn(StorefrontAccountAddressCreate.nameInput, address.name);
                 await ShopCustomer.fillsIn(StorefrontAccountAddressCreate.companyInput, address.company);
                 await ShopCustomer.fillsIn(StorefrontAccountAddressCreate.departmentInput, address.department);
                 await ShopCustomer.fillsIn(StorefrontAccountAddressCreate.streetInput, address.street);

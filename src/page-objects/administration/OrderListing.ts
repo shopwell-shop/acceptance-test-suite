@@ -24,7 +24,7 @@ export class OrderListing implements PageObject {
 
         const lineItem = this.page.getByRole("row").filter({ hasText: orderNumber });
         const orderNumberText = lineItem.getByText(orderNumber);
-        const orderCustomerNameText = lineItem.locator(".sw-data-grid__cell--orderCustomer-firstName");
+        const orderCustomerNameText = lineItem.locator(".sw-data-grid__cell--orderCustomer-name");
 
         if (satisfies(this.instanceMeta.version, "<=6.7.0.0")) {
             orderDeliveryAddressText = lineItem.locator(".sw-order-list__delivery_address");

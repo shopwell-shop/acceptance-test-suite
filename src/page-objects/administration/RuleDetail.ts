@@ -32,8 +32,8 @@ export class RuleDetail extends RuleCreate implements PageObject {
     public readonly conditionDateRangeOperator: Locator;
     public readonly conditionDateRangeDateFieldFirst: Locator;
     public readonly conditionDateRangeDateFieldSecond: Locator;
-    public readonly conditionCustomerSurnameOperator: Locator;
-    public readonly conditionCustomerSurnameValue: Locator;
+    public readonly conditionCustomerNameOperator: Locator;
+    public readonly conditionCustomerNameValue: Locator;
     public readonly conditionCartLineItemTaxationMatchOperator: Locator;
     public readonly conditionCartLineItemTaxationOperator: Locator;
     public readonly conditionCartLineItemTaxationValue: Locator;
@@ -123,8 +123,8 @@ export class RuleDetail extends RuleCreate implements PageObject {
             this.conditionDateRangeDateFieldFirst = page.locator(".mt-datepicker__wrapper").locator(".dp__input").first();
             this.conditionDateRangeDateFieldSecond = page.locator(".mt-datepicker__wrapper").locator(".dp__input").nth(1);
         }
-        this.conditionCustomerSurnameOperator = page.locator(".sw-condition__condition-type-customerLastName").locator(".sw-single-select__selection-text");
-        this.conditionCustomerSurnameValue = page.locator(".sw-condition__condition-type-customerLastName").getByRole("textbox");
+        this.conditionCustomerNameOperator = page.locator(".sw-condition__condition-type-customerName").locator(".sw-single-select__selection-text");
+        this.conditionCustomerNameValue = page.locator(".sw-condition__condition-type-customerName").getByRole("textbox");
         this.conditionCartLineItemTaxationMatchOperator = page.locator(".sw-condition-base-line-item__matches-all");
         this.conditionCartLineItemTaxationOperator = page.locator(".sw-condition__condition-type-cartLineItemTaxation").locator(".sw-single-select__selection-text");
         this.conditionCartLineItemTaxationValue = page.locator(".sw-condition__condition-type-cartLineItemTaxation").locator(".sw-select-selection-list__item");
