@@ -5,9 +5,8 @@ test("Order creation with TestDataService", async ({ TestDataService, AdminApiCo
     expect(product.description).toEqual("Test Description");
     expect(product.coverId).toBeDefined();
 
-    const customer = await TestDataService.createCustomer({ firstName: "Luke", lastName: "Skywalker" });
-    expect(customer.firstName).toEqual("Luke");
-    expect(customer.lastName).toEqual("Skywalker");
+    const customer = await TestDataService.createCustomer({ name: "Luke Skywalker" });
+    expect(customer.name).toEqual("Luke Skywalker");
 
     const promotionWithCode = await TestDataService.createPromotionWithCode({
         code: "code1234",
@@ -31,7 +30,7 @@ test("Order creation with TestDataService", async ({ TestDataService, AdminApiCo
     );
     expect(order.orderNumber).toEqual("123456789");
 
-    expect(order.orderCustomer.firstName).toEqual("Luke");
+    expect(order.orderCustomer.name).toEqual("Luke Skywalker");
     expect(order.price.totalPrice).toEqual(48.99);
 
     const customerAddress = await TestDataService.getCustomerAddress(customer.defaultBillingAddressId);

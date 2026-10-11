@@ -32,7 +32,7 @@ export class CustomerListing implements PageObject {
 
     async getCustomerByEmail(customerEmail: string): Promise<Record<string, Locator>> {
         const customer = this.page.getByRole("row").filter({ hasText: customerEmail });
-        const customerName = customer.locator(".sw-data-grid__cell--firstName a");
+        const customerName = customer.locator(".sw-data-grid__cell--name a");
         const customerStreet = customer.locator(".sw-data-grid__cell--defaultBillingAddress-street");
         const customerPostalCode = customer.locator(".sw-data-grid__cell--defaultBillingAddress-zipcode");
         const customerCity = customer.locator(".sw-data-grid__cell--defaultBillingAddress-city");
@@ -64,7 +64,7 @@ export class CustomerListing implements PageObject {
     async getBulkEditModalLineItemByCustomerEmail(customerEmail: string): Promise<Record<string, Locator>> {
         const lineItem = this.bulkEditModal.locator(".sw-data-grid__row").filter({ hasText: customerEmail });
         const customerCheckbox = lineItem.getByRole("checkbox");
-        const customerName = lineItem.locator(".sw-data-grid__cell--firstName").getByRole("link");
+        const customerName = lineItem.locator(".sw-data-grid__cell--name").getByRole("link");
         const customerStreet = lineItem.locator(".sw-data-grid__cell--defaultBillingAddress-street");
         const customerPostalCode = lineItem.locator(".sw-data-grid__cell--defaultBillingAddress-zipcode");
         const customerCity = lineItem.locator(".sw-data-grid__cell--defaultBillingAddress-city");

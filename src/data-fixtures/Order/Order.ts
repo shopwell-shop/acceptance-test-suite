@@ -54,16 +54,14 @@ export const OrderData = base.extend<FixtureTypes>({
                 orderCustomer: {
                     customerId: `${DefaultSalesChannel.customer.id}`,
                     email: `${DefaultSalesChannel.customer.email}`,
-                    firstName: `${DefaultSalesChannel.customer.firstName}`,
-                    lastName: `${DefaultSalesChannel.customer.lastName}`,
+                    name: `${DefaultSalesChannel.customer.name}`,
                     salutationId: `${DefaultSalesChannel.customer.salutationId}`,
                 },
                 addresses: [
                     {
                         id: addressId,
                         salutationId: `${DefaultSalesChannel.customer.salutationId}`,
-                        firstName: `${DefaultSalesChannel.customer.firstName}`,
-                        lastName: `${DefaultSalesChannel.customer.lastName}`,
+                        name: `${DefaultSalesChannel.customer.name}`,
                         street: `${orderId} street`,
                         zipcode: `${orderId} zipcode`,
                         city: `${orderId} city`,
@@ -165,8 +163,7 @@ export const OrderData = base.extend<FixtureTypes>({
                         shippingOrderAddress: {
                             id: IdProvider.getIdPair().uuid,
                             salutationId: mrSalutationId,
-                            firstName: "John",
-                            lastName: "Doe",
+                            name: "John Doe",
                             street: "Shortstreet 5",
                             zipcode: "12345",
                             city: "Doe City",

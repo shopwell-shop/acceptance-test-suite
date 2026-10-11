@@ -10,8 +10,7 @@ import type { components } from "@shopwell/api-client/admin-api-types";
 export const RegisterGuest = base.extend<{ RegisterGuest: Task }, FixtureTypes>({
     RegisterGuest: async ({ StorefrontAccountLogin, AdminApiContext }, use) => {
         const registrationData = {
-            firstName: "Jeff",
-            lastName: "Goldblum",
+            name: "Jeff Goldblum",
             email: "invalid",
             password: "shopwell",
             street: "Ebbinghoff 10",
@@ -24,8 +23,7 @@ export const RegisterGuest = base.extend<{ RegisterGuest: Task }, FixtureTypes>(
             return async function RegisterGuest() {
                 registrationData.email = email;
 
-                await StorefrontAccountLogin.firstNameInput.fill(registrationData.firstName);
-                await StorefrontAccountLogin.lastNameInput.fill(registrationData.lastName);
+                await StorefrontAccountLogin.nameInput.fill(registrationData.name);
 
                 await StorefrontAccountLogin.registerEmailInput.fill(registrationData.email);
 

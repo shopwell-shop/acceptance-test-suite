@@ -6,8 +6,7 @@
     "form": {
         "contact": "Contact",
         "salutation": "Salutation",
-        "firstName": "First name",
-        "lastName": "Last name",
+        "name": "Name",
         "emailAddress": "Your email address",
         "phone": "Phone",
         "subject": "Subject",

@@ -9,8 +9,7 @@
     "passwordUpdated": "Ihr Passwort wurde aktualisiert.",
     "register": {
         "salutation": "Anrede",
-        "firstName": "Vorname",
-        "lastName": "Nachname",
+        "name": "Name",
         "company": "Unternehmen",
         "department": "Abteilung",
         "emailAddress": "E-Mail-Adresse",

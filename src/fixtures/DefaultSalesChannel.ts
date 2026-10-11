@@ -158,8 +158,7 @@ export const test = base.extend<NonNullable<unknown>, FixtureTypes>({
                 languageId: SalesChannelBaseConfig.currentLanguageId,
 
                 defaultShippingAddress: {
-                    firstName: `${id} admin`,
-                    lastName: `${id} admin`,
+                    name: `${id} admin`,
                     city: addressData.city,
                     street: addressData.street,
                     zipcode: addressData.postalCode,
@@ -167,8 +166,7 @@ export const test = base.extend<NonNullable<unknown>, FixtureTypes>({
                     salutationId: salutations.data[0].id,
                 },
                 defaultBillingAddress: {
-                    firstName: `${id} admin`,
-                    lastName: `${id} admin`,
+                    name: `${id} admin`,
                     city: addressData.city,
                     street: addressData.street,
                     zipcode: addressData.postalCode,
@@ -176,8 +174,7 @@ export const test = base.extend<NonNullable<unknown>, FixtureTypes>({
                     salutationId: salutations.data[0].id,
                 },
 
-                firstName: `${id} admin`,
-                lastName: `${id} admin`,
+                name: `${id} admin`,
 
                 salesChannelId: uuid,
                 groupId: customerGroupUuid,
