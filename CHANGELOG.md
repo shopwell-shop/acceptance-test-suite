@@ -1,5 +1,16 @@
 # Changelog
 
+## [13.0.0](https://github.com/shopwell-shop/acceptance-test-suite/compare/v12.21.4...v13.0.0) (2026-10-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* the helpers that accepted a separate first and last name now take one `name` argument, and the storefront selectors target a single name input.
+
+### Features
+
+* merge firstName and lastName into a single name field ([#5](https://github.com/shopwell-shop/acceptance-test-suite/issues/5)) ([d830dc9](https://github.com/shopwell-shop/acceptance-test-suite/commit/d830dc983ac7cf4c4cda82f70440854bbb321680))
+
 ## [12.21.4](https://github.com/shopwell-shop/acceptance-test-suite/compare/v12.21.3...v12.21.4) (2026-10-04)
 
 
