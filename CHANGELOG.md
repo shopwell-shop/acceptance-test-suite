@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.0.1](https://github.com/shopwell-shop/acceptance-test-suite/compare/v13.0.0...v13.0.1) (2026-10-12)
+
+
+### Bug Fixes
+
+* address register city inputs by id to avoid ambiguous label lookup ([#7](https://github.com/shopwell-shop/acceptance-test-suite/issues/7)) ([568c498](https://github.com/shopwell-shop/acceptance-test-suite/commit/568c4988792218691e528654ecfce2281ec16966))
+
 ## [13.0.0](https://github.com/shopwell-shop/acceptance-test-suite/compare/v12.21.4...v13.0.0) (2026-10-11)
 
 
