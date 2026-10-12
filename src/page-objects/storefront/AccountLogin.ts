@@ -71,7 +71,10 @@ export class AccountLogin implements PageObject {
         this.registerEmailInput = this.personalFormArea.getByLabel(translate("storefront:login:register.emailAddress"));
         this.registerPasswordInput = this.personalFormArea.getByLabel(translate("storefront:login:register.password"));
         this.streetAddressInput = this.billingAddressFormArea.getByLabel(translate("storefront:login:register.streetAddress"));
-        this.cityInput = this.billingAddressFormArea.getByLabel(translate("storefront:login:register.city"));
+        // The legacy city text input is addressed by id: newer platforms render an additional
+        // administrative city select (country-city cascade) whose accessible label is also "City",
+        // which would make a label-based lookup ambiguous (strict mode violation).
+        this.cityInput = this.billingAddressFormArea.locator("#billingAddressAddressCity");
         this.countryInput = this.billingAddressFormArea.getByLabel(translate("storefront:login:register.country"));
         this.postalCodeInput = this.billingAddressFormArea.getByLabel(translate("storefront:login:register.postalCode"));
         this.differentShippingAddressCheckbox = page.getByRole("checkbox", { name: translate("storefront:login:register.differentShippingAddress") });
@@ -82,7 +85,7 @@ export class AccountLogin implements PageObject {
             .locator(".form-select");
         this.shippingAddressNameInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.name"));
         this.shippingAddressStreetAddressInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.streetAddress"));
-        this.shippingAddressCityInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.city"));
+        this.shippingAddressCityInput = this.registerShippingAddressFormArea.locator("#shippingAddressAddressCity");
         this.shippingAddressCountryInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.country"));
         this.shippingAddressPostalCodeInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.postalCode"));
         this.shippingAddressStateInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.state"));
