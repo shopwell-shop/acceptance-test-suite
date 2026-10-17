@@ -3013,7 +3013,7 @@ export class TestDataService {
             displayGross: true,
             registrationActive: true,
             registrationTitle: customerGroupName,
-            registrationIntroduction: `${customerGroupName}-Introduction`,
+            registrationIntroduction: `<p>${customerGroupName}-Introduction</p>`,
             registrationSeoMetaDescription: `${customerGroupName}-SEO-Description`,
             registrationOnlyCompanyRegistration: false,
             customFields: {},
@@ -3176,6 +3176,7 @@ export class TestDataService {
             title: productReviewName,
             content: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
             points: 5,
+            externalUser: "Peter Venkman",
             status: true,
             salesChannelId: this.defaultSalesChannel.id,
         };

@@ -20,6 +20,7 @@ export class Dashboard implements PageObject {
     public readonly adminMenuUserName: Locator;
     public readonly welcomeHeadline: Locator;
     public readonly welcomeMessage: Locator;
+    public readonly dashboardContent: Locator;
     public readonly dataSharingConsentBanner: Locator;
     public readonly dataSharingAgreeButton: Locator;
     public readonly dataSharingNotAtTheMomentButton: Locator;
@@ -41,7 +42,7 @@ export class Dashboard implements PageObject {
     constructor(page: Page) {
         this.page = page;
         this.adminMenuView = page.locator(".sw-admin-menu");
-        this.adminMenuOffCanvasToggle = page.getByRole("button", { name: translate("administration:dashboard:userMenu.offCanvasToggle")});
+        this.adminMenuOffCanvasToggle = page.getByRole("button", { name: translate("administration:dashboard:userMenu.offCanvasToggle") });
         this.contentView = page.locator(".sw-desktop__content");
         this.adminMenuCatalog = page.locator(".sw-catalogue");
         this.adminMenuOrder = page.locator(".sw-order");
@@ -57,6 +58,9 @@ export class Dashboard implements PageObject {
         this.adminMenuSettings = page.locator(".sw-settings");
         this.welcomeHeadline = page.locator("h1.sw-dashboard-index__welcome-title");
         this.welcomeMessage = page.locator(".sw-dashboard-index__welcome-message");
+        // The Shopwell administration home drops the upstream welcome card, so the page is
+        // identified by its content container, which both layouts render.
+        this.dashboardContent = page.locator(".sw-dashboard-index__content");
         this.dataSharingConsentBanner = page.locator(".sw-usage-data-consent-banner");
         this.dataSharingAgreeButton = page.getByRole("button", { name: translate("administration:dashboard:dataSharing.agree") });
         this.dataSharingNotAtTheMomentButton = page.getByRole("button", { name: translate("administration:dashboard:dataSharing.notAtTheMoment") });

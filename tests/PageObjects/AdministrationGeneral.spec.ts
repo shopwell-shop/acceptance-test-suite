@@ -66,7 +66,7 @@ test("Administration page objects - General.", async ({
 
     await ShopAdmin.goesTo(AdminDashboard.url());
     if (!InstanceMeta.isSaaS) {
-        await ShopAdmin.expects(AdminDashboard.welcomeHeadline).toBeVisible();
+        await ShopAdmin.expects(AdminDashboard.dashboardContent).toBeVisible();
     }
 
     await ShopAdmin.goesTo(AdminMedia.url());
