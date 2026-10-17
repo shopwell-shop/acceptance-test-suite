@@ -3013,7 +3013,7 @@ export class TestDataService {
             displayGross: true,
             registrationActive: true,
             registrationTitle: customerGroupName,
-            registrationIntroduction: `${customerGroupName}-Introduction`,
+            registrationIntroduction: `<p>${customerGroupName}-Introduction</p>`,
             registrationSeoMetaDescription: `${customerGroupName}-SEO-Description`,
             registrationOnlyCompanyRegistration: false,
             customFields: {},
