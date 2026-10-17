@@ -45,7 +45,7 @@ These are strict and are the usual cause of a broken setup:
 
 - **Package**: `@shopwell-ag/acceptance-test-suite`, published on npm, MIT licensed.
 - **ESM only**: the package sets `"type": "module"`. The test workspace must set it too.
-- **Playwright peer is an exact pin**, not a range. A mismatched `@playwright/test` is the usual cause of fixture type errors. `playwright-core` is pinned as an optional peer at the same version.
+- **Playwright peer is a caret range** (e.g. `^1.62.1`). Any compatible 1.x release satisfying the range works; a major mismatch of `@playwright/test` is the usual cause of fixture type errors. `playwright-core` is declared as an optional peer at the same range.
 - **Node**: only the majors in the package's `engines.node` field. Read that field rather than assuming.
 - **Single import path**: the `exports` map exposes only the package root. Deep imports such as `@shopwell-ag/acceptance-test-suite/dist/...` are unsupported.
 - **axe is bundled**: `@axe-core/playwright` and `axe-html-reporter` are runtime dependencies of ATS. Do not install them separately.
@@ -53,33 +53,32 @@ These are strict and are the usual cause of a broken setup:
 
 The environment variables a typical project needs (the shipped code reads a few more for SaaS and seeded-ID setups, not listed here):
 
-| Variable | Required | Purpose |
-|---|---|---|
-| `APP_URL` | yes | Storefront base URL of the shop under test, with trailing slash |
-| `ADMIN_URL` | no | Administration URL, defaults to `${APP_URL}admin/` |
-| `ADMIN_API_URL` | no | Admin API base URL when it is not on `APP_URL`, trailing slash required |
-| `SHOPWELL_ACCESS_KEY_ID`, `SHOPWELL_SECRET_ACCESS_KEY` | preferred | Admin API integration credentials |
-| `SHOPWELL_ADMIN_USERNAME`, `SHOPWELL_ADMIN_PASSWORD` | alternative | Admin user login, used when no integration credentials are set |
-| `LANG` | no | Locale, read as `LANG`, `LANGUAGE`, or `lang`, default `en-GB`. Set it explicitly: a non English shell locale runs the whole suite in another language and breaks text based locators |
-| `MAILPIT_BASE_URL` | for mail tests | Mailpit base URL, no default |
-| `ATS_SKIP_CLEANUP` | no | Set to `1` to keep test data after a run, for debugging only |
+| Variable                                               | Required       | Purpose                                                                                                                                                                               |
+| ------------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `APP_URL`                                              | yes            | Storefront base URL of the shop under test, with trailing slash                                                                                                                       |
+| `ADMIN_URL`                                            | no             | Administration URL, defaults to `${APP_URL}admin/`                                                                                                                                    |
+| `ADMIN_API_URL`                                        | no             | Admin API base URL when it is not on `APP_URL`, trailing slash required                                                                                                               |
+| `SHOPWELL_ACCESS_KEY_ID`, `SHOPWELL_SECRET_ACCESS_KEY` | preferred      | Admin API integration credentials                                                                                                                                                     |
+| `SHOPWELL_ADMIN_USERNAME`, `SHOPWELL_ADMIN_PASSWORD`   | alternative    | Admin user login, used when no integration credentials are set                                                                                                                        |
+| `LANG`                                                 | no             | Locale, read as `LANG`, `LANGUAGE`, or `lang`, default `en-GB`. Set it explicitly: a non English shell locale runs the whole suite in another language and breaks text based locators |
+| `MAILPIT_BASE_URL`                                     | for mail tests | Mailpit base URL, no default                                                                                                                                                          |
+| `ATS_SKIP_CLEANUP`                                     | no             | Set to `1` to keep test data after a run, for debugging only                                                                                                                          |
 
 Integration credentials are preferred over an admin user: they are faster and unaffected by admin session behavior.
 
 ## Set up the test workspace
 
-Install ATS first, then read its pinned peer version from disk. Do not guess the Playwright version.
+Install ATS first, then read its peer range from disk. Do not guess the Playwright version.
 
 ```bash
 mkdir -p tests/acceptance && cd tests/acceptance
 npm init -y
 npm install --save-dev @shopwell-ag/acceptance-test-suite
 
-# Read the exact version ATS pins, then install exactly that.
+# Read the peer range ATS declares, then install a version satisfying it.
 grep -A4 '"peerDependencies"' node_modules/@shopwell-ag/acceptance-test-suite/package.json
 
-# --save-exact matters: without it npm records a caret range and the pin drifts.
-npm install --save-dev --save-exact @playwright/test@<version from the previous command>
+npm install --save-dev @playwright/test@^1.62.1
 npm install --save-dev dotenv
 
 # Add --with-deps only on a fresh CI image: it installs OS packages as root and
@@ -105,12 +104,12 @@ tests/acceptance/
 
 ```json
 {
-  "type": "module",
-  "scripts": {
-    "test": "playwright test",
-    "test:a11y": "playwright test --grep @Accessibility",
-    "report": "playwright show-report"
-  }
+    "type": "module",
+    "scripts": {
+        "test": "playwright test",
+        "test:a11y": "playwright test --grep @Accessibility",
+        "report": "playwright show-report"
+    }
 }
 ```
 
@@ -134,25 +133,25 @@ SHOPWELL_SECRET_ACCESS_KEY="..."
 `playwright.config.ts`. No `webServer` block: this configuration tests an instance that is already running.
 
 ```ts
-import { defineConfig, devices } from '@playwright/test';
-import dotenv from 'dotenv';
+import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
 
 dotenv.config({ quiet: true });
 
 export default defineConfig({
-  testDir: './tests',
-  timeout: 60_000,
-  expect: { timeout: 10_000 },
-  fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 1 : 0,
-  reporter: process.env.CI ? [['github'], ['html']] : [['list'], ['html']],
-  use: {
-    baseURL: process.env.APP_URL,
-    trace: 'retain-on-failure',
-    screenshot: 'only-on-failure',
-  },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+    testDir: "./tests",
+    timeout: 60_000,
+    expect: { timeout: 10_000 },
+    fullyParallel: true,
+    forbidOnly: !!process.env.CI,
+    retries: process.env.CI ? 1 : 0,
+    reporter: process.env.CI ? [["github"], ["html"]] : [["list"], ["html"]],
+    use: {
+        baseURL: process.env.APP_URL,
+        trace: "retain-on-failure",
+        screenshot: "only-on-failure",
+    },
+    projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
 });
 ```
 
@@ -160,23 +159,23 @@ Create one base test file and import from it everywhere. This is what makes proj
 
 ```ts
 // fixtures/AcceptanceTest.ts
-import { test as base } from '@shopwell-ag/acceptance-test-suite';
-import type { FixtureTypes } from '@shopwell-ag/acceptance-test-suite';
+import { test as base } from "@shopwell-ag/acceptance-test-suite";
+import type { FixtureTypes } from "@shopwell-ag/acceptance-test-suite";
 
-export * from '@shopwell-ag/acceptance-test-suite';
+export * from "@shopwell-ag/acceptance-test-suite";
 
 export const test = base.extend<FixtureTypes>({
-  // project specific fixtures go here
+    // project specific fixtures go here
 });
 ```
 
 When the project has its own task collections, merge instead of extending:
 
 ```ts
-import { mergeTests, test as ShopwellTestSuite } from '@shopwell-ag/acceptance-test-suite';
-import { test as projectTasks } from './ProjectTasks';
+import { mergeTests, test as ShopwellTestSuite } from "@shopwell-ag/acceptance-test-suite";
+import { test as projectTasks } from "./ProjectTasks";
 
-export * from '@shopwell-ag/acceptance-test-suite';
+export * from "@shopwell-ag/acceptance-test-suite";
 
 export const test = mergeTests(ShopwellTestSuite, projectTasks);
 ```
@@ -187,16 +186,16 @@ Playwright transpiles without typechecking, so type errors run silently and surf
 
 ```json
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "strict": true,
-    "noEmit": true,
-    "skipLibCheck": true,
-    "types": ["node"]
-  },
-  "include": ["fixtures/**/*.ts", "tests/**/*.ts", "playwright.config.ts"]
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "strict": true,
+        "noEmit": true,
+        "skipLibCheck": true,
+        "types": ["node"]
+    },
+    "include": ["fixtures/**/*.ts", "tests/**/*.ts", "playwright.config.ts"]
 }
 ```
 
@@ -213,23 +212,21 @@ Everything the suite offers arrives as Playwright fixtures destructured in the t
 
 ```ts
 // tests/checkout.spec.ts
-import { test } from '../fixtures/AcceptanceTest';
+import { test } from "../fixtures/AcceptanceTest";
 
-test('Customer can add a product to the cart.', { tag: '@Checkout' }, async ({
-  ShopCustomer,
-  TestDataService,
-  AddProductToCart,
-  StorefrontProductDetail,
-  StorefrontCheckoutCart,
-}) => {
-  const product = await TestDataService.createBasicProduct();
+test(
+    "Customer can add a product to the cart.",
+    { tag: "@Checkout" },
+    async ({ ShopCustomer, TestDataService, AddProductToCart, StorefrontProductDetail, StorefrontCheckoutCart }) => {
+        const product = await TestDataService.createBasicProduct();
 
-  await ShopCustomer.goesTo(StorefrontProductDetail.url(product));
-  await ShopCustomer.attemptsTo(AddProductToCart(product, '5'));
+        await ShopCustomer.goesTo(StorefrontProductDetail.url(product));
+        await ShopCustomer.attemptsTo(AddProductToCart(product, "5"));
 
-  await ShopCustomer.goesTo(StorefrontCheckoutCart.url());
-  await ShopCustomer.expects(StorefrontCheckoutCart.grandTotalPrice).toBeVisible();
-});
+        await ShopCustomer.goesTo(StorefrontCheckoutCart.url());
+        await ShopCustomer.expects(StorefrontCheckoutCart.grandTotalPrice).toBeVisible();
+    }
+);
 ```
 
 Rules that keep specs working:
@@ -241,10 +238,10 @@ Rules that keep specs working:
 
 ### Actors
 
-| Actor | Surface |
-|---|---|
-| `ShopCustomer` | storefront |
-| `ShopAdmin` | administration |
+| Actor          | Surface        |
+| -------------- | -------------- |
+| `ShopCustomer` | storefront     |
+| `ShopAdmin`    | administration |
 
 Methods: `goesTo(url, forceReload?)`, `attemptsTo(task)`, `expects(locator)`, `presses(locator, key?)`, `fillsIn(locator, input)`, `selectsRadioButton(group, label)`, `a11y_checks(locator)`.
 
@@ -262,11 +259,11 @@ Two things to know when using them:
 
 - They drive the keyboard instead of clicking, so they skip some of Playwright's click actionability checks. Assert state first where a control may be hidden or disabled:
 
-  ```ts
-  await ShopCustomer.expects(submitButton).toBeVisible();
-  await ShopCustomer.expects(submitButton).toBeEnabled();
-  await ShopCustomer.presses(submitButton);
-  ```
+    ```ts
+    await ShopCustomer.expects(submitButton).toBeVisible();
+    await ShopCustomer.expects(submitButton).toBeEnabled();
+    await ShopCustomer.presses(submitButton);
+    ```
 
 - When converting an existing suite, a control that was never keyboard operable now fails: triage the finding, don't revert to `click` to hide it.```
 
@@ -279,18 +276,18 @@ A task is a reusable, named interaction exposed as a fixture, read as a sentence
 Author a project task the same way the suite does, as a fixture returning a function that returns the closure:
 
 ```ts
-import { test as base } from '@playwright/test';
-import type { FixtureTypes, Task } from '@shopwell-ag/acceptance-test-suite';
+import { test as base } from "@playwright/test";
+import type { FixtureTypes, Task } from "@shopwell-ag/acceptance-test-suite";
 
 export const AcceptCookieBanner = base.extend<{ AcceptCookieBanner: Task }, FixtureTypes>({
-  AcceptCookieBanner: async ({ ShopCustomer, StorefrontHome }, use) => {
-    const task = () => {
-      return async function AcceptCookieBanner() {
-        await ShopCustomer.presses(StorefrontHome.consentAcceptAllCookiesButton);
-      };
-    };
-    await use(task);
-  },
+    AcceptCookieBanner: async ({ ShopCustomer, StorefrontHome }, use) => {
+        const task = () => {
+            return async function AcceptCookieBanner() {
+                await ShopCustomer.presses(StorefrontHome.consentAcceptAllCookiesButton);
+            };
+        };
+        await use(task);
+    },
 });
 ```
 
@@ -301,7 +298,7 @@ Name the returned function: `attemptsTo` derives the test step title from it. Ke
 `TestDataService` creates entities through the admin API and cleans them up after each test. Method names follow a pattern: `createBasic*`, `create*With*`, `assign*`, `get*`.
 
 ```ts
-const product = await TestDataService.createBasicProduct({ name: 'Test product' });
+const product = await TestDataService.createBasicProduct({ name: "Test product" });
 const category = await TestDataService.createCategory();
 await TestDataService.assignProductCategory(product.id, category.id);
 ```
@@ -323,30 +320,28 @@ The suite ships exactly one accessibility task, `ValidateAccessibility`, built o
 
 ```ts
 // tests/accessibility.spec.ts
-import { test } from '../fixtures/AcceptanceTest';
+import { test } from "../fixtures/AcceptanceTest";
 
-test('The storefront implements accessibility best practices.', { tag: '@Accessibility' }, async ({
-  ShopCustomer,
-  TestDataService,
-  ValidateAccessibility,
-  StorefrontAccountLogin,
-  StorefrontCategory,
-}) => {
-  test.slow();
+test(
+    "The storefront implements accessibility best practices.",
+    { tag: "@Accessibility" },
+    async ({ ShopCustomer, TestDataService, ValidateAccessibility, StorefrontAccountLogin, StorefrontCategory }) => {
+        test.slow();
 
-  const category = await TestDataService.createCategory();
+        const category = await TestDataService.createCategory();
 
-  await test.step('Login page', async () => {
-    await ShopCustomer.goesTo(StorefrontAccountLogin.url());
-    await ValidateAccessibility('Login', true)();
-  });
+        await test.step("Login page", async () => {
+            await ShopCustomer.goesTo(StorefrontAccountLogin.url());
+            await ValidateAccessibility("Login", true)();
+        });
 
-  await test.step('Category page', async () => {
-    await ShopCustomer.goesTo(StorefrontCategory.url(category.name));
-    // Known violation: the first level headline is CMS configurable.
-    await ValidateAccessibility('Category', 1)();
-  });
-});
+        await test.step("Category page", async () => {
+            await ShopCustomer.goesTo(StorefrontCategory.url(category.name));
+            // Known violation: the first level headline is CMS configurable.
+            await ValidateAccessibility("Category", 1)();
+        });
+    }
+);
 ```
 
 Call the closure directly, as shown — do not wrap it in `attemptsTo`. The closure returns the axe results array, not `() => Promise<void>`, so `tsc` rejects it. Examples elsewhere use `attemptsTo(ValidateAccessibility(...))`; it runs (Playwright transpiles without typechecking) but fails typecheck and discards the results.
@@ -359,9 +354,9 @@ ValidateAccessibility(pageName, assertViolations?, createReport?, ruleTags?, out
 
 - `pageName` labels the report. The filename strips every non alphabetic character, so `'Page Not Found'` becomes `PageNotFound.html`.
 - `assertViolations` is polymorphic:
-  - `true` (default) requires zero violations.
-  - a **number** allows at most that many violations. This is a budget, not a targeted waiver: any new violation of any rule hides under the budget.
-  - `false` asserts nothing and only returns results.
+    - `true` (default) requires zero violations.
+    - a **number** allows at most that many violations. This is a budget, not a targeted waiver: any new violation of any rule hides under the budget.
+    - `false` asserts nothing and only returns results.
 - `createReport` defaults to true and writes `test-results/AccessibilityReports/<PageName>.html`.
 - `ruleTags` defaults to `['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21a', 'wcag21aa', 'best-practice']`. That is broader than most projects' stated target: it enforces AAA rules and axe best practice rules, neither of which is a WCAG 2.1 AA requirement, so a default run can fail on issues that are not conformance failures. Pass an explicit list matching the project's target, for example `['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']`, and keep it consistent across specs.
 - `outputDir` overrides the report directory.
@@ -394,19 +389,19 @@ Debugging:
 
 ## Troubleshooting
 
-| Symptom | Cause and fix |
-|---|---|
-| Fixture types missing, or `test.extend` type errors | `@playwright/test` does not match ATS's exact pinned peer. Align it. |
-| `ERR_REQUIRE_ESM` or import failures | The test workspace is not ESM. Set `"type": "module"`. |
-| Unresolved deep import | Only the package root is exported. Import from `@shopwell-ag/acceptance-test-suite`. |
-| `APP_URL` or credentials appear unset | Nothing loads `.env` by itself. Load it in `playwright.config.ts`. |
-| Admin API calls fail with 401 | Credentials missing or wrong, or the API is not on `APP_URL`. Prefer integration credentials; set `ADMIN_API_URL` when the API lives elsewhere. |
-| Tests act on the wrong surface | The bare Playwright `page` fixture is not the storefront page. Use the actors, or the explicit `StorefrontPage` and `AdminPage` fixtures. |
-| Text based locators fail in another language | `LANG` is inherited from the shell. Set it explicitly. |
-| Data from previous runs pollutes tests | `ATS_SKIP_CLEANUP` is set in the environment. |
-| Playwright waits forever, or tries to start a server | Your own config's `webServer` block, not ATS: the published package ships only `dist/` and starts nothing. Omit `webServer` when testing a running instance, or use it purely as a readiness gate. |
-| Accessibility spec times out | Add `test.slow()` and split page audits into steps. |
-| `attemptsTo(ValidateAccessibility(...))` fails to typecheck | Expected. Call the closure directly: `await ValidateAccessibility('Name', true)();` |
+| Symptom                                                     | Cause and fix                                                                                                                                                                                      |
+| ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fixture types missing, or `test.extend` type errors         | `@playwright/test` does not satisfy ATS's peer range. Align it.                                                                                                                                    |
+| `ERR_REQUIRE_ESM` or import failures                        | The test workspace is not ESM. Set `"type": "module"`.                                                                                                                                             |
+| Unresolved deep import                                      | Only the package root is exported. Import from `@shopwell-ag/acceptance-test-suite`.                                                                                                               |
+| `APP_URL` or credentials appear unset                       | Nothing loads `.env` by itself. Load it in `playwright.config.ts`.                                                                                                                                 |
+| Admin API calls fail with 401                               | Credentials missing or wrong, or the API is not on `APP_URL`. Prefer integration credentials; set `ADMIN_API_URL` when the API lives elsewhere.                                                    |
+| Tests act on the wrong surface                              | The bare Playwright `page` fixture is not the storefront page. Use the actors, or the explicit `StorefrontPage` and `AdminPage` fixtures.                                                          |
+| Text based locators fail in another language                | `LANG` is inherited from the shell. Set it explicitly.                                                                                                                                             |
+| Data from previous runs pollutes tests                      | `ATS_SKIP_CLEANUP` is set in the environment.                                                                                                                                                      |
+| Playwright waits forever, or tries to start a server        | Your own config's `webServer` block, not ATS: the published package ships only `dist/` and starts nothing. Omit `webServer` when testing a running instance, or use it purely as a readiness gate. |
+| Accessibility spec times out                                | Add `test.slow()` and split page audits into steps.                                                                                                                                                |
+| `attemptsTo(ValidateAccessibility(...))` fails to typecheck | Expected. Call the closure directly: `await ValidateAccessibility('Name', true)();`                                                                                                                |
 
 ## When guidance and reality disagree
 
