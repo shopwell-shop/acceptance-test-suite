@@ -1,5 +1,25 @@
 # Changelog
 
+## [13.1.0](https://github.com/shopwell-shop/acceptance-test-suite/compare/v13.0.1...v13.1.0) (2026-10-17)
+
+
+### Features
+
+* **page-objects:** cover product creation, listing and deletion in the administration ([7794560](https://github.com/shopwell-shop/acceptance-test-suite/commit/7794560d3128198ac71756b72ac04b591be379d0))
+* **page-objects:** locate the redesigned customer group tax and price fields ([7b28fd5](https://github.com/shopwell-shop/acceptance-test-suite/commit/7b28fd5d5d8e4502dbe681083b4e7936e06b82bf))
+
+
+### Bug Fixes
+
+* accept any compatible playwright peer instead of an exact pin ([401e7b9](https://github.com/shopwell-shop/acceptance-test-suite/commit/401e7b9a31ed065fd6921cd71befabc8e837f65c))
+* **ci:** pass the changed spec files without a bare separator ([0efb1b2](https://github.com/shopwell-shop/acceptance-test-suite/commit/0efb1b2fbf222852d775f7718caa26fcb6b99b68))
+* **fixtures:** fail fast when assigning the storefront theme fails ([5fc5348](https://github.com/shopwell-shop/acceptance-test-suite/commit/5fc53484ab67abb5d9c1209c814bc2e4b7357f34))
+* **flow:** wait for the listing query before clicking create ([7541fc3](https://github.com/shopwell-shop/acceptance-test-suite/commit/7541fc3725e0be817420f9cdcb4e4197e5612e00))
+* **flow:** wait for the tag search responses before picking results ([bcb243c](https://github.com/shopwell-shop/acceptance-test-suite/commit/bcb243c3390c89f598965bc60fe985bbe116a255))
+* give the default product review an external author ([661d9ae](https://github.com/shopwell-shop/acceptance-test-suite/commit/661d9aebebaf3cb85e711001ed8a88f97ededef8))
+* **page-objects:** identify the dashboard by its content container ([1afba46](https://github.com/shopwell-shop/acceptance-test-suite/commit/1afba4656bc2bf20e657e1d0e7b9e5fa15553406))
+* pick the customer group introduction editor by its feature flag ([1653e46](https://github.com/shopwell-shop/acceptance-test-suite/commit/1653e460aa774ac26600116b66c1a9471c3e33bc))
+
 ## [13.0.1](https://github.com/shopwell-shop/acceptance-test-suite/compare/v13.0.0...v13.0.1) (2026-10-12)
 
 
