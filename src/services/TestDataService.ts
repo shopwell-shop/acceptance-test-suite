@@ -17,6 +17,7 @@ import type {
     CustomFieldSet,
     DeliveryTime,
     Language,
+    LandingPage,
     Manufacturer,
     Media,
     NewsletterRecipient,
@@ -1009,6 +1010,46 @@ export class TestDataService {
         this.addCreatedRecord("cms_page", layout.id);
 
         return layout;
+    }
+
+    /**
+     * Creates a landing page category
+     *
+     * @param salesChannelId - The uuid of the sales channel in which the landing page should be active.
+     * @param overrides - Specific data overrides applied to the landing page payload.
+     */
+    async createLandingPage(overrides: Partial<LandingPage> = {}, salesChannelId = this.defaultSalesChannel.id): Promise<LandingPage> {
+        const basicLandingPage = this.getBasicLandingPageStruct(salesChannelId, overrides);
+
+        const response = await this.AdminApiClient.post("landing-page?_response=detail", {
+            data: basicLandingPage,
+        });
+        expect(response.ok()).toBeTruthy();
+
+        const { data: landingPage } = (await response.json()) as { data: LandingPage };
+
+        this.addCreatedRecord("landing_page", landingPage.id);
+
+        return landingPage;
+    }
+
+    /**
+     * Assigns a CMS landing page layout to a landing page category
+     *
+     * @param landingPageId - The uuid of the landing page category.
+     * @param cmsPageId - The uuid of the CMS landing page layout.
+     */
+    async assignLandingPageLayout(landingPageId: string, cmsPageId: string): Promise<LandingPage> {
+        const response = await this.AdminApiClient.patch(`landing-page/${landingPageId}?_response=detail`, {
+            data: {
+                cmsPageId: cmsPageId,
+            },
+        });
+        expect(response.ok()).toBeTruthy();
+
+        const { data: landingPage } = (await response.json()) as { data: LandingPage };
+
+        return landingPage;
     }
 
     /**
@@ -2114,6 +2155,9 @@ export class TestDataService {
             }
         }
 
+        const createdOrderIds = this.createdRecords.filter((record) => record.resource === "order").map((record) => record.payload.id);
+        await this.deleteOrderDocuments(createdOrderIds);
+
         this.createdRecords.forEach((record) => {
             if (record.resource === "user") {
                 if (!deleteUserIds.includes(record.payload.id)) {
@@ -2182,6 +2226,48 @@ export class TestDataService {
         return this.AdminApiClient.post("_action/sync", {
             data: deleteOperations,
         });
+    }
+
+    /**
+     * Deletes all documents of the given orders.
+     * Documents restrict the deletion of their order, so the cleanup calls this before deleting created orders.
+     * Dependent documents (e.g. credit notes, cancellation invoices) are deleted before the documents they reference.
+     *
+     * @param orderIds - The ids of the orders whose documents should be deleted.
+     */
+    async deleteOrderDocuments(orderIds: string[]) {
+        if (orderIds.length === 0) {
+            return;
+        }
+
+        const documentResponse = await this.AdminApiClient.post("search/document", {
+            data: {
+                filter: [{ type: "equalsAny", field: "orderId", value: orderIds }],
+                includes: { document: ["id", "referencedDocumentId"] },
+            },
+        });
+        expect(documentResponse.ok()).toBeTruthy();
+
+        const { data: documents } = (await documentResponse.json()) as { data: { id: string; referencedDocumentId: string | null }[] };
+        const dependentDocuments = documents.filter((document) => document.referencedDocumentId);
+        const referencedDocuments = documents.filter((document) => !document.referencedDocumentId);
+
+        for (const batch of [dependentDocuments, referencedDocuments]) {
+            if (batch.length === 0) {
+                continue;
+            }
+
+            const deleteResponse = await this.AdminApiClient.post("_action/sync", {
+                data: {
+                    "delete-document": {
+                        entity: "document",
+                        action: "delete",
+                        payload: batch.map(({ id }) => ({ id })),
+                    },
+                },
+            });
+            expect(deleteResponse.ok()).toBeTruthy();
+        }
     }
 
     isProduct(item: Product | Promotion): item is Product {
@@ -3001,6 +3087,21 @@ export class TestDataService {
         };
 
         return Object.assign({}, basicCmsPage, overrides);
+    }
+
+    getBasicLandingPageStruct(salesChannelId: string, overrides: Partial<LandingPage> = {}) {
+        const landingPageUuid = this.IdProvider.getIdPair().uuid;
+        const landingPageName = `${this.namePrefix}LandingPage-${landingPageUuid}${this.nameSuffix}`;
+
+        const basicLandingPage = {
+            id: landingPageUuid,
+            name: landingPageName,
+            url: `${this.namePrefix}landing-page-${landingPageUuid}${this.nameSuffix}`,
+            active: true,
+            salesChannels: [{ id: salesChannelId }],
+        };
+
+        return Object.assign({}, basicLandingPage, overrides);
     }
 
     getBasicCustomerGroupStruct(overrides: Partial<CustomerGroup> = {}): Partial<CustomerGroup> {
