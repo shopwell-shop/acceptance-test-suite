@@ -1,5 +1,20 @@
 # Changelog
 
+## [13.2.0](https://github.com/shopwell-shop/acceptance-test-suite/compare/v13.1.0...v13.2.0) (2026-10-30)
+
+
+### Features
+
+* create a landing page and assign a layout in test data setup ([79e1fcc](https://github.com/shopwell-shop/acceptance-test-suite/commit/79e1fcce730fa361dcf8642d1acdc8881b52e53f))
+* **page-objects:** add wishlist locators for cookie consent and listing items ([260367c](https://github.com/shopwell-shop/acceptance-test-suite/commit/260367c11991f27deae4718917748f876c7cc05e))
+* port upstream 12.24.0 - 12.25.0 ([c80a9e0](https://github.com/shopwell-shop/acceptance-test-suite/commit/c80a9e0848ab0bea04e29a21dbdbc9ee270614b0))
+
+
+### Bug Fixes
+
+* delete order documents before deleting created orders in cleanup ([b28abdd](https://github.com/shopwell-shop/acceptance-test-suite/commit/b28abdd57c0b854d6fdd4c49abbecbc1e8b2150a))
+* **page-objects:** scope the customer group request banner locator ([85ccd2f](https://github.com/shopwell-shop/acceptance-test-suite/commit/85ccd2f2b403cd7a544caf9128664f12e08e7584))
+
 ## [13.1.0](https://github.com/shopwell-shop/acceptance-test-suite/compare/v13.0.1...v13.1.0) (2026-10-17)
 
 
