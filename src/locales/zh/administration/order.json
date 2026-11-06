@@ -12,7 +12,7 @@
     "tabs": {
         "general": "通用",
         "details": "详情",
-        "documents": "文档"
+        "documents": "单据"
     },
     "listing": {
         "addOrder": "新建订单"

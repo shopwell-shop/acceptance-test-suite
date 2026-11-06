@@ -1,6 +1,6 @@
 {
     "listing": {
-        "addProduct": "添加商品",
+        "addProduct": "新建商品",
         "bulkEdit": "批量修改",
         "startBulkEdit": "开始批量修改",
         "addDigitalProduct": "新建数字商品",
@@ -23,7 +23,7 @@
         "colorProperty": "颜色",
         "sizeProperty": "大小",
         "stockPlaceholder": "输入库存 ...",
-        "restockTimePlaceholder": "输入补货天数...",
+        "restockTimePlaceholder": "输入补货天数 ...",
         "copySuffix": "副本",
         "width": "宽度",
         "height": "高度",

@@ -18,7 +18,7 @@
     "actions": {
         "save": "保存",
         "cancel": "取消",
-        "addPromotion": "添加促销活动",
+        "addPromotion": "新建促销活动",
         "edit": "编辑",
         "delete": "删除",
         "duplicate": "复制",

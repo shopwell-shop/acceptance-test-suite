@@ -40,7 +40,7 @@ jobs:
         env:
             WEBSERVER_COMMAND: ""
             SHOPWELL_VERSION: customer-contract
-            SHOPWELL_BUILD_SOURCE: local
+            SHOPWELL_BUILD_SOURCE: platform
             SHOPWELL_BUILD_CONTEXT: ./.shopwell-platform
             SHOPWELL_TEST_DOCKERFILE: ${{ github.workspace }}/test-image.Dockerfile
             PORT: 8021
