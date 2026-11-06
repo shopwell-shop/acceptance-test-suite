@@ -29,11 +29,11 @@
         "username": "用户名",
         "password": "密码",
         "senderAddress": "发件人地址",
-        "deliveryAddress": "收货地址",
+        "deliveryAddress": "收件人地址",
         "disableEmailDelivery": "停用邮件发送"
     },
     "placeholders": {
-        "selectSalesChannels": "选择销售渠道...",
+        "selectSalesChannels": "分配销售渠道 ...",
         "enterEmailAddress": "输入你的邮箱地址…",
         "enterPassword": "输入密码…"
     },

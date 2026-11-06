@@ -3,6 +3,7 @@ import type { PageObject } from "../../types/PageObject";
 import { satisfies } from "compare-versions";
 import type { HelperFixtureTypes } from "../../fixtures/HelperFixtures";
 import { translate } from "../../services/LanguageHelper";
+import { getLanguageCode } from "../../services/ShopwellDataHelpers";
 
 export class FirstRunWizard implements PageObject {
     public readonly nextButton: Locator;
@@ -68,7 +69,10 @@ export class FirstRunWizard implements PageObject {
         this.nextButton = page.getByText(translate("administration:firstRunWizard:buttons.next"), { exact: true });
         this.configureLaterButton = page.getByText(translate("administration:firstRunWizard:buttons.configureLater"), { exact: true });
         this.skipButton = page.getByText(translate("administration:firstRunWizard:buttons.skip"), { exact: true });
-        this.finishButton = page.getByText(translate("administration:firstRunWizard:buttons.finish"), { exact: true });
+        this.finishButton =
+            getLanguageCode() === "zh-CN"
+                ? page.getByRole("button", { name: translate("administration:firstRunWizard:buttons.finish"), exact: true })
+                : page.getByText(translate("administration:firstRunWizard:buttons.finish"), { exact: true });
         this.backButton = page.getByText(translate("administration:firstRunWizard:buttons.back"), { exact: true });
 
         // LanguagePack part
@@ -130,9 +134,10 @@ export class FirstRunWizard implements PageObject {
         this.doneHeader = page.locator(".sw-modal__title", { hasText: translate("administration:firstRunWizard:headers.done") });
         this.extensionStoreHeading = page.locator(".sw-first-run-wizard-store__heading");
         this.frwSuccessText = page.getByText(translate("administration:firstRunWizard:text.allDone"), { exact: true });
-        this.documentationLink = page.locator('[href*="https://docs.shopwell.cn/en"]');
+        const linkLocale = getLanguageCode() === "zh-CN" ? "zh" : "en";
+        this.documentationLink = page.locator(`[href*="https://docs.shopwell.cn/${linkLocale}"]`);
         this.forumLink = page.locator('[href*="https://forum.shopwell.cn/"]');
-        this.roadmapLink = page.locator('[href*="https://www.shopwell.cn/en/roadmap/"]');
+        this.roadmapLink = page.locator(`[href*="https://www.shopwell.cn/${linkLocale}/roadmap/"]`);
     }
 
     url() {

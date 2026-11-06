@@ -16,6 +16,7 @@ import { Account } from "../src/page-objects/storefront/Account";
 import { PageNotFound } from "../src/page-objects/storefront/PageNotFound";
 import { LandingPageCreate } from "../src/page-objects/administration/LandingPageCreate";
 import { DataSharingConsentModal } from "../src/page-objects/administration/DataSharingConsentModal";
+import { FirstRunWizard } from "../src/page-objects/administration/FirstRunWizard";
 import { BUNDLED_RESOURCES } from "../src/locales";
 import { LanguageHelper, setCurrentContext } from "../src/services/LanguageHelper";
 import { getCountryAddressData, getLocale, getCountryCodeFromLocale, getCurrencyCodeFromLocale } from "../src/services/ShopwellDataHelpers";
@@ -248,6 +249,53 @@ test.describe("Chinese public contracts match rendered platform markup", () => {
         await input.fill("商品", { timeout: 1000 });
         await expect(input).toHaveValue("商品");
     });
+
+    test("first-run defaults select channels through the rendered assignment placeholder", async ({ page }) => {
+        await page.setContent('<input placeholder="分配销售渠道 ..."><input placeholder="搜索销售渠道">');
+        const selection = new FirstRunWizard(page, instanceMeta).salesChannelSelectionMultiSelect;
+        await selection.fill("中文商店", { timeout: 1000 });
+        await expect(selection).toHaveValue("中文商店");
+        await expect(page.getByPlaceholder("搜索销售渠道")).toHaveValue("");
+    });
+
+    test("first-run mailer uses the actual recipient address label", async ({ page }) => {
+        await page.setContent('<label>收件人地址<input type="email"></label><label>发件人地址<input type="email"></label>');
+        const recipient = new FirstRunWizard(page, instanceMeta).smtpServerDeliveryAddressInput;
+        await recipient.fill("recipient@example.com", { timeout: 1000 });
+        await expect(recipient).toHaveValue("recipient@example.com");
+        await expect(page.getByLabel("发件人地址")).toHaveValue("");
+    });
+
+    for (const language of ["zh-CN", "en-US"]) {
+        for (const link of ["documentationLink", "roadmapLink"] as const) {
+            test(`first-run finish selects the ${language} ${link} destination`, async ({ page }) => {
+                process.env.LANG = language;
+                await page.setContent(
+                    '<a href="https://docs.shopwell.cn/zh">文档</a><a href="https://docs.shopwell.cn/en">Documentation</a><a href="https://www.shopwell.cn/zh/roadmap/">路线图</a><a href="https://www.shopwell.cn/en/roadmap/">Roadmap</a>'
+                );
+                const wizard = new FirstRunWizard(page, instanceMeta);
+                const path = language === "zh-CN" ? "zh" : "en";
+                const destination = link === "documentationLink" ? `https://docs.shopwell.cn/${path}` : `https://www.shopwell.cn/${path}/roadmap/`;
+                await expect(wizard[link]).toHaveAttribute("href", destination, { timeout: 1000 });
+            });
+        }
+    }
+
+    for (const language of ["zh-CN", "en-US"]) {
+        test(`first-run finish clicks the ${language} action beside its page heading`, async ({ page }) => {
+            process.env.LANG = language;
+            const context = {};
+            LanguageHelper.setForContext(context, await LanguageHelper.createInstance(language));
+            setCurrentContext(context);
+            const title = language === "zh-CN" ? "完成" : "Done";
+            const action = language === "zh-CN" ? "完成" : "Finish";
+            await page.setContent(`<h1>${title}</h1><button onclick="this.dataset.clicked='true'">${action}</button><button>Next</button>`);
+            const wizard = new FirstRunWizard(page, instanceMeta);
+            await wizard.finishButton.click({ timeout: 1000 });
+            await expect(page.getByRole("button", { name: action, exact: true })).toHaveAttribute("data-clicked", "true");
+            await expect(page.getByRole("heading", { name: title, exact: true })).not.toHaveAttribute("data-clicked", "true");
+        });
+    }
 
     test("home contact navigation selects the footer contact-form link", async ({ page }) => {
         await page.setContent(
