@@ -17,7 +17,8 @@
         "url": "git+https://github.com/shopwell-shop/acceptance-test-suite.git"
     },
     "files": [
-        "dist"
+        "dist",
+        "NOTICE"
     ],
     "type": "module",
     "module": "./dist/index.mjs",
