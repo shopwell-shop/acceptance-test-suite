@@ -1,0 +1,25 @@
+{
+    "listing": {
+        "createNewLayout": "新建布局"
+    },
+    "create": {
+        "shopPage": "商城页面",
+        "landingPage": "落地页",
+        "listingPage": "分类页",
+        "productPage": "商品页",
+        "cancel": "取消",
+        "save": "保存",
+        "fullWidth": "全宽",
+        "sidebar": "侧边栏",
+        "back": "返回",
+        "layoutName": "布局名称",
+        "createLayout": "创建布局"
+    },
+    "detail": {
+        "save": "保存",
+        "settings": "设置",
+        "blocks": "区块",
+        "navigator": "导航器",
+        "layoutAssignment": "布局分配"
+    }
+}

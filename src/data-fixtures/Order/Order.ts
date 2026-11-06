@@ -1,7 +1,7 @@
 import { test as base, expect } from "@playwright/test";
 import type { FixtureTypes } from "../../types/FixtureTypes";
 import type { Order } from "../../types/ShopwellTypes";
-import { getCurrency, getSalutationId, getStateMachineId, getStateMachineStateId } from "../../services/ShopwellDataHelpers";
+import { getCurrency, getStateMachineId, getStateMachineStateId } from "../../services/ShopwellDataHelpers";
 
 /**
  * @deprecated - Use TestDataService.createOrder() instead.
@@ -11,7 +11,6 @@ export const OrderData = base.extend<FixtureTypes>({
         //Create Requests
         const requests = {
             currencyEUR: getCurrency(AdminApiContext),
-            mrSalutationId: getSalutationId("mr", AdminApiContext),
             orderStateId: getStateMachineId("order.state", AdminApiContext),
             orderTransactionStateId: getStateMachineId("order_transaction.state", AdminApiContext),
             orderDeliveryStateId: getStateMachineId("order_delivery.state", AdminApiContext),
@@ -21,7 +20,6 @@ export const OrderData = base.extend<FixtureTypes>({
         // Generate unique IDs
         const { id: orderId } = IdProvider.getIdPair();
         const addressId = IdProvider.getIdPair().uuid;
-        const mrSalutationId = await requests.mrSalutationId;
         const orderStateId = await requests.orderStateId;
         const currencyEUR = await requests.currencyEUR;
         const orderTransactionStateId = await requests.orderTransactionStateId;
@@ -55,12 +53,10 @@ export const OrderData = base.extend<FixtureTypes>({
                     customerId: `${DefaultSalesChannel.customer.id}`,
                     email: `${DefaultSalesChannel.customer.email}`,
                     name: `${DefaultSalesChannel.customer.name}`,
-                    salutationId: `${DefaultSalesChannel.customer.salutationId}`,
                 },
                 addresses: [
                     {
                         id: addressId,
-                        salutationId: `${DefaultSalesChannel.customer.salutationId}`,
                         name: `${DefaultSalesChannel.customer.name}`,
                         street: `${orderId} street`,
                         zipcode: `${orderId} zipcode`,
@@ -162,7 +158,6 @@ export const OrderData = base.extend<FixtureTypes>({
                         shippingMethodId: SalesChannelBaseConfig.defaultShippingMethod,
                         shippingOrderAddress: {
                             id: IdProvider.getIdPair().uuid,
-                            salutationId: mrSalutationId,
                             name: "John Doe",
                             street: "Shortstreet 5",
                             zipcode: "12345",

@@ -1,0 +1,24 @@
+{
+    "fields": {
+        "priority": "优先级",
+        "name": "名称",
+        "description": "描述"
+    },
+    "buttons": {
+        "save": "保存",
+        "cancel": "取消",
+        "add": "添加",
+        "addAssignment": "添加分配",
+        "createRule": "创建规则"
+    },
+    "errors": {
+        "unknownRuleType": "未知规则类型“{ruleType}”。有效规则类型：“{validTypes}”。"
+    },
+    "testData": {
+        "ruleDescription": "规则描述"
+    },
+    "text": {
+        "ruleNotInUse": "此规则未被使用",
+        "filter": "筛选"
+    }
+}

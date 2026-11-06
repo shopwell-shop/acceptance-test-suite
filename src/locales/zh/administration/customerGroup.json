@@ -1,0 +1,23 @@
+{
+    "listing": {
+        "addCustomerGroup": "添加客户组",
+        "customerGroups": "客户组"
+    },
+    "create": {
+        "title": "新建客户组",
+        "saveSuccess": "客户组已成功创建。",
+        "save": "保存",
+        "cancel": "取消",
+        "cardTitle": "客户组",
+        "customSignupForm": "自定义注册表单",
+        "seoMetaDescription": "SEO Meta 描述",
+        "companySignupForm": "仅限企业注册"
+    },
+    "detail": {
+        "registration": {
+            "accepted": "已接受",
+            "denied": "已拒绝"
+        },
+        "technicalUrl": "技术 URL"
+    }
+}

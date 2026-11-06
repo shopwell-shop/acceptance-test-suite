@@ -5,7 +5,7 @@
     },
     "form": {
         "contact": "Contact",
-        "salutation": "Salutation",
+        "gender": "Gender",
         "name": "Name",
         "emailAddress": "Your email address",
         "phone": "Phone",

@@ -16,7 +16,7 @@ export class AccountLogin implements PageObject {
     public readonly personalFormArea: Locator;
     public readonly billingAddressFormArea: Locator;
     public readonly accountTypeSelect: Locator;
-    public readonly salutationSelect: Locator;
+    public readonly genderSelect: Locator;
     public readonly nameInput: Locator;
     public readonly companyInput: Locator;
     public readonly departmentInput: Locator;
@@ -39,7 +39,6 @@ export class AccountLogin implements PageObject {
     //Input for shipping address
     public readonly differentShippingAddressCheckbox: Locator;
     public readonly registerShippingAddressFormArea: Locator;
-    public readonly shippingAddressSalutationSelect: Locator;
     public readonly shippingAddressNameInput: Locator;
     public readonly shippingAddressStreetAddressInput: Locator;
     public readonly shippingAddressCityInput: Locator;
@@ -60,9 +59,9 @@ export class AccountLogin implements PageObject {
         this.personalFormArea = page.locator(".register-personal");
         this.billingAddressFormArea = page.locator(".register-billing");
         this.accountTypeSelect = this.personalFormArea.locator(".contact-select");
-        this.salutationSelect = this.personalFormArea
+        this.genderSelect = this.personalFormArea
             .locator(".form-group")
-            .filter({ has: page.getByLabel(translate("storefront:login:register.salutation")) })
+            .filter({ has: page.getByLabel(translate("storefront:login:register.gender")) })
             .locator(".form-select");
         this.nameInput = this.personalFormArea.getByLabel(translate("storefront:login:register.name"));
         this.companyInput = this.personalFormArea.getByLabel(translate("storefront:login:register.company"));
@@ -79,10 +78,6 @@ export class AccountLogin implements PageObject {
         this.postalCodeInput = this.billingAddressFormArea.getByLabel(translate("storefront:login:register.postalCode"));
         this.differentShippingAddressCheckbox = page.getByRole("checkbox", { name: translate("storefront:login:register.differentShippingAddress") });
         this.registerShippingAddressFormArea = page.locator(".register-shipping");
-        this.shippingAddressSalutationSelect = this.registerShippingAddressFormArea
-            .locator(".form-group")
-            .filter({ has: page.getByLabel(translate("storefront:login:register.salutation")) })
-            .locator(".form-select");
         this.shippingAddressNameInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.name"));
         this.shippingAddressStreetAddressInput = this.registerShippingAddressFormArea.getByLabel(translate("storefront:login:register.streetAddress"));
         this.shippingAddressCityInput = this.registerShippingAddressFormArea.locator("#shippingAddressAddressCity");

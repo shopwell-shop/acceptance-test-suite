@@ -1,0 +1,34 @@
+{
+    "account": {
+        "yourAccount": "我的账户"
+    },
+    "consent": {
+        "close": "关闭 Cookie 偏好",
+        "onlyTechnicallyRequired": "仅必要 Cookie",
+        "technicallyRequired": "必要 Cookie",
+        "configure": "配置",
+        "acceptAllCookies": "全部接受",
+        "cookiePreferences": "Cookie 偏好",
+        "marketing": "营销 Cookie",
+        "statistics": "统计 Cookie",
+        "save": "保存"
+    },
+    "cookie": {
+        "wishlist": {
+            "accept": "接受 Cookie"
+        }
+    },
+    "filters": {
+        "filterPanel": "筛选商品",
+        "labelPrefix": "筛选条件：",
+        "manufacturer": "品牌",
+        "price": "价格",
+        "resetAll": "全部重置",
+        "freeShipping": "添加筛选：包邮",
+        "rating": "最低评分",
+        "minRating": "最低 {{rating}}/5"
+    },
+    "listing": {
+        "addToShoppingCart": "加入购物车"
+    }
+}

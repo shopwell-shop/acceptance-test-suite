@@ -1,0 +1,80 @@
+{
+    "listing": {
+        "addProduct": "添加商品",
+        "bulkEdit": "批量修改",
+        "startBulkEdit": "开始批量修改",
+        "addDigitalProduct": "新建数字商品",
+        "digitalIndicator": "数字商品"
+    },
+    "create": {
+        "title": "新建商品",
+        "saveSuccess": "商品已成功创建。"
+    },
+    "detail": {
+        "name": "名称",
+        "description": "描述",
+        "price": "价格",
+        "stock": "库存",
+        "productNumber": "商品编号",
+        "manufacturer": "制造商",
+        "tax": "税率",
+        "properties": "属性",
+        "customFields": "自定义字段",
+        "colorProperty": "颜色",
+        "sizeProperty": "大小",
+        "stockPlaceholder": "输入库存 ...",
+        "restockTimePlaceholder": "输入补货天数...",
+        "copySuffix": "副本",
+        "width": "宽度",
+        "height": "高度",
+        "length": "长度",
+        "weight": "重量"
+    },
+    "errors": {
+        "flows": {
+            "productWritten": "无法保存商品 {{productName}}"
+        },
+        "followingErrorOccurred": "发生以下错误："
+    },
+    "variants": {
+        "properties": "属性"
+    },
+    "flows": {
+        "tag": "标签："
+    },
+    "bulkEdit": {
+        "applyChanges": "应用更改",
+        "success": "批量修改 - 成功",
+        "close": "关闭"
+    },
+    "tabs": {
+        "specifications": "规格",
+        "advancedPricing": "高级价格",
+        "variants": "变体",
+        "layout": "布局",
+        "crossSelling": "关联商品",
+        "seo": "SEO",
+        "reviews": "评价"
+    },
+    "buttons": {
+        "save": "保存",
+        "uploadFile": "上传文件",
+        "generateVariants": "生成变体",
+        "next": "继续",
+        "saveVariants": "保存变体",
+        "cancel": "取消",
+        "saveAndDuplicate": "保存并复制",
+        "delete": "删除"
+    },
+    "modals": {
+        "generateVariants": "生成变体"
+    },
+    "propertyValues": {
+        "blue": "蓝色",
+        "red": "红色",
+        "green": "绿色",
+        "small": "小",
+        "medium": "媒体",
+        "large": "大"
+    }
+}

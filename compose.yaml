@@ -19,8 +19,8 @@ x-env: &env
     # SW_RECOVERY_NEXT_VERSION: 6.6.9999999.9999999
     # SW_RECOVERY_NEXT_BRANCH: dev-trunk
     # SW_RECOVERY_REPOSITORY: '{"type": "path", "url": "custom/packages/*", "options": { "symlink": true } }'
-    INSTALL_LOCALE: en-US
-    INSTALL_CURRENCY: USD
+    INSTALL_LOCALE: ${SHOPWELL_INSTALL_LOCALE:-zh-CN}
+    INSTALL_CURRENCY: ${SHOPWELL_INSTALL_CURRENCY:-CNY}
     PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
 
 x-service: &service
@@ -78,8 +78,8 @@ services:
         <<: [*service, *shopwell-volumes]
         image: ghcr.io/shopwell-shop/acceptance-test-suite/test-image:${SHOPWELL_VERSION:-trunk}
         build:
-            context: .
-            dockerfile: test-image.Dockerfile
+            context: ${SHOPWELL_BUILD_CONTEXT:-.}
+            dockerfile: ${SHOPWELL_TEST_DOCKERFILE:-test-image.Dockerfile}
             args:
                 - PHP_VERSION=${PHP_VERSION:-8.4}
                 - SHOPWELL_VERSION=${SHOPWELL_VERSION:-trunk}

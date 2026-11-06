@@ -1,0 +1,11 @@
+{
+    "tabs": {
+        "general": "通用",
+        "products": "商品",
+        "theme": "主题",
+        "analytics": "分析"
+    },
+    "buttons": {
+        "addDomain": "添加域名"
+    }
+}

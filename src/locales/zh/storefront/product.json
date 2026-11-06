@@ -1,0 +1,42 @@
+{
+    "detail": {
+        "addToCart": "加入购物车",
+        "addToWishlist": "加入心愿单",
+        "availableFrom": "供应时间",
+        "deliveryTime": "配送时间",
+        "description": "描述",
+        "price": "价格",
+        "quantity": "数量",
+        "relatedProducts": "相关商品",
+        "reviews": "评价",
+        "specifications": "规格",
+        "stock": "库存"
+    },
+    "listing": {
+        "filter": "筛选",
+        "noResults": "未找到结果",
+        "showMore": "显示更多",
+        "sortBy": "排序方式",
+        "sorting": "排序",
+        "noProductsFound": "未找到商品。"
+    },
+    "search": {
+        "noResults": "未找到搜索结果",
+        "placeholder": "输入搜索词",
+        "results": "搜索结果"
+    },
+    "addToCart": "加入购物车",
+    "addToWishlist": "加入收藏",
+    "removeFromWishlist": "移出收藏",
+    "garanLabelShowLink": "显示 GARAN 标识",
+    "garanLabelHideLink": "隐藏 GARAN 标识",
+    "deliveryTime": "今日可发货，\\n配送时间约为 1-3 个工作日",
+    "quantity": "数量",
+    "review": {
+        "tabTitle": "评价",
+        "title": "标题",
+        "text": "使用感受",
+        "emptyText": "暂无评价，快来分享您的体验。",
+        "submitMessage": "感谢评价，我们将审核后发布。"
+    }
+}

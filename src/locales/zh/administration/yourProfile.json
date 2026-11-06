@@ -1,0 +1,37 @@
+{
+    "general": {
+        "title": "您的个人资料",
+        "name": "姓名",
+        "email": "邮箱",
+        "username": "用户名",
+        "currentPassword": "当前密码",
+        "newPassword": "新密码",
+        "newPasswordConfirm": "确认新密码",
+        "language": "语言",
+        "timeZone": "时区",
+        "save": "保存",
+        "saveSuccess": "个人资料已成功更新。"
+    },
+    "tabs": {
+        "searchPreferences": "搜索设置",
+        "privacyPreferences": "隐私设置"
+    },
+    "fields": {
+        "name": "姓名",
+        "username": "用户名",
+        "email": "邮箱地址"
+    },
+    "buttons": {
+        "deselectAll": "全部取消选择"
+    },
+    "links": {
+        "privacy": "隐私政策"
+    },
+    "checkboxes": {
+        "usageDataCheckbox": "共享使用数据"
+    },
+    "headlines": {
+        "usageDataHeadline": "使用数据",
+        "cardTitle": "帮助我们改进 Shopwell"
+    }
+}

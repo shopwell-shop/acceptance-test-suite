@@ -1,0 +1,10 @@
+{
+    "actions": {
+        "cancelOrder": "取消订单",
+        "back": "返回"
+    },
+    "shipping": {
+        "standard": "标准配送",
+        "express": "快递"
+    }
+}

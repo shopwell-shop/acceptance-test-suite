@@ -1,0 +1,25 @@
+{
+    "emailAddress": "您的邮箱",
+    "password": "密码",
+    "loginButton": "登录",
+    "forgotPassword": "忘记密码",
+    "logout": "退出登录",
+    "invalidCredentials": "账号或密码不正确",
+    "successfulLogout": "已退出登录。",
+    "passwordUpdated": "密码已修改",
+    "register": {
+        "gender": "性别",
+        "name": "姓名",
+        "company": "公司",
+        "department": "部门",
+        "emailAddress": "邮箱",
+        "password": "密码",
+        "streetAddress": "详细地址",
+        "city": "城市",
+        "country": "国家",
+        "postalCode": "邮编",
+        "state": "省份",
+        "differentShippingAddress": "收货地址与账单地址不同",
+        "continue": "下一步"
+    }
+}

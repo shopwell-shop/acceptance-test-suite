@@ -1,0 +1,114 @@
+{
+    "common": {
+        "gender": "性别",
+        "name": "姓名",
+        "company": "公司",
+        "department": "部门",
+        "back": "返回",
+        "changePassword": "修改密码",
+        "passwordUpdated": "密码已修改",
+        "cashOnDelivery": "货到付款",
+        "paidInAdvance": "预付款",
+        "invoice": "发票"
+    },
+    "login": {
+        "email": "您的邮箱",
+        "password": "密码",
+        "logIn": "登录",
+        "logOut": "退出登录",
+        "forgotPassword": "忘记密码",
+        "invalidCredentials": "账号或密码不正确",
+        "successfulLogout": "已退出登录。"
+    },
+    "profile": {
+        "saveChanges": "保存修改",
+        "changeEmail": "修改邮箱",
+        "emailConfirmation": "确认邮箱",
+        "emailUpdated": "邮箱修改成功",
+        "invalidEmail": "邮箱地址无效。",
+        "emailUpdateFailure": "邮箱修改失败",
+        "passwordTooShort": "内容过短",
+        "passwordUpdateFailure": "密码修改失败"
+    },
+    "orders": {
+        "download": "下载文件",
+        "cancelOrder": "取消订单",
+        "repeatOrder": "再次购买",
+        "changePaymentMethod": "修改支付方式",
+        "actions": "操作",
+        "expand": "展开",
+        "showDetails": "查看详情",
+        "creditItem": "贷项",
+        "orderNumber": "订单号",
+        "plusVat": "另加",
+        "includeVat": "含",
+        "vatSuffix": "% 增值税",
+        "shippingCosts": "运费：",
+        "totalGross": "总额：",
+        "headlineCompletePayment": "完成支付",
+        "buttonCompletePayment": "完成支付",
+        "editCompleted": "感谢您更新订单！"
+    },
+    "addresses": {
+        "street": "街道",
+        "streetAddress": "详细地址",
+        "city": "城市",
+        "country": "国家",
+        "postalCode": "邮编",
+        "state": "省份",
+        "editAddress": "编辑地址",
+        "addNewAddress": "新增地址",
+        "useAsDefaultBilling": "设为默认账单地址",
+        "useAsDefaultShipping": "设为默认收货地址",
+        "deliveryNotPossible": "该国家不支持配送。"
+    },
+    "registration": {
+        "continue": "下一步",
+        "differentShippingAddress": "收货地址与账单地址不同"
+    },
+    "general": {
+        "yourAccount": "我的账户",
+        "newsletter": "是的，我希望",
+        "newsletterRegistrationSuccess": "订阅成功。",
+        "cannotDeliverToCountry": "我们无法配送至您收货地址所在的国家。",
+        "shippingNotPossible": "目前无法配送至所选收货地址。",
+        "overview": "概览",
+        "personalData": "个人信息",
+        "defaultPaymentMethod": "默认支付方式",
+        "defaultBillingAddress": "默认账单地址",
+        "defaultShippingAddress": "默认收货地址",
+        "customerGroupAccessRequested": "已申请加入客户组“{{customerGroup}}”。"
+    },
+    "navigation": {
+        "overview": "概览",
+        "yourProfile": "个人资料",
+        "addresses": "地址",
+        "orders": "订单",
+        "logout": "退出登录"
+    },
+    "recovery": {
+        "title": "找回密码",
+        "subtitle": "我们将发送确认邮件，点击其中链接以重置密码。",
+        "requestEmail": "发送邮件",
+        "emailSent": "如果提供的邮箱已注册，我们已向该邮箱发送包含密码重置链接的确认邮件。",
+        "invalidLink": "重置链接无效。",
+        "newPassword": "新密码",
+        "passwordConfirmation": "确认密码"
+    },
+    "payment": {
+        "change": "修改"
+    },
+    "tasks": {
+        "registration": {
+            "defaultStreet": "中山路 10 号",
+            "defaultCity": "上海市",
+            "defaultCountry": "中国",
+            "defaultDepartment": "运营部",
+            "defaultVatRegNo": "CN1234567890"
+        },
+        "deprecation": {
+            "registerGuestDeprecated": "请改用 `Register.ts`。",
+            "isCommercialDeprecated": "isCommercial 参数已弃用，将在未来版本中移除。请改用 RegistrationData 中的 isCommercial 字段。"
+        }
+    }
+}

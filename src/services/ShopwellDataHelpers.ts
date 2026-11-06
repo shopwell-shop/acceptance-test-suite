@@ -14,10 +14,17 @@ const LOCALE_MAPPINGS: Readonly<Record<string, LocaleMapping>> = {
     "en-US": { countryCode: "US", currencyCode: "USD", currencySymbol: "$", languageCode: "en-GB" },
     "en-GB": { countryCode: "GB", currencyCode: "GBP", currencySymbol: "£", languageCode: "en-GB" },
     "en-DE": { countryCode: "DE", currencyCode: "EUR", currencySymbol: "€", languageCode: "en-GB" },
-    "de-DE": { countryCode: "DE", currencyCode: "EUR", currencySymbol: "€", languageCode: "de-DE" },
+    "zh-CN": { countryCode: "CN", currencyCode: "CNY", currencySymbol: "¥", languageCode: "zh-CN" },
 } as const;
 
 export const COUNTRY_ADDRESS_DATA = {
+    CN: {
+        street: "中山路 10 号",
+        city: "上海市",
+        country: "中国",
+        postalCode: "200000",
+        vatRegNo: "CN1234567890",
+    },
     DE: {
         street: "Ebbinghoff 10",
         city: "Schöppingen",
@@ -46,33 +53,33 @@ export const getCountryAddressData = (countryCode?: string) => {
     if (code in COUNTRY_ADDRESS_DATA) {
         return COUNTRY_ADDRESS_DATA[code as keyof typeof COUNTRY_ADDRESS_DATA];
     }
-    return COUNTRY_ADDRESS_DATA.GB;
+    return COUNTRY_ADDRESS_DATA.CN;
 };
 
 export const getLocale = (): string => {
-    const rawLocale = process.env.LANG || process.env.LANGUAGE || process.env.lang || "en-GB";
+    const rawLocale = process.env.LANG || process.env.LANGUAGE || process.env.lang || "zh-CN";
     const locale = rawLocale.split(".")[0].replace(/_/g, "-");
-    return LOCALE_MAPPINGS[locale] ? locale : "en-GB";
+    return LOCALE_MAPPINGS[locale] ? locale : "zh-CN";
 };
 
 export const getLanguageCode = (locale?: string): string => {
     const mapping = LOCALE_MAPPINGS[locale ?? getLocale()];
-    return mapping ? mapping.languageCode : "en-GB";
+    return mapping ? mapping.languageCode : "zh-CN";
 };
 
 export const getCountryCodeFromLocale = (locale?: string): string => {
     const mapping = LOCALE_MAPPINGS[locale ?? getLocale()];
-    return mapping ? mapping.countryCode : "GB";
+    return mapping ? mapping.countryCode : "CN";
 };
 
 export const getCurrencyCodeFromLocale = (locale?: string): string => {
     const mapping = LOCALE_MAPPINGS[locale ?? getLocale()];
-    return mapping ? mapping.currencyCode : "GBP";
+    return mapping ? mapping.currencyCode : "CNY";
 };
 
 export const getCurrencySymbolFromLocale = (locale?: string): string => {
     const mapping = LOCALE_MAPPINGS[locale ?? getLocale()];
-    return mapping ? mapping.currencySymbol : "£";
+    return mapping ? mapping.currencySymbol : "¥";
 };
 
 export const formatPrice = (price: number, locale?: string, currencyCode?: string): string => {
@@ -270,25 +277,6 @@ export const getThemeId = async (technicalName: string, adminApiContext: AdminAp
                     type: "equals",
                     field: "technicalName",
                     value: technicalName,
-                },
-            ],
-        },
-    });
-
-    const result = (await resp.json()) as { data: { id: string }[]; total: number };
-
-    return result.data[0].id;
-};
-
-export const getSalutationId = async (salutationKey: string, adminApiContext: AdminApiContext): Promise<string> => {
-    const resp = await adminApiContext.post("search/salutation", {
-        data: {
-            limit: 1,
-            filter: [
-                {
-                    type: "equals",
-                    field: "salutationKey",
-                    value: salutationKey,
                 },
             ],
         },

@@ -1,0 +1,50 @@
+{
+    "welcome": {
+        "text": "欢迎使用 Shopwell 6 后台"
+    },
+    "buttons": {
+        "install": "安装",
+        "installMigrationAssistant": "安装迁移向导",
+        "installDemoData": "安装演示数据",
+        "next": "继续",
+        "skip": "跳过",
+        "finish": "完成",
+        "back": "返回",
+        "configureLater": "稍后设置",
+        "configureOwnSmtpServer": "配置自有 SMTP 服务器"
+    },
+    "headers": {
+        "dataImport": "Shopwell 6 快速上手",
+        "defaultValues": "定义默认值",
+        "mailerConfiguration": "邮件发送设置",
+        "payPalSetup": "设置 PayPal",
+        "extensions": "扩展",
+        "shopwellAccount": "Shopwell 账户",
+        "shopwellStore": "Shopwell Store",
+        "done": "完成"
+    },
+    "fields": {
+        "host": "主机",
+        "port": "端口",
+        "username": "用户名",
+        "password": "密码",
+        "senderAddress": "发件人地址",
+        "deliveryAddress": "收货地址",
+        "disableEmailDelivery": "停用邮件发送"
+    },
+    "placeholders": {
+        "selectSalesChannels": "选择销售渠道...",
+        "enterEmailAddress": "输入你的邮箱地址…",
+        "enterPassword": "输入密码…"
+    },
+    "regions": {
+        "germanRegion": "德国 / 奥地利 / 瑞士",
+        "tools": "工具"
+    },
+    "text": {
+        "smtpServer": "SMTP 服务器",
+        "globalRecommendations": "全球推荐",
+        "allDone": "恭喜！",
+        "forgotPassword": "忘记密码？"
+    }
+}

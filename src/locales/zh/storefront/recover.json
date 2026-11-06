@@ -1,0 +1,11 @@
+{
+    "passwordRecovery": "找回密码",
+    "subtitle": "我们将发送确认邮件，点击其中链接以重置密码。",
+    "requestEmail": "发送邮件",
+    "back": "返回",
+    "emailSent": "如果提供的邮箱已注册，我们已向该邮箱发送包含密码重置链接的确认邮件。",
+    "newPassword": "新密码",
+    "passwordConfirmation": "确认密码",
+    "changePassword": "修改密码",
+    "invalidLink": "重置链接无效。"
+}

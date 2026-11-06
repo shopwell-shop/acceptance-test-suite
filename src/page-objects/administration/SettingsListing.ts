@@ -18,7 +18,6 @@ export class SettingsListing implements PageObject {
 
     public readonly customerGroupsLink: Locator;
     public readonly loginAndSignUpLink: Locator;
-    public readonly salutationsLink: Locator;
 
     public readonly flowBuilderLink: Locator;
     public readonly importExportLink: Locator;
@@ -75,7 +74,6 @@ export class SettingsListing implements PageObject {
 
         this.customerGroupsLink = page.locator(".sw-settings__content-grid").getByRole("link", { name: translate("administration:settings:links.customerGroups") });
         this.loginAndSignUpLink = page.locator(".sw-settings__content-grid").getByRole("link", { name: translate("administration:settings:links.loginAndSignUp") });
-        this.salutationsLink = page.locator(".sw-settings__content-grid").getByRole("link", { name: translate("administration:settings:links.salutations") });
 
         this.flowBuilderLink = page.locator(".sw-settings__content-grid").getByRole("link", { name: translate("administration:settings:links.flowBuilder") });
         this.importExportLink = page.locator(".sw-settings__content-grid").getByRole("link", { name: translate("administration:settings:links.importExport") });

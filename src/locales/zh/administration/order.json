@@ -1,0 +1,28 @@
+{
+    "detail": {
+        "items": "项目",
+        "sendDocument": "发送单据",
+        "openActionsMenu": "打开操作菜单"
+    },
+    "contextMenu": {
+        "sendDocument": "发送单据",
+        "openDocument": "打开单据",
+        "markAsSent": "标记为已发送"
+    },
+    "tabs": {
+        "general": "通用",
+        "details": "详情",
+        "documents": "文档"
+    },
+    "listing": {
+        "addOrder": "新建订单"
+    },
+    "actions": {
+        "view": "查看",
+        "delete": "删除",
+        "cancel": "取消"
+    },
+    "dialogs": {
+        "warning": "警告"
+    }
+}

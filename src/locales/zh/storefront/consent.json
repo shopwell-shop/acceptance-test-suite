@@ -1,0 +1,21 @@
+{
+    "cookie": {
+        "title": "Cookie 设置",
+        "description": "我们使用 Cookie 为您提供最佳的网站使用体验。",
+        "acceptAll": "全部接受",
+        "acceptSelected": "接受所选项",
+        "decline": "拒绝",
+        "necessary": "必要",
+        "functional": "功能",
+        "statistics": "统计",
+        "acceptAllCookies": "全部接受",
+        "configure": "配置",
+        "onlyTechnicallyRequired": "仅必要 Cookie",
+        "preferences": "Cookie 偏好",
+        "marketing": "营销 Cookie"
+    },
+    "privacy": {
+        "policy": "隐私政策",
+        "readMore": "了解更多"
+    }
+}

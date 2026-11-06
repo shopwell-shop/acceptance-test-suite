@@ -1,0 +1,22 @@
+{
+    "title": "联系我们",
+    "link": {
+        "contactForm": "联系表单"
+    },
+    "form": {
+        "contact": "联系我们",
+        "gender": "性别",
+        "name": "姓名",
+        "email": "您的邮箱",
+        "phone": "手机号",
+        "subject": "主题",
+        "comment": "留言内容",
+        "submit": "提交",
+        "privacyPolicy": "选择继续即表示您确认已阅读并同意我们的",
+        "emailAddress": "您的邮箱"
+    },
+    "email": {
+        "from": "doNotReply@localhost.com",
+        "subject": "您的注册"
+    }
+}

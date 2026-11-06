@@ -6,7 +6,6 @@ import { translate } from "../../services/LanguageHelper";
  * @deprecated - Use AccountAddressDetails instead.
  */
 export class AccountAddressCreate extends BaseAccount {
-    public readonly salutationDropdown: Locator;
     public readonly nameInput: Locator;
     public readonly companyInput: Locator;
     public readonly departmentInput: Locator;
@@ -19,7 +18,6 @@ export class AccountAddressCreate extends BaseAccount {
 
     constructor(page: Page) {
         super(page);
-        this.salutationDropdown = page.getByRole("combobox", { name: translate("storefront:address:common.salutation") });
         this.nameInput = page.getByRole("textbox", { name: translate("storefront:address:common.name") });
         this.companyInput = page.getByRole("textbox", { name: translate("storefront:address:common.company") });
         this.departmentInput = page.getByRole("textbox", { name: translate("storefront:address:common.department") });

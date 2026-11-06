@@ -41,49 +41,49 @@ import storefrontRecover from "./en/storefront/recover.json" with { type: "json"
 import storefrontOffCanvasCart from "./en/storefront/offCanvasCart.json" with { type: "json" };
 import storefrontWishlist from "./en/storefront/wishlist.json" with { type: "json" };
 
-// German locales - Administration
-import deAdministrationCategory from "./de/administration/category.json" with { type: "json" };
-import deAdministrationCustomer from "./de/administration/customer.json" with { type: "json" };
-import deAdministrationCustomerGroup from "./de/administration/customerGroup.json" with { type: "json" };
-import deAdministrationCustomField from "./de/administration/customField.json" with { type: "json" };
-import deAdministrationDashboard from "./de/administration/dashboard.json" with { type: "json" };
-import deAdministrationDataSharing from "./de/administration/dataSharing.json" with { type: "json" };
-import deAdministrationDocument from "./de/administration/document.json" with { type: "json" };
-import deAdministrationFirstRunWizard from "./de/administration/firstRunWizard.json" with { type: "json" };
-import deAdministrationFlowBuilder from "./de/administration/flowBuilder.json" with { type: "json" };
-import deAdministrationLandingPage from "./de/administration/landingPage.json" with { type: "json" };
-import deAdministrationLayout from "./de/administration/layout.json" with { type: "json" };
-import deAdministrationLogin from "./de/administration/login.json" with { type: "json" };
-import deAdministrationManufacturer from "./de/administration/manufacturer.json" with { type: "json" };
-import deAdministrationMedia from "./de/administration/media.json" with { type: "json" };
-import deAdministrationOrder from "./de/administration/order.json" with { type: "json" };
-import deAdministrationPayment from "./de/administration/payment.json" with { type: "json" };
-import deAdministrationProduct from "./de/administration/product.json" with { type: "json" };
-import deAdministrationPromotion from "./de/administration/promotion.json" with { type: "json" };
-import deAdministrationRule from "./de/administration/rule.json" with { type: "json" };
-import deAdministrationSettings from "./de/administration/settings.json" with { type: "json" };
-import deAdministrationShipping from "./de/administration/shipping.json" with { type: "json" };
-import deAdministrationShopwellServices from "./de/administration/shopwellServices.json" with { type: "json" };
-import deAdministrationYourProfile from "./de/administration/yourProfile.json" with { type: "json" };
-import deAdministrationSalesChannel from "./de/administration/salesChannel.json" with { type: "json" };
+// Chinese locales - Administration
+import zhAdministrationCategory from "./zh/administration/category.json" with { type: "json" };
+import zhAdministrationCustomer from "./zh/administration/customer.json" with { type: "json" };
+import zhAdministrationCustomerGroup from "./zh/administration/customerGroup.json" with { type: "json" };
+import zhAdministrationCustomField from "./zh/administration/customField.json" with { type: "json" };
+import zhAdministrationDashboard from "./zh/administration/dashboard.json" with { type: "json" };
+import zhAdministrationDataSharing from "./zh/administration/dataSharing.json" with { type: "json" };
+import zhAdministrationDocument from "./zh/administration/document.json" with { type: "json" };
+import zhAdministrationFirstRunWizard from "./zh/administration/firstRunWizard.json" with { type: "json" };
+import zhAdministrationFlowBuilder from "./zh/administration/flowBuilder.json" with { type: "json" };
+import zhAdministrationLandingPage from "./zh/administration/landingPage.json" with { type: "json" };
+import zhAdministrationLayout from "./zh/administration/layout.json" with { type: "json" };
+import zhAdministrationLogin from "./zh/administration/login.json" with { type: "json" };
+import zhAdministrationManufacturer from "./zh/administration/manufacturer.json" with { type: "json" };
+import zhAdministrationMedia from "./zh/administration/media.json" with { type: "json" };
+import zhAdministrationOrder from "./zh/administration/order.json" with { type: "json" };
+import zhAdministrationPayment from "./zh/administration/payment.json" with { type: "json" };
+import zhAdministrationProduct from "./zh/administration/product.json" with { type: "json" };
+import zhAdministrationPromotion from "./zh/administration/promotion.json" with { type: "json" };
+import zhAdministrationRule from "./zh/administration/rule.json" with { type: "json" };
+import zhAdministrationSettings from "./zh/administration/settings.json" with { type: "json" };
+import zhAdministrationShipping from "./zh/administration/shipping.json" with { type: "json" };
+import zhAdministrationShopwellServices from "./zh/administration/shopwellServices.json" with { type: "json" };
+import zhAdministrationYourProfile from "./zh/administration/yourProfile.json" with { type: "json" };
+import zhAdministrationSalesChannel from "./zh/administration/salesChannel.json" with { type: "json" };
 
-// German locales - Storefront
-import deStorefrontAccount from "./de/storefront/account.json" with { type: "json" };
-import deStorefrontAddress from "./de/storefront/address.json" with { type: "json" };
-import deStorefrontCheckout from "./de/storefront/checkout.json" with { type: "json" };
-import deStorefrontConsent from "./de/storefront/consent.json" with { type: "json" };
-import deStorefrontContact from "./de/storefront/contact.json" with { type: "json" };
-import deStorefrontHeader from "./de/storefront/header.json" with { type: "json" };
-import deStorefrontHome from "./de/storefront/home.json" with { type: "json" };
-import deStorefrontLogin from "./de/storefront/login.json" with { type: "json" };
-import deStorefrontNavigation from "./de/storefront/navigation.json" with { type: "json" };
-import deStorefrontOffCanvasCart from "./de/storefront/offCanvasCart.json" with { type: "json" };
-import deStorefrontOrder from "./de/storefront/order.json" with { type: "json" };
-import deStorefrontPageNotFound from "./de/storefront/pageNotFound.json" with { type: "json" };
-import deStorefrontPayment from "./de/storefront/payment.json" with { type: "json" };
-import deStorefrontProduct from "./de/storefront/product.json" with { type: "json" };
-import deStorefrontRecover from "./de/storefront/recover.json" with { type: "json" };
-import deStorefrontWishlist from "./de/storefront/wishlist.json" with { type: "json" };
+// Chinese locales - Storefront
+import zhStorefrontAccount from "./zh/storefront/account.json" with { type: "json" };
+import zhStorefrontAddress from "./zh/storefront/address.json" with { type: "json" };
+import zhStorefrontCheckout from "./zh/storefront/checkout.json" with { type: "json" };
+import zhStorefrontConsent from "./zh/storefront/consent.json" with { type: "json" };
+import zhStorefrontContact from "./zh/storefront/contact.json" with { type: "json" };
+import zhStorefrontHeader from "./zh/storefront/header.json" with { type: "json" };
+import zhStorefrontHome from "./zh/storefront/home.json" with { type: "json" };
+import zhStorefrontLogin from "./zh/storefront/login.json" with { type: "json" };
+import zhStorefrontNavigation from "./zh/storefront/navigation.json" with { type: "json" };
+import zhStorefrontOffCanvasCart from "./zh/storefront/offCanvasCart.json" with { type: "json" };
+import zhStorefrontOrder from "./zh/storefront/order.json" with { type: "json" };
+import zhStorefrontPageNotFound from "./zh/storefront/pageNotFound.json" with { type: "json" };
+import zhStorefrontPayment from "./zh/storefront/payment.json" with { type: "json" };
+import zhStorefrontProduct from "./zh/storefront/product.json" with { type: "json" };
+import zhStorefrontRecover from "./zh/storefront/recover.json" with { type: "json" };
+import zhStorefrontWishlist from "./zh/storefront/wishlist.json" with { type: "json" };
 
 // Bundle all resources for i18next (no filesystem operations needed!)
 export const BUNDLED_RESOURCES = {
@@ -131,49 +131,49 @@ export const BUNDLED_RESOURCES = {
         "storefront/offCanvasCart": storefrontOffCanvasCart,
         "storefront/wishlist": storefrontWishlist,
     },
-    de: {
+    zh: {
         // Administration
-        "administration/category": deAdministrationCategory,
-        "administration/customer": deAdministrationCustomer,
-        "administration/customerGroup": deAdministrationCustomerGroup,
-        "administration/customField": deAdministrationCustomField,
-        "administration/dashboard": deAdministrationDashboard,
-        "administration/dataSharing": deAdministrationDataSharing,
-        "administration/document": deAdministrationDocument,
-        "administration/firstRunWizard": deAdministrationFirstRunWizard,
-        "administration/flowBuilder": deAdministrationFlowBuilder,
-        "administration/landingPage": deAdministrationLandingPage,
-        "administration/layout": deAdministrationLayout,
-        "administration/login": deAdministrationLogin,
-        "administration/manufacturer": deAdministrationManufacturer,
-        "administration/media": deAdministrationMedia,
-        "administration/order": deAdministrationOrder,
-        "administration/payment": deAdministrationPayment,
-        "administration/product": deAdministrationProduct,
-        "administration/promotion": deAdministrationPromotion,
-        "administration/rule": deAdministrationRule,
-        "administration/settings": deAdministrationSettings,
-        "administration/shipping": deAdministrationShipping,
-        "administration/shopwellServices": deAdministrationShopwellServices,
-        "administration/yourProfile": deAdministrationYourProfile,
-        "administration/salesChannel": deAdministrationSalesChannel,
+        "administration/category": zhAdministrationCategory,
+        "administration/customer": zhAdministrationCustomer,
+        "administration/customerGroup": zhAdministrationCustomerGroup,
+        "administration/customField": zhAdministrationCustomField,
+        "administration/dashboard": zhAdministrationDashboard,
+        "administration/dataSharing": zhAdministrationDataSharing,
+        "administration/document": zhAdministrationDocument,
+        "administration/firstRunWizard": zhAdministrationFirstRunWizard,
+        "administration/flowBuilder": zhAdministrationFlowBuilder,
+        "administration/landingPage": zhAdministrationLandingPage,
+        "administration/layout": zhAdministrationLayout,
+        "administration/login": zhAdministrationLogin,
+        "administration/manufacturer": zhAdministrationManufacturer,
+        "administration/media": zhAdministrationMedia,
+        "administration/order": zhAdministrationOrder,
+        "administration/payment": zhAdministrationPayment,
+        "administration/product": zhAdministrationProduct,
+        "administration/promotion": zhAdministrationPromotion,
+        "administration/rule": zhAdministrationRule,
+        "administration/settings": zhAdministrationSettings,
+        "administration/shipping": zhAdministrationShipping,
+        "administration/shopwellServices": zhAdministrationShopwellServices,
+        "administration/yourProfile": zhAdministrationYourProfile,
+        "administration/salesChannel": zhAdministrationSalesChannel,
         // Storefront
-        "storefront/account": deStorefrontAccount,
-        "storefront/address": deStorefrontAddress,
-        "storefront/checkout": deStorefrontCheckout,
-        "storefront/consent": deStorefrontConsent,
-        "storefront/contact": deStorefrontContact,
-        "storefront/header": deStorefrontHeader,
-        "storefront/home": deStorefrontHome,
-        "storefront/login": deStorefrontLogin,
-        "storefront/navigation": deStorefrontNavigation,
-        "storefront/offCanvasCart": deStorefrontOffCanvasCart,
-        "storefront/order": deStorefrontOrder,
-        "storefront/pageNotFound": deStorefrontPageNotFound,
-        "storefront/payment": deStorefrontPayment,
-        "storefront/product": deStorefrontProduct,
-        "storefront/recover": deStorefrontRecover,
-        "storefront/wishlist": deStorefrontWishlist,
+        "storefront/account": zhStorefrontAccount,
+        "storefront/address": zhStorefrontAddress,
+        "storefront/checkout": zhStorefrontCheckout,
+        "storefront/consent": zhStorefrontConsent,
+        "storefront/contact": zhStorefrontContact,
+        "storefront/header": zhStorefrontHeader,
+        "storefront/home": zhStorefrontHome,
+        "storefront/login": zhStorefrontLogin,
+        "storefront/navigation": zhStorefrontNavigation,
+        "storefront/offCanvasCart": zhStorefrontOffCanvasCart,
+        "storefront/order": zhStorefrontOrder,
+        "storefront/pageNotFound": zhStorefrontPageNotFound,
+        "storefront/payment": zhStorefrontPayment,
+        "storefront/product": zhStorefrontProduct,
+        "storefront/recover": zhStorefrontRecover,
+        "storefront/wishlist": zhStorefrontWishlist,
     },
 } as const;
 

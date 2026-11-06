@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import { getLocale } from "./src/services/ShopwellDataHelpers";
 
 process.env["SHOPWELL_ADMIN_USERNAME"] = process.env["SHOPWELL_ADMIN_USERNAME"] || "admin";
 process.env["SHOPWELL_ADMIN_PASSWORD"] = process.env["SHOPWELL_ADMIN_PASSWORD"] || "shopwell";
@@ -24,9 +25,7 @@ if (!process.env["WEBSERVER_COMMAND"]) {
         process.env["WEBSERVER_COMMAND"] = "sleep 999d";
     }
 }
-// Determine locale from environment
-const envLang = process.env.LANG || process.env.LANGUAGE || process.env.lang || "en-GB";
-const browserLocale = envLang.startsWith("de") ? "de-DE" : "en-GB";
+const browserLocale = getLocale();
 
 export default defineConfig({
     testDir: "./tests",
