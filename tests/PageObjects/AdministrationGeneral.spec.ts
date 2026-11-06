@@ -1,8 +1,9 @@
 import { satisfies } from "compare-versions";
-import { test, translate } from "../../src";
+import { test, expect, translate } from "../../src";
 
 test("Administration page objects - General.", async ({
     InstanceMeta,
+    AdminApiContext,
     ShopAdmin,
     AdminDashboard,
     AdminCategories,
@@ -44,6 +45,9 @@ test("Administration page objects - General.", async ({
     await ShopAdmin.expects(orderLineItemRow.orderCheckbox).toBeVisible();
     await ShopAdmin.expects(orderLineItemRow.orderContextButton).toBeVisible();
 
+    const orderRequest = satisfies(InstanceMeta.version, ">=6.7.15")
+        ? AdminOrderDetail.page.waitForRequest((request) => new URL(request.url()).pathname.endsWith("/search/order") && request.method() === "POST")
+        : null;
     await ShopAdmin.goesTo(AdminOrderDetail.url(order.id));
     await ShopAdmin.expects(AdminOrderDetail.saveButton).toBeVisible();
     await ShopAdmin.expects(AdminOrderDetail.dataGridContextButton).toBeVisible();
@@ -53,10 +57,31 @@ test("Administration page objects - General.", async ({
     await ShopAdmin.expects(AdminOrderDetail.orderPaymentStatus).toBeVisible();
     await ShopAdmin.expects(AdminOrderDetail.orderDeliveryStatus).toBeVisible();
 
-    if (satisfies(InstanceMeta.version, ">=6.7.15")) {
-        await ShopAdmin.expects(AdminOrderDetail.orderStateInput).toHaveValue(translate("administration:order:detail.openState"));
-        await ShopAdmin.expects(AdminOrderDetail.orderPaymentStatusInput).toHaveValue(translate("administration:order:detail.openState"));
-        await ShopAdmin.expects(AdminOrderDetail.orderDeliveryStatusInput).toHaveValue(translate("administration:order:detail.openState"));
+    if (orderRequest) {
+        const contentLanguageId = (await orderRequest).headers()["sw-language-id"];
+        expect(contentLanguageId).toBeTruthy();
+        const machineNames = ["order.state", "order_transaction.state", "order_delivery.state"];
+        const statesResponse = await AdminApiContext.post("search/state-machine-state", {
+            headers: { "sw-language-id": contentLanguageId },
+            data: {
+                filter: [
+                    { type: "equals", field: "technicalName", value: "open" },
+                    { type: "equalsAny", field: "stateMachine.technicalName", value: machineNames },
+                ],
+                associations: { stateMachine: {} },
+            },
+        });
+        expect(statesResponse.ok()).toBeTruthy();
+        const states = (await statesResponse.json()).data as { technicalName: string; translated: { name: string }; stateMachine: { technicalName: string } }[];
+        expect(states.map((state) => state.stateMachine.technicalName).sort()).toEqual([...machineNames].sort());
+        for (const state of states) {
+            expect(state.technicalName).toBe("open");
+            expect(state.translated.name).toMatch(/\S/);
+        }
+        const names = new Map(states.map((state) => [state.stateMachine.technicalName, state.translated.name]));
+        await ShopAdmin.expects(AdminOrderDetail.orderStateInput).toHaveValue(names.get("order.state")!);
+        await ShopAdmin.expects(AdminOrderDetail.orderPaymentStatusInput).toHaveValue(names.get("order_transaction.state")!);
+        await ShopAdmin.expects(AdminOrderDetail.orderDeliveryStatusInput).toHaveValue(names.get("order_delivery.state")!);
     }
 
     await ShopAdmin.goesTo(AdminProductDetail.url(product.id));

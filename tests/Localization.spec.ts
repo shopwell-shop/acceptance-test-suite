@@ -3,12 +3,17 @@ import { CheckoutCart } from "../src/page-objects/storefront/CheckoutCart";
 import { CheckoutConfirm } from "../src/page-objects/storefront/CheckoutConfirm";
 import { CheckoutFinish } from "../src/page-objects/storefront/CheckoutFinish";
 import { AccountOrderEdit } from "../src/page-objects/storefront/AccountOrderEdit";
+import { AccountOrder } from "../src/page-objects/storefront/AccountOrder";
 import { AccountLogin } from "../src/page-objects/storefront/AccountLogin";
 import { AccountProfile } from "../src/page-objects/storefront/AccountProfile";
 import { AccountRecover } from "../src/page-objects/storefront/AccountRecover";
 import { Dashboard } from "../src/page-objects/administration/Dashboard";
 import { CustomFieldCreate } from "../src/page-objects/administration/CustomFieldCreate";
+import { CustomFieldDetail } from "../src/page-objects/administration/CustomFieldDetail";
 import { CustomerListing } from "../src/page-objects/administration/CustomerListing";
+import { CustomerBulkEdit } from "../src/page-objects/administration/CustomerBulkEdit";
+import { CustomerDetail } from "../src/page-objects/administration/CustomerDetail";
+import { ContactForm } from "../src/page-objects/storefront/ContactForm";
 import { ProductDetail } from "../src/page-objects/storefront/ProductDetail";
 import { OffCanvasCart } from "../src/page-objects/storefront/OffCanvasCart";
 import { Home } from "../src/page-objects/storefront/Home";
@@ -331,3 +336,155 @@ test.describe("Chinese public contracts match rendered platform markup", () => {
         await expect(new ProductDetail(page).reviewLoginButton).toHaveText("登录", { timeout: 1000 });
     });
 });
+
+for (const language of ["zh-CN", "en-GB"]) {
+    test(`${language} customer bulk-edit page locates its actual heading`, async ({ page }) => {
+        const count = language === "zh-CN" ? 2 : 1;
+        const heading = language === "zh-CN" ? "批量修改：2 位客户" : "Bulk edit: 1 customer";
+        await page.setContent(`<h1>${heading}</h1><h1>Bulk edit: 3 customers</h1>`);
+        const context = {};
+        LanguageHelper.setForContext(context, await LanguageHelper.createInstance(language));
+        setCurrentContext(context);
+        try {
+            await expect(await new CustomerBulkEdit(page).getPageHeadline(count)).toHaveText(heading, { timeout: 1000 });
+        } finally {
+            setCurrentContext(null);
+        }
+    });
+
+    test(`${language} customer detail locates the interpolated group request notice`, async ({ page }) => {
+        const group = language === "zh-CN" ? "企业客户" : "Business customers";
+        const message = language === "zh-CN" ? `已申请访问客户组 "${group}"。` : `Access to customer group "${group}" requested.`;
+        await page.setContent(`<div class="sw-customer-detail__customer-registration-alert"><div class="mt-banner__message">${message}</div></div>`);
+        const context = {};
+        LanguageHelper.setForContext(context, await LanguageHelper.createInstance(language));
+        setCurrentContext(context);
+        try {
+            const customer = new CustomerDetail(page, { version: "6.7.16.0", isSaaS: false, isPaaS: false, features: {} });
+            await expect(await customer.getCustomerGroupAlert(group)).toHaveText(message, { timeout: 1000 });
+        } finally {
+            setCurrentContext(null);
+        }
+    });
+
+    test(`${language} contact form uses its actual email label and submit action`, async ({ page }) => {
+        const title = language === "zh-CN" ? "联系我们" : "Contact";
+        const email = language === "zh-CN" ? "邮箱" : "Your email address";
+        const submit = language === "zh-CN" ? "发送" : "Submit";
+        await page.setContent(
+            `<div class="card"><h2>${title}</h2><label>${email}<input type="email"></label><button onclick="this.dataset.clicked='true'">${submit}</button></div><label>${email}<input type="email"></label>`
+        );
+        const context = {};
+        LanguageHelper.setForContext(context, await LanguageHelper.createInstance(language));
+        setCurrentContext(context);
+        try {
+            const contact = new ContactForm(page, { version: "6.7.16.0", isSaaS: false, isPaaS: false, features: {} });
+            await contact.emailInput.fill("customer@example.com", { timeout: 1000 });
+            await expect(contact.emailInput).toHaveValue("customer@example.com");
+            await contact.submitButton.click({ timeout: 1000 });
+            await expect(contact.submitButton).toHaveAttribute("data-clicked", "true");
+        } finally {
+            setCurrentContext(null);
+        }
+    });
+}
+
+for (const language of ["zh-CN", "en-GB"]) {
+    test(`${language} custom-field creation uses the rendered English-language label`, async ({ page }) => {
+        const label = language === "zh-CN" ? "标签 (英语（英国）)" : "Label (English (GB))";
+        await page.setContent(`<label>${label}<input></label>`);
+        const context = {};
+        LanguageHelper.setForContext(context, await LanguageHelper.createInstance(language));
+        setCurrentContext(context);
+        try {
+            const field = new CustomFieldCreate(page).labelEnglishGBInput;
+            await field.fill("Customer note", { timeout: 1000 });
+            await expect(field).toHaveValue("Customer note");
+        } finally {
+            setCurrentContext(null);
+        }
+    });
+
+    for (const [property, chinese, english] of [
+        ["customFieldLabelEnglishGBInput", "标签 (英语（英国）)", "Label (English (GB))"],
+        ["customFieldPlaceholderEnglishGBInput", "占位符 (英语（英国）)", "Placeholder (English (GB))"],
+        ["customFieldHelpTextEnglishGBInput", "帮助文本 (英语（英国）)", "Help text (English (GB))"],
+    ] as const) {
+        test(`${language} custom-field detail fills the rendered ${property}`, async ({ page }) => {
+            const title = language === "zh-CN" ? "新建自定义字段" : "New custom field";
+            const label = language === "zh-CN" ? chinese : english;
+            await page.setContent(`<div role="dialog" aria-label="${title}"><label>${label}<input></label></div><label>${label}<input></label>`);
+            const context = {};
+            LanguageHelper.setForContext(context, await LanguageHelper.createInstance(language));
+            setCurrentContext(context);
+            try {
+                const field = new CustomFieldDetail(page, { version: "6.7.16.0", isSaaS: false, isPaaS: false, features: {} })[property];
+                await field.fill("Customer note", { timeout: 1000 });
+                await expect(field).toHaveValue("Customer note");
+            } finally {
+                setCurrentContext(null);
+            }
+        });
+    }
+
+    test(`${language} custom-field editing checks the actual cart-availability control`, async ({ page }) => {
+        const title = language === "zh-CN" ? "编辑自定义字段" : "Edit custom field";
+        const label = language === "zh-CN" ? "在购物车中可用" : "Available in shopping cart";
+        await page.setContent(`<div role="dialog" aria-label="${title}"><label>${label}<input type="checkbox"></label></div><label>${label}<input type="checkbox"></label>`);
+        const context = {};
+        LanguageHelper.setForContext(context, await LanguageHelper.createInstance(language));
+        setCurrentContext(context);
+        try {
+            const field = new CustomFieldDetail(page, { version: "6.7.16.0", isSaaS: false, isPaaS: false, features: {} }).customFieldEditAvailableInShoppingCartCheckbox;
+            await field.check({ timeout: 1000 });
+            await expect(field).toBeChecked();
+        } finally {
+            setCurrentContext(null);
+        }
+    });
+}
+
+for (const language of ["zh-CN", "en-GB"]) {
+    test(`${language} home resets filters by the actual accessible action name`, async ({ page }) => {
+        const visible = language === "zh-CN" ? "全部重置" : "Reset all";
+        const accessible = language === "zh-CN" ? "重置全部筛选" : "Reset all";
+        await page.setContent(`<button aria-label="${accessible}" onclick="this.dataset.clicked='true'">${visible}</button><button>重置价格</button>`);
+        const context = {};
+        LanguageHelper.setForContext(context, await LanguageHelper.createInstance(language));
+        setCurrentContext(context);
+        try {
+            const reset = new Home(page, { version: "6.7.16.0", isSaaS: false, isPaaS: false, features: {} }).resetAllButton;
+            await reset.click({ timeout: 1000 });
+            await expect(reset).toHaveAttribute("data-clicked", "true");
+            await expect(reset).toHaveText(visible);
+        } finally {
+            setCurrentContext(null);
+        }
+    });
+}
+
+for (const [language, prefix] of [
+    ["zh-CN", "含"],
+    ["zh-CN", "另加"],
+    ["en-GB", "incl."],
+    ["en-GB", "plus"],
+]) {
+    test(`${language} account history reads ${prefix} tax values only for the requested order`, async ({ page }) => {
+        const order = language === "zh-CN" ? "订单号" : "Order number";
+        const suffix = language === "zh-CN" ? "% 税" : "% VAT";
+        const shipping = language === "zh-CN" ? "运费：" : "Shipping costs:";
+        const total = language === "zh-CN" ? "总额：" : "Total (gross):";
+        await page.setContent(
+            `<ul><li><div aria-label="${order} 10007"><dl><dt>${shipping}</dt><dd>¥5.00</dd><dt>${prefix} 19${suffix}</dt><dd>¥3.19</dd><dt>${prefix} 7${suffix}</dt><dd>¥1.31</dd><dt>${prefix} 0${suffix}</dt><dd>¥0.00</dd><dt>${prefix} 7.5${suffix}</dt><dd>¥0.75</dd><dt>${total}</dt><dd>¥99.00</dd></dl></div></li><li><div aria-label="${order} 10008"><dl><dt>${prefix} 19${suffix}</dt><dd>¥9.99</dd></dl></div></li></ul>`
+        );
+        const context = {};
+        LanguageHelper.setForContext(context, await LanguageHelper.createInstance(language));
+        setCurrentContext(context);
+        try {
+            const summary = await new AccountOrder(page).getOrderByOrderNumber("10007");
+            await expect(summary.taxPrice).toHaveText(["¥3.19", "¥1.31", "¥0.00", "¥0.75"], { timeout: 1000 });
+        } finally {
+            setCurrentContext(null);
+        }
+    });
+}

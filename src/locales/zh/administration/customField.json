@@ -5,7 +5,7 @@
         "required": "必填",
         "position": "排序位置",
         "customFieldSet": "自定义字段集",
-        "labelEnglishGB": "标签（英语（英国））"
+        "labelEnglishGB": "标签 (英语（英国）)"
     },
     "listing": {
         "addCustomField": "添加自定义字段",
@@ -24,9 +24,9 @@
         "placeholder": "占位符",
         "type": "类型",
         "modifiableViaStoreApi": "可通过 Store API 修改",
-        "placeholderEnglishGB": "占位符（英语（英国））",
-        "helpTextEnglishGB": "帮助文本（英语（英国））",
-        "availableInShoppingCart": "可在购物车中使用",
+        "placeholderEnglishGB": "占位符 (英语（英国）)",
+        "helpTextEnglishGB": "帮助文本 (英语（英国）)",
+        "availableInShoppingCart": "在购物车中可用",
         "select": "选择 ...",
         "newCustomField": "新建自定义字段",
         "editCustomField": "编辑自定义字段",

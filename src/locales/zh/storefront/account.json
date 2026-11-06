@@ -43,7 +43,7 @@
         "orderNumber": "订单号",
         "plusVat": "另加",
         "includeVat": "含",
-        "vatSuffix": "% 增值税",
+        "vatSuffix": "% 税",
         "shippingCosts": "运费：",
         "totalGross": "总额：",
         "headlineCompletePayment": "完成支付",

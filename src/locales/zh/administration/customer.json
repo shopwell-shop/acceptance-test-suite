@@ -17,10 +17,10 @@
         "accountStatus": "账户状态",
         "customerGroup": "客户组",
         "language": "语言",
-        "customerGroupRequestMessage": "已申请加入客户组“{{customerGroup}}”。"
+        "customerGroupRequestMessage": "已申请访问客户组 \"{{customerGroup}}\"。"
     },
     "bulkEdit": {
-        "headline": "批量编辑：{{count}} 位客户",
+        "headline": "批量修改：{{count}} 位客户",
         "applyChanges": "应用更改",
         "success": "批量修改 - 成功",
         "close": "关闭",

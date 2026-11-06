@@ -24,7 +24,7 @@
         "labelPrefix": "筛选条件：",
         "manufacturer": "品牌",
         "price": "价格",
-        "resetAll": "全部重置",
+        "resetAll": "重置全部筛选",
         "freeShipping": "添加筛选：包邮",
         "rating": "最低评分",
         "minRating": "最低 {{rating}}/5",

@@ -1,5 +1,13 @@
 # Changelog
 
+## 14.0.3 (2026-11-06)
+
+- Search customer groups before bulk-edit selection, including results beyond the first page.
+- Assert order-state fields using the current entity content language independently of the administration interface locale.
+
+- Match the Chinese customer bulk-edit heading and customer-group access request notice.
+- Match Chinese contact email and submit controls, tax suffixes, filter-reset accessibility, and custom-field language and cart-availability labels.
+
 ## 14.0.2 (2026-11-06)
 
 - Match the Chinese street label in the shared address resources so the public address creation task and address editor can save real storefront addresses.
