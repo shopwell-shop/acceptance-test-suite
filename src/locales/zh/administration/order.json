@@ -2,7 +2,8 @@
     "detail": {
         "items": "项目",
         "sendDocument": "发送单据",
-        "openActionsMenu": "打开操作菜单"
+        "openActionsMenu": "打开操作菜单",
+        "openState": "未处理"
     },
     "contextMenu": {
         "sendDocument": "发送单据",

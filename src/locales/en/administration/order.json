@@ -2,7 +2,8 @@
     "detail": {
         "items": "Items",
         "sendDocument": "Send document",
-        "openActionsMenu": "Open actions menu"
+        "openActionsMenu": "Open actions menu",
+        "openState": "Open"
     },
     "contextMenu": {
         "sendDocument": "Send document",
