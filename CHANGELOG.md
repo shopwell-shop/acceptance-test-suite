@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.0.2 (2026-11-06)
+
+- Match the Chinese street label in the shared address resources so the public address creation task and address editor can save real storefront addresses.
+
 ## 14.0.1 (2026-11-06)
 
 - Resolve the default invoice payment method independently of translated names, preserving explicit name lookups.

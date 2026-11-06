@@ -3,7 +3,7 @@
         "name": "姓名",
         "company": "公司",
         "department": "部门",
-        "street": "街道",
+        "street": "详细地址",
         "postalCode": "邮编"
     },
     "actions": {
