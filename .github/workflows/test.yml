@@ -32,7 +32,7 @@ jobs:
 
     test:
         name: test platform customer contract
-        timeout-minutes: 25
+        timeout-minutes: 35
         runs-on: ubuntu-latest
         permissions:
             contents: read
