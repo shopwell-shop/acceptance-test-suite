@@ -63,3 +63,49 @@ for (const gender of [undefined, "female"]) {
         }
     });
 }
+
+test("Default payment lookup uses the stable handler while explicit names remain supported", async ({ playwright }) => {
+    const server = createServer(async (request, response) => {
+        let body = "";
+        for await (const chunk of request) body += chunk;
+        const { filter } = JSON.parse(body) as { filter: { field: string; value: string }[] };
+        const match = filter[0];
+        const defaultInvoice = match.field === "handlerIdentifier" && match.value === "Shopwell\\Core\\Checkout\\Payment\\Cart\\PaymentHandler\\InvoicePayment";
+        const customInvoice = match.field === "name" && match.value === "Custom invoice";
+        response.setHeader("Content-Type", "application/json");
+        response.end(JSON.stringify({ data: defaultInvoice ? [{ id: "invoice-id", name: "发票" }] : customInvoice ? [{ id: "custom-id", name: "Custom invoice" }] : [] }));
+    });
+    await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
+    const address = server.address();
+    if (!address || typeof address === "string") throw new Error("Missing API test server address");
+    const appUrl = `http://127.0.0.1:${address.port}/`;
+    const context = await playwright.request.newContext({ baseURL: appUrl });
+    try {
+        const api = new AdminApiContext(context, {
+            app_url: appUrl,
+            client_id: "",
+            client_secret: "",
+            access_token: "",
+            admin_username: "",
+            admin_password: "",
+            ignoreHTTPSErrors: false,
+            authMaxRetries: 0,
+            authBaseDelayMs: 0,
+        });
+        const ids = new IdProvider(0, "payment-contract");
+        const service = new TestDataService(api, ids, {
+            defaultSalesChannel: { id: ids.getIdPair().uuid },
+            defaultTaxId: ids.getIdPair().uuid,
+            defaultCurrencyId: ids.getIdPair().uuid,
+            defaultCategoryId: ids.getIdPair().uuid,
+            defaultLanguageId: ids.getIdPair().uuid,
+            defaultCountryId: ids.getIdPair().uuid,
+            defaultCustomerGroupId: ids.getIdPair().uuid,
+        });
+        expect(await service.getPaymentMethod()).toEqual({ id: "invoice-id", name: "发票" });
+        expect(await service.getPaymentMethod("Custom invoice")).toEqual({ id: "custom-id", name: "Custom invoice" });
+    } finally {
+        await context.dispose();
+        await new Promise<void>((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));
+    }
+});

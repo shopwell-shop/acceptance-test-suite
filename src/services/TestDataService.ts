@@ -1797,19 +1797,19 @@ export class TestDataService {
     }
 
     /**
-     * Retrieves a payment method by its name.
+     * Retrieves a payment method by its name, or the default invoice handler.
      *
-     * @param name - The name of the payment method. Default is "Invoice".
+     * @param name - The explicit name of the payment method.
      */
-    async getPaymentMethod(name = "Invoice"): Promise<PaymentMethod> {
+    async getPaymentMethod(name?: string): Promise<PaymentMethod> {
         const response = await this.AdminApiClient.post("search/payment-method", {
             data: {
                 limit: 1,
                 filter: [
                     {
                         type: "equals",
-                        field: "name",
-                        value: name,
+                        field: name === undefined ? "handlerIdentifier" : "name",
+                        value: name ?? "Shopwell\\Core\\Checkout\\Payment\\Cart\\PaymentHandler\\InvoicePayment",
                     },
                 ],
             },

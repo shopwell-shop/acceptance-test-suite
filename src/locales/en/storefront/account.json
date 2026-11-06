@@ -1,4 +1,5 @@
 {
+    "registrationEmailSubject": "Your sign-up with {{salesChannel}}",
     "common": {
         "gender": "Gender",
         "name": "Name",

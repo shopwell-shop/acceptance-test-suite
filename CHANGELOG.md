@@ -1,5 +1,12 @@
 # Changelog
 
+## 14.0.1 (2026-11-06)
+
+- Resolve the default invoice payment method independently of translated names, preserving explicit name lookups.
+- Scope login controls to the login form and use the current Chinese email and promotion labels.
+- Identify checkout totals and terms consent by their supported DOM structure.
+- Exercise real storefront registration for email delivery, show the optional delivery-address column before asserting it, and wait for selected order-state values.
+
 ## 14.0.0 (2026-11-06)
 
 ### Breaking changes

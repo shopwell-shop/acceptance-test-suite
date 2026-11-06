@@ -49,9 +49,9 @@ export class AccountLogin implements PageObject {
 
     constructor(page: Page) {
         this.page = page;
-        this.emailInput = page.getByLabel(translate("storefront:login:emailAddress"));
-        this.passwordInput = page.getByLabel(translate("storefront:login:password"));
-        this.loginButton = page.getByRole("button", { name: translate("storefront:login:loginButton") });
+        this.emailInput = page.locator("form.login-form").getByLabel(translate("storefront:login:emailAddress"));
+        this.passwordInput = page.locator("form.login-form").getByLabel(translate("storefront:login:password"));
+        this.loginButton = page.getByRole("button", { name: translate("storefront:login:loginButton"), exact: true });
         this.forgotPasswordLink = page.getByRole("link", { name: translate("storefront:login:forgotPassword") });
         this.logoutLink = page.getByRole("link", { name: translate("storefront:login:logout") });
         this.invalidCredentialsAlert = page.getByText(translate("storefront:login:invalidCredentials"));

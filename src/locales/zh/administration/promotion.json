@@ -22,7 +22,7 @@
         "edit": "编辑",
         "delete": "删除",
         "duplicate": "复制",
-        "addDiscount": "新建折扣"
+        "addDiscount": "添加折扣"
     },
     "fields": {
         "priority": "优先级"

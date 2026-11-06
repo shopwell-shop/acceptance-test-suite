@@ -16,7 +16,7 @@ export class AccountOrderEdit extends BaseAccount {
         this.headline = page.getByRole("heading", { name: translate("storefront:account:orders.headlineCompletePayment") });
         this.paymentMethodRadioGroup = page.locator(".checkout-card", { hasText: translate("storefront:checkout:common.paymentMethod") });
         this.shippingMethodRadioGroup = page.locator(".checkout-card", { hasText: translate("storefront:checkout:common.shippingMethod") });
-        this.grandTotalPrice = page.locator(`dt:has-text('${translate("storefront:checkout:common.grandTotal")}') + dd`);
+        this.grandTotalPrice = page.locator("dd.checkout-aside-summary-total:visible");
         this.taxPrice = page.locator(`dt:text-matches("${translate("storefront:checkout:common.plusVat")} [0-9]\\+\\?${translate("storefront:checkout:common.vatSuffix")}") + dd`);
         this.completePaymentButton = page.getByRole("button", { name: translate("storefront:account:orders.buttonCompletePayment") });
         this.editCompletedHeadline = page.getByRole("heading", { name: translate("storefront:account:orders.editCompleted") });

@@ -15,6 +15,8 @@
         "documents": "Documents"
     },
     "listing": {
+        "settings": "List settings",
+        "deliveryAddress": "Delivery address",
         "addOrder": "Add order"
     },
     "actions": {

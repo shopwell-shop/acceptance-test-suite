@@ -7,6 +7,8 @@ import { satisfies } from "compare-versions";
 export class OrderListing implements PageObject {
     public readonly addOrderButton: Locator;
     public readonly orderRows: Locator;
+    public readonly listSettingsButton: Locator;
+    public readonly deliveryAddressColumnCheckbox: Locator;
     public readonly page: Page;
     public readonly instanceMeta: HelperFixtureTypes["InstanceMeta"];
 
@@ -15,6 +17,8 @@ export class OrderListing implements PageObject {
         this.instanceMeta = instanceMeta;
         this.addOrderButton = page.getByText(translate("administration:order:listing.addOrder"));
         this.orderRows = page.getByRole("row");
+        this.listSettingsButton = page.getByRole("button", { name: translate("administration:order:listing.settings"), exact: true });
+        this.deliveryAddressColumnCheckbox = page.getByRole("checkbox", { name: translate("administration:order:listing.deliveryAddress"), exact: true });
     }
 
     async getLineItemByOrderNumber(orderNumber: string) {
