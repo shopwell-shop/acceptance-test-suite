@@ -1,7 +1,6 @@
 import { test as base, expect } from "@playwright/test";
 import type { FixtureTypes } from "../types/FixtureTypes";
 import type { Customer, SalesChannel } from "../types/ShopwellTypes";
-import type { components } from "@shopwell/api-client/admin-api-types";
 import { getCountryAddressData } from "../services/ShopwellDataHelpers";
 
 export interface StoreBaseConfig {
@@ -146,15 +145,12 @@ export const test = base.extend<NonNullable<unknown>, FixtureTypes>({
             expect(syncResp.ok()).toBeTruthy();
 
             const salesChannelPromise = AdminApiContext.get(`./sales-channel/${uuid}`);
-            const salutationResponse = await AdminApiContext.get(`./salutation`);
-            const salutations = (await salutationResponse.json()) as { data: components["schemas"]["Salutation"][] };
             const addressData = getCountryAddressData();
 
             const customerData = {
                 id: customerUuid,
                 email: `customer_${id}@example.com`,
                 password: "shopwell",
-                salutationId: salutations.data[0].id,
                 languageId: SalesChannelBaseConfig.currentLanguageId,
 
                 defaultShippingAddress: {
@@ -163,7 +159,6 @@ export const test = base.extend<NonNullable<unknown>, FixtureTypes>({
                     street: addressData.street,
                     zipcode: addressData.postalCode,
                     countryId: SalesChannelBaseConfig.currentCountryId,
-                    salutationId: salutations.data[0].id,
                 },
                 defaultBillingAddress: {
                     name: `${id} admin`,
@@ -171,7 +166,6 @@ export const test = base.extend<NonNullable<unknown>, FixtureTypes>({
                     street: addressData.street,
                     zipcode: addressData.postalCode,
                     countryId: SalesChannelBaseConfig.currentCountryId,
-                    salutationId: salutations.data[0].id,
                 },
 
                 name: `${id} admin`,

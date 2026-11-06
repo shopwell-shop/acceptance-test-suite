@@ -5,7 +5,7 @@
     },
     "form": {
         "contact": "Contact",
-        "salutation": "Salutation",
+        "gender": "Gender",
         "name": "Name",
         "emailAddress": "Your email address",
         "phone": "Phone",
@@ -17,5 +17,10 @@
     "email": {
         "from": "doNotReply@localhost.com",
         "subject": "Your sign-up"
+    },
+    "revocation": {
+        "button": "Revoke a contract",
+        "privacyNotice": "Our Privacy Notice is available",
+        "privacyLink": "here"
     }
 }

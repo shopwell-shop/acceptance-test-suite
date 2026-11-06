@@ -1,0 +1,21 @@
+{
+    "pageNotFound": {
+        "title": "页面未找到",
+        "backToShop": "返回首页"
+    },
+    "home": {
+        "yourAccount": "我的账户",
+        "manufacturerFilter": "品牌",
+        "priceFilter": "价格",
+        "resetAll": "全部重置",
+        "freeShipping": "包邮"
+    },
+    "footer": {
+        "contactForm": "联系表单"
+    },
+    "category": {
+        "sorting": "排序",
+        "addToCart": "加入购物车",
+        "noProductsFound": "未找到商品。"
+    }
+}

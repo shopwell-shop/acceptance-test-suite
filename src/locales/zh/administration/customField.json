@@ -1,0 +1,48 @@
+{
+    "common": {
+        "technicalName": "技术名称",
+        "type": "类型",
+        "required": "必填",
+        "position": "排序位置",
+        "customFieldSet": "自定义字段集",
+        "labelEnglishGB": "标签 (英语（英国）)"
+    },
+    "listing": {
+        "addCustomField": "添加自定义字段",
+        "addNewSet": "新建字段集"
+    },
+    "create": {
+        "title": "新建自定义字段",
+        "saveSuccess": "自定义字段已成功创建。",
+        "assignTo": "用于",
+        "save": "保存",
+        "cancel": "取消"
+    },
+    "detail": {
+        "label": "标签",
+        "helpText": "帮助文本",
+        "placeholder": "占位符",
+        "type": "类型",
+        "modifiableViaStoreApi": "可通过 Store API 修改",
+        "placeholderEnglishGB": "占位符 (英语（英国）)",
+        "helpTextEnglishGB": "帮助文本 (英语（英国）)",
+        "availableInShoppingCart": "在购物车中可用",
+        "select": "选择 ...",
+        "newCustomField": "新建自定义字段",
+        "editCustomField": "编辑自定义字段",
+        "add": "添加"
+    },
+    "general": {
+        "customFields": "自定义字段"
+    },
+    "actions": {
+        "edit": "编辑",
+        "delete": "删除",
+        "cancel": "取消",
+        "applyChanges": "应用更改"
+    },
+    "dialogs": {
+        "warning": "警告",
+        "deleteCustomField": "删除自定义字段"
+    }
+}

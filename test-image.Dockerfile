@@ -46,6 +46,8 @@ ENV COMPOSER_ROOT_VERSION=${COMPOSER_ROOT_VERSION}
 
 COPY --chown=www-data:www-data . /src
 
+FROM checkout-local AS checkout-platform
+
 FROM checkout-${SHOPWELL_BUILD_SOURCE} AS prepare
 SHELL ["/usr/bin/env", "bash", "-c"]
 
@@ -60,6 +62,7 @@ composer dump-autoload
 EOF
 
 FROM prepare AS build
+ARG SHOPWELL_BUILD_SOURCE
 SHELL ["/usr/bin/env", "bash", "-c"]
 
 WORKDIR /src
@@ -68,7 +71,13 @@ RUN --mount=type=cache,target=/tmp/.composer,uid=82,gid=82 \
     --mount=type=cache,target=/tmp/.npm,uid=82,gid=82 <<EOF
 set -euxo pipefail
 
-CI=1 SHOPWELL_SKIP_THEME_COMPILE=1 ./bin/build-js.sh
+if [[ "${SHOPWELL_BUILD_SOURCE}" == "platform" ]]; then
+    npm --prefix src/Administration/Resources/app/administration ci
+    npm --prefix src/Storefront/Resources/app/storefront ci
+    CI=1 SHOPWELL_SKIP_THEME_COMPILE=1 composer run build:js
+else
+    CI=1 SHOPWELL_SKIP_THEME_COMPILE=1 ./bin/build-js.sh
+fi
 composer dump-autoload --no-interaction --optimize --classmap-authoritative
 EOF
 

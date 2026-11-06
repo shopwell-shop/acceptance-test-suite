@@ -1,0 +1,15 @@
+{
+    "tabs": {
+        "general": "通用",
+        "products": "商品",
+        "theme": "主题",
+        "analytics": "分析"
+    },
+    "buttons": {
+        "addDomain": "添加域名",
+        "installExtension": "安装扩展"
+    },
+    "fields": {
+        "defaultPaymentMethod": "默认支付方式"
+    }
+}

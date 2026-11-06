@@ -1,6 +1,7 @@
 import type { Page, Locator } from "playwright-core";
 import type { PageObject } from "../../types/PageObject";
 import { translate } from "../../services/LanguageHelper";
+import { getLanguageCode } from "../../services/ShopwellDataHelpers";
 
 export class CheckoutConfirm implements PageObject {
     public readonly headline: Locator;
@@ -43,10 +44,13 @@ export class CheckoutConfirm implements PageObject {
     constructor(page: Page) {
         this.page = page;
         this.headline = page.getByRole("heading", { name: translate("storefront:checkout:confirm.completeOrder") });
-        this.termsAndConditionsCheckbox = page.getByLabel(translate("storefront:checkout:confirm.termsAndConditions"));
+        this.termsAndConditionsCheckbox = page.locator("#tos");
         this.immediateAccessToDigitalProductCheckbox = page.getByLabel(translate("storefront:checkout:confirm.immediateAccessToDigitalProduct"));
-        this.grandTotalPrice = page.locator(`dt:has-text('${translate("storefront:checkout:common.grandTotal")}') + dd`);
-        this.taxPrice = page.locator(`dt:text-matches("${translate("storefront:checkout:common.plusVat")} [0-9]\\+\\?${translate("storefront:checkout:common.vatSuffix")}") + dd`);
+        this.grandTotalPrice = page.locator("dd.checkout-aside-summary-total:visible");
+        this.taxPrice =
+            getLanguageCode() === "zh-CN"
+                ? page.locator("dd.summary-tax")
+                : page.locator(`dt:text-matches("${translate("storefront:checkout:common.plusVat")} [0-9]\\+\\?${translate("storefront:checkout:common.vatSuffix")}") + dd`);
         this.submitOrderButton = page.getByRole("button", { name: translate("storefront:checkout:confirm.submitOrder") });
 
         this.paymentMethodRadioGroup = page.locator(".checkout-card", { hasText: translate("storefront:checkout:common.paymentMethod") });

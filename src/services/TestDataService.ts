@@ -184,7 +184,7 @@ export class TestDataService {
             hash: customer.id || hash.uuid,
             status: "direct",
             languageId: customer.languageId ?? this.defaultLanguageId,
-            salutationId: customer.salutationId,
+            gender: customer.gender,
             confirmedAt: this.convertDateTime(new Date()),
             ...overrides,
         };
@@ -628,19 +628,15 @@ export class TestDataService {
      * Creates a new shop customer.
      *
      * @param overrides - Specific data overrides that will be applied to the customer data struct.
-     * @param salutationKey - The key of the salutation that should be used for the customer. Default is "mr".
      * @param salesChannel - The sales channel for which the customer should be registered.
      */
-    async createCustomer(overrides: Partial<Customer> = {}, salutationKey = "mr", salesChannel: SalesChannel = this.defaultSalesChannel): Promise<Customer> {
-        const salutation = await this.getSalutation(salutationKey);
-
+    async createCustomer(overrides: Partial<Customer> = {}, salesChannel: SalesChannel = this.defaultSalesChannel): Promise<Customer> {
         const basicCustomerStruct = this.getBasicCustomerStruct(
             salesChannel.id,
             salesChannel.customerGroupId,
             salesChannel.languageId,
             salesChannel.countryId,
             salesChannel.paymentMethodId,
-            salutation.id,
             overrides
         );
 
@@ -1801,19 +1797,19 @@ export class TestDataService {
     }
 
     /**
-     * Retrieves a payment method by its name.
+     * Retrieves a payment method by its name, or the default invoice handler.
      *
-     * @param name - The name of the payment method. Default is "Invoice".
+     * @param name - The explicit name of the payment method.
      */
-    async getPaymentMethod(name = "Invoice"): Promise<PaymentMethod> {
+    async getPaymentMethod(name?: string): Promise<PaymentMethod> {
         const response = await this.AdminApiClient.post("search/payment-method", {
             data: {
                 limit: 1,
                 filter: [
                     {
                         type: "equals",
-                        field: "name",
-                        value: name,
+                        field: name === undefined ? "handlerIdentifier" : "name",
+                        value: name ?? "Shopwell\\Core\\Checkout\\Payment\\Cart\\PaymentHandler\\InvoicePayment",
                     },
                 ],
             },
@@ -1888,31 +1884,6 @@ export class TestDataService {
         expect(response.ok()).toBeTruthy();
 
         const { data: result } = (await response.json()) as { data: Customer[] };
-
-        return result[0];
-    }
-
-    /**
-     * Retrieves a customer salutations by its key.
-     *
-     * @param key - The key of the salutation. Default is "mr".
-     */
-    async getSalutation(key = "mr") {
-        const response = await this.AdminApiClient.post("search/salutation", {
-            data: {
-                limit: 1,
-                filter: [
-                    {
-                        type: "equals",
-                        field: "salutationKey",
-                        value: key,
-                    },
-                ],
-            },
-        });
-        expect(response.ok()).toBeTruthy();
-
-        const { data: result } = await response.json();
 
         return result[0];
     }
@@ -2223,9 +2194,22 @@ export class TestDataService {
 
         await this.clearCaches();
 
-        return this.AdminApiClient.post("_action/sync", {
-            data: deleteOperations,
+        // Rules are referenced by entities that restrict their deletion (e.g. promotion persona rules).
+        // The sync API checks restrictions before executing any operation, so rules need their own sync after the others.
+        const { "delete-rule": deleteRuleOperation, ...otherDeleteOperations } = deleteOperations;
+        const deleteOperationsResponse = await this.AdminApiClient.post("_action/sync", {
+            data: otherDeleteOperations,
         });
+        expect(deleteOperationsResponse.ok(), await deleteOperationsResponse.text()).toBeTruthy();
+
+        if (deleteRuleOperation) {
+            const deleteRulesResponse = await this.AdminApiClient.post("_action/sync", {
+                data: { "delete-rule": deleteRuleOperation },
+            });
+            expect(deleteRulesResponse.ok(), await deleteRulesResponse.text()).toBeTruthy();
+        }
+
+        return deleteOperationsResponse;
     }
 
     /**
@@ -2613,7 +2597,6 @@ export class TestDataService {
         languageId: string,
         countryId: string,
         defaultPaymentMethodId: string,
-        salutationId: string,
         overrides: Partial<Customer> = {}
     ): Partial<Customer> {
         const { id, uuid: customerUuid } = this.IdProvider.getIdPair();
@@ -2625,7 +2608,6 @@ export class TestDataService {
             id: customerUuid,
             email: `customer_${id}@example.com`,
             password: "shopwell",
-            salutationId: salutationId,
             languageId: languageId,
 
             defaultShippingAddress: {
@@ -2634,7 +2616,6 @@ export class TestDataService {
                 street: addressData.street,
                 zipcode: addressData.postalCode,
                 countryId: countryId,
-                salutationId: salutationId,
             },
             defaultBillingAddress: {
                 name: name,
@@ -2642,7 +2623,6 @@ export class TestDataService {
                 street: addressData.street,
                 zipcode: addressData.postalCode,
                 countryId: countryId,
-                salutationId: salutationId,
             },
 
             name: name,
@@ -2719,7 +2699,6 @@ export class TestDataService {
             shippingMethodId: shippingMethod.id,
             shippingOrderAddress: {
                 id: customerAddress.id,
-                salutationId: customerAddress.salutationId,
                 name: customerAddress.name,
                 street: customerAddress.street,
                 zipcode: customerAddress.zipcode,
@@ -2855,7 +2834,6 @@ export class TestDataService {
                 customerId: customer.id,
                 email: customer.email,
                 name: customer.name,
-                salutationId: customer.salutationId,
             },
             shippingCosts: {
                 unitPrice: shippingCosts,

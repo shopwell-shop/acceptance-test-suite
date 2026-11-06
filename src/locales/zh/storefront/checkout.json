@@ -1,0 +1,45 @@
+{
+    "common": {
+        "back": "返回",
+        "paymentMethod": "支付方式",
+        "cashOnDelivery": "货到付款",
+        "paidInAdvance": "预付款",
+        "invoice": "发票",
+        "shippingMethod": "配送方式",
+        "standard": "标准配送",
+        "express": "快递",
+        "grandTotal": "总额",
+        "plusVat": "另加",
+        "vatSuffix": "% 增值税"
+    },
+    "cart": {
+        "shoppingCart": "购物车",
+        "goToCheckout": "去结算",
+        "displayShoppingCart": "查看购物车",
+        "continueShopping": "继续购物",
+        "promoCode": "优惠券码",
+        "emptyCart": "购物车为空。",
+        "quantity": "数量",
+        "stockReached": "仅剩 1 件"
+    },
+    "confirm": {
+        "confirmOrder": "确认订单",
+        "orderSummary": "订单概览",
+        "shippingAddress": "收货地址",
+        "billingAddress": "账单地址",
+        "agreeToTerms": "我同意一般条款和条件",
+        "revocationNotice": "撤销权说明",
+        "completeOrder": "确认订单",
+        "submitOrder": "提交订单",
+        "termsAndConditions": "我已阅读并同意服务条款。",
+        "immediateAccessToDigitalProduct": "我同意立即获取数字内容，并知悉此时起丧失退换权。",
+        "autoConfirmTermsText": "提交订单即表示您接受我们的条款和条件及取消政策。",
+        "termsAndConditionsWithLegalGuaranteeRights": "我已阅读并接受一般条款和条件，并知悉我的法定保修权利。"
+    },
+    "finish": {
+        "thankYouForOrder": "感谢您的订购"
+    },
+    "orderEdit": {
+        "cancelOrder": "取消订单"
+    }
+}

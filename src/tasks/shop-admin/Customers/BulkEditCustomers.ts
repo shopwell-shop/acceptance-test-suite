@@ -26,9 +26,19 @@ export const BulkEditCustomers = base.extend<{ BulkEditCustomers: Task }, Fixtur
                 await ShopAdmin.expects(bulkEditPageHeadline).toBeVisible();
                 if (accountData) {
                     if (accountData.customerGroup) {
+                        const customerGroupName = accountData.customerGroup;
                         await AdminCustomerBulkEdit.changeCustomerGroupCheckbox.click();
+                        const groupsLoaded = AdminCustomerBulkEdit.page.waitForResponse(
+                            (response) => response.url().includes("/search/customer-group") && response.request().method() === "POST"
+                        );
                         await AdminCustomerBulkEdit.customerGroupInput.click();
-                        await AdminCustomerBulkEdit.filtersResultPopoverItemList.getByText(accountData.customerGroup).click();
+                        await ShopAdmin.expects((await groupsLoaded).ok()).toBeTruthy();
+                        const groupSearched = AdminCustomerBulkEdit.page.waitForResponse(
+                            (response) => response.url().includes("/search/customer-group") && response.request().postDataJSON()?.term === customerGroupName
+                        );
+                        await AdminCustomerBulkEdit.customerGroupInput.locator("input").fill(customerGroupName);
+                        await ShopAdmin.expects((await groupSearched).ok()).toBeTruthy();
+                        await AdminCustomerBulkEdit.filtersResultPopoverItemList.getByText(customerGroupName, { exact: true }).click();
                     }
                     if (accountData.accountStatus !== undefined) {
                         await AdminCustomerBulkEdit.changeAccountStatusCheckbox.click();

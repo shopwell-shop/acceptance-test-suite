@@ -1,6 +1,7 @@
 import { test as base, expect } from "@playwright/test";
 import type { Task } from "../../../types/Task";
 import type { FixtureTypes } from "../../../types/FixtureTypes";
+import { getCountryAddressData } from "../../../services/ShopwellDataHelpers";
 import type { components } from "@shopwell/api-client/admin-api-types";
 
 /**
@@ -9,17 +10,15 @@ import type { components } from "@shopwell/api-client/admin-api-types";
 
 export const RegisterGuest = base.extend<{ RegisterGuest: Task }, FixtureTypes>({
     RegisterGuest: async ({ StorefrontAccountLogin, AdminApiContext }, use) => {
+        const addressData = getCountryAddressData();
         const registrationData = {
             name: "Jeff Goldblum",
             email: "invalid",
             password: "shopwell",
-            street: "Ebbinghoff 10",
-            city: "Schöppingen",
-            country: "Germany",
-            postalCode: "48624",
+            ...addressData,
         };
 
-        const task = (email: string, country = "Germany") => {
+        const task = (email: string, country = addressData.country) => {
             return async function RegisterGuest() {
                 registrationData.email = email;
 
@@ -29,11 +28,7 @@ export const RegisterGuest = base.extend<{ RegisterGuest: Task }, FixtureTypes>(
 
                 await StorefrontAccountLogin.streetAddressInput.fill(registrationData.street);
                 await StorefrontAccountLogin.cityInput.fill(registrationData.city);
-                if (country != "Germany") {
-                    await StorefrontAccountLogin.countryInput.selectOption(country);
-                } else {
-                    await StorefrontAccountLogin.countryInput.selectOption(registrationData.country);
-                }
+                await StorefrontAccountLogin.countryInput.selectOption({ label: country });
                 await StorefrontAccountLogin.postalCodeInput.fill(registrationData.postalCode);
 
                 await StorefrontAccountLogin.registerButton.click();

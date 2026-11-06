@@ -1,6 +1,7 @@
 import type { Page, Locator } from "playwright-core";
 import type { PageObject } from "../../types/PageObject";
 import { translate } from "../../services/LanguageHelper";
+import { getLanguageCode } from "../../services/ShopwellDataHelpers";
 
 export class CheckoutFinish implements PageObject {
     public readonly headline: Locator;
@@ -10,14 +11,15 @@ export class CheckoutFinish implements PageObject {
     public readonly cartLineItemImages: Locator;
     public readonly page: Page;
 
-    private readonly orderNumberRegex = /Your order number: #(\d+)/;
-
     constructor(page: Page) {
         this.page = page;
-        this.headline = page.getByRole("heading", { name: translate("storefront:checkout:finish.thankYouForOrder") });
-        this.orderNumberText = page.getByText(this.orderNumberRegex);
-        this.grandTotalPrice = page.locator(`dt:has-text("${translate("storefront:checkout:common.grandTotal")}") + dd`);
-        this.taxPrice = page.locator(`dt:text-matches("${translate("storefront:checkout:common.plusVat")} [0-9]\\+\\?${translate("storefront:checkout:common.vatSuffix")}") + dd`);
+        this.headline = page.locator("h1.finish-header");
+        this.orderNumberText = page.locator(".finish-ordernumber[data-order-number]");
+        this.grandTotalPrice = page.locator("dd.checkout-aside-summary-total:visible");
+        this.taxPrice =
+            getLanguageCode() === "zh-CN"
+                ? page.locator("dd.summary-tax")
+                : page.locator(`dt:text-matches("${translate("storefront:checkout:common.plusVat")} [0-9]\\+\\?${translate("storefront:checkout:common.vatSuffix")}") + dd`);
         this.cartLineItemImages = page.locator(".line-item-img-link");
     }
 
@@ -26,18 +28,7 @@ export class CheckoutFinish implements PageObject {
     }
 
     async getOrderNumber(): Promise<string | null> {
-        const orderNumberText = await this.orderNumberText.textContent();
-
-        let orderNumber = null;
-        if (orderNumberText !== null) {
-            const matches = orderNumberText.match(this.orderNumberRegex);
-
-            if (matches !== null && matches.length) {
-                orderNumber = matches[1];
-            }
-        }
-
-        return orderNumber;
+        return this.orderNumberText.getAttribute("data-order-number");
     }
 
     getOrderId(): string {

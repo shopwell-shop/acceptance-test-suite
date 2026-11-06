@@ -6,6 +6,10 @@
         "analytics": "Analytics"
     },
     "buttons": {
-        "addDomain": "Add domain"
+        "addDomain": "Add domain",
+        "installExtension": "Install extension"
+    },
+    "fields": {
+        "defaultPaymentMethod": "Default payment method"
     }
 }

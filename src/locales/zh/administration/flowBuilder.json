@@ -1,0 +1,48 @@
+{
+    "listing": {
+        "addFlow": "添加流程",
+        "delete": "删除",
+        "downloadFlow": "下载流程",
+        "testFlow": "测试流程",
+        "flowTemplates": "流程模板"
+    },
+    "create": {
+        "title": "新建流程",
+        "saveSuccess": "流程已成功创建。",
+        "addAction": "添加操作",
+        "addConditionIf": "添加条件 (如果)",
+        "addActionThen": "添加操作 (则)",
+        "newFlow": "新建流程",
+        "name": "名称",
+        "description": "描述",
+        "priority": "优先级",
+        "active": "启用",
+        "tags": "标签"
+    },
+    "detail": {
+        "priority": "优先级",
+        "trigger": "触发器",
+        "actions": "操作",
+        "name": "名称"
+    },
+    "templates": {
+        "title": "流程模板",
+        "useTemplate": "使用模板",
+        "createFromTemplate": "从模板创建新流程",
+        "createNewFlowFromTemplate": "从模板创建新流程"
+    },
+    "messages": {
+        "deleteConfirmation": "删除此流程后，将不再为该触发器执行操作。确定要删除此流程吗？",
+        "templateReadOnly": "流程模板无法编辑。"
+    },
+    "triggers": {
+        "checkout": "结账",
+        "order": "订单",
+        "placed": "已下单"
+    },
+    "actions": {
+        "mailSend": "发送邮件",
+        "addTag": "分配标签",
+        "labelTag": "标签: {{tagNames}}"
+    }
+}

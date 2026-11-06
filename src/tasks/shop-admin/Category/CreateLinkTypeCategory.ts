@@ -9,6 +9,20 @@ export const CreateLinkTypeCategory = base.extend<{ CreateLinkTypeCategory: Task
     CreateLinkTypeCategory: async ({ AdminCategories, AdminCategoryDetail, TestDataService }, use) => {
         const task = (categoryData: CategoryData, categoryCustomizableLinkData: CategoryCustomizableLinkData, parentCategoryName: string) => {
             return async function CreateLinkTypeCategory() {
+                const categoryTypes = {
+                    Link: translate("administration:category:types.link"),
+                    "Page / List": translate("administration:category:types.page"),
+                    "Structuring element / Entry point": translate("administration:category:types.folder"),
+                };
+                const linkTypes = {
+                    Internal: translate("administration:category:linkTypes.internal"),
+                    External: translate("administration:category:linkTypes.external"),
+                };
+                const entities = {
+                    Category: translate("administration:category:entities.category"),
+                    Product: translate("administration:category:entities.product"),
+                    "Landing page": translate("administration:category:entities.landingPage"),
+                };
                 await AdminCategories.getTreeItemContextButton(parentCategoryName).click();
                 await AdminCategories.page.getByText(translate("administration:category:actions.newCategoryAfter")).click();
                 await AdminCategories.createCategoryInput.fill(categoryData.name);
@@ -19,11 +33,11 @@ export const CreateLinkTypeCategory = base.extend<{ CreateLinkTypeCategory: Task
                 await AdminCategories.nameInput.fill(categoryData.name);
                 await AdminCategories.activeCheckbox.setChecked(categoryData.status);
                 await AdminCategories.categoryTypeSelectionList.click();
-                await AdminCategories.filtersResultPopoverItemList.filter({ hasText: categoryData.categoryType }).click();
+                await AdminCategories.filtersResultPopoverItemList.filter({ hasText: categoryTypes[categoryData.categoryType] }).click();
                 await AdminCategories.linkTypeSelectionList.click();
-                await AdminCategories.filtersResultPopoverItemList.filter({ hasText: categoryCustomizableLinkData.linkType }).click();
+                await AdminCategories.filtersResultPopoverItemList.filter({ hasText: linkTypes[categoryCustomizableLinkData.linkType] }).click();
                 await AdminCategories.entitySelectionList.click();
-                await AdminCategories.filtersResultPopoverItemList.filter({ hasText: categoryCustomizableLinkData.entity }).click();
+                await AdminCategories.filtersResultPopoverItemList.filter({ hasText: entities[categoryCustomizableLinkData.entity] }).click();
 
                 let locator: Locator;
                 switch (categoryCustomizableLinkData.entity) {

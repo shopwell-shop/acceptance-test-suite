@@ -1,0 +1,13 @@
+{
+    "common": {
+        "name": "名称",
+        "availabilityRule": "可用性规则",
+        "cashOnDelivery": "货到付款",
+        "paidInAdvance": "预付款",
+        "invoice": "发票"
+    },
+    "detail": {},
+    "methods": {
+        "customPaymentMethod": "自定义支付方式"
+    }
+}

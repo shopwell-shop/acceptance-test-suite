@@ -6,7 +6,7 @@ import { translate } from "../../services/LanguageHelper";
 export class AccountProfile extends BaseAccount {
     public readonly page: Page;
     public readonly instanceMeta: HelperFixtureTypes["InstanceMeta"];
-    public readonly salutationSelect: Locator;
+    public readonly genderSelect: Locator;
     public readonly nameInput: Locator;
     public readonly saveProfileButton: Locator;
 
@@ -33,7 +33,7 @@ export class AccountProfile extends BaseAccount {
         super(page);
         this.page = page;
         this.instanceMeta = instanceMeta;
-        this.salutationSelect = page.getByLabel(translate("storefront:account:common.salutation"));
+        this.genderSelect = page.getByLabel(translate("storefront:account:common.gender"));
         this.nameInput = page.getByLabel(translate("storefront:account:common.name"));
         this.saveProfileButton = page.locator("#profilePersonalForm").getByRole("button", { name: translate("storefront:account:profile.saveChanges") });
 

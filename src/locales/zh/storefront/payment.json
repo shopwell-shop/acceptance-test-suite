@@ -1,0 +1,11 @@
+{
+    "methods": {
+        "cashOnDelivery": "货到付款",
+        "paidInAdvance": "预付款",
+        "invoice": "发票"
+    },
+    "actions": {
+        "change": "修改",
+        "completePayment": "完成支付"
+    }
+}

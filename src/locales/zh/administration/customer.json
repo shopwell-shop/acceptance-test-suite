@@ -1,0 +1,40 @@
+{
+    "listing": {
+        "customers": "客户",
+        "bulkEdit": "批量修改",
+        "startBulkEdit": "开始批量修改",
+        "cancel": "取消",
+        "delete": "删除",
+        "bulkEditItemsSelected": "批量修改 - 已选 {{count}} 个元素"
+    },
+    "detail": {
+        "edit": "编辑",
+        "general": "基本信息",
+        "addresses": "地址",
+        "orders": "订单",
+        "accept": "接受",
+        "decline": "拒绝",
+        "accountStatus": "账户状态",
+        "customerGroup": "客户组",
+        "language": "语言",
+        "customerGroupRequestMessage": "已申请访问客户组 \"{{customerGroup}}\"。"
+    },
+    "bulkEdit": {
+        "headline": "批量修改：{{count}} 位客户",
+        "applyChanges": "应用更改",
+        "success": "批量修改 - 成功",
+        "close": "关闭",
+        "changes": {
+            "customerGroup": "修改：客户组",
+            "accountStatus": "修改：账户状态",
+            "language": "修改：语言",
+            "replyToRequest": "回复：客户组申请",
+            "tags": "修改：标签"
+        },
+        "placeholders": {
+            "selectCustomerGroup": "选择客户组...",
+            "selectLanguage": "选择语言...",
+            "selectCustomerGroupRequestReply": "选择回复方式..."
+        }
+    }
+}

@@ -1,6 +1,7 @@
 import type { components } from "@shopwell/api-client/admin-api-types";
 
-export type NewsletterRecipient = components["schemas"]["NewsletterRecipient"] & {
+export type NewsletterRecipient = Omit<components["schemas"]["NewsletterRecipient"], "salutation" | "salutationId"> & {
+    gender?: string | null;
     id: string;
     email: string;
     salesChannelId: string;
@@ -15,16 +16,16 @@ export type SalesChannelDomain = components["schemas"]["SalesChannelDomain"] & {
     id: string;
 };
 
-export type Customer = Omit<components["schemas"]["Customer"], "defaultShippingAddress" | "defaultBillingAddress"> & {
+export type Customer = Omit<components["schemas"]["Customer"], "defaultShippingAddress" | "defaultBillingAddress" | "salutation" | "salutationId"> & {
     id: string;
     password: string;
+    gender?: string | null;
     defaultShippingAddress: {
         name: string;
         city: string;
         street: string;
         zipcode: string;
         countryId: string;
-        salutationId: string;
     };
     defaultBillingAddress: {
         name: string;
@@ -32,7 +33,6 @@ export type Customer = Omit<components["schemas"]["Customer"], "defaultShippingA
         street: string;
         zipcode: string;
         countryId: string;
-        salutationId: string;
     };
 };
 
@@ -46,13 +46,12 @@ export type AclRole = components["schemas"]["AclRole"] & {
     privileges: string[];
 };
 
-export type CustomerAddress = components["schemas"]["CustomerAddress"] & {
+export type CustomerAddress = Omit<components["schemas"]["CustomerAddress"], "salutation" | "salutationId"> & {
     id: string;
 };
 
 export interface Address {
     id: string;
-    salutation: string;
     name: string;
     company: string;
     department: string;
@@ -62,10 +61,6 @@ export interface Address {
     country: string;
     state: string;
 }
-
-export type Salutation = components["schemas"]["Salutation"] & {
-    id: string;
-};
 
 export interface Price {
     gross: number;
@@ -278,9 +273,9 @@ export type SalesChannelAnalytics = components["schemas"]["SalesChannelAnalytics
 };
 
 export interface RegistrationData {
+    gender?: string;
     isCommercial: boolean;
     isGuest: boolean;
-    salutation: string;
     name: string;
     email: string;
     password: string;

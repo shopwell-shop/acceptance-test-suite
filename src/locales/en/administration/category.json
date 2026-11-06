@@ -25,6 +25,15 @@
         "entity": "Entity",
         "openInNewTab": "Open in new tab"
     },
+    "types": {
+        "link": "Link",
+        "page": "Page / List",
+        "folder": "Structuring element / Entry point"
+    },
+    "linkTypes": {
+        "internal": "Internal",
+        "external": "External"
+    },
     "headings": {
         "landingPages": "Landing pages"
     },

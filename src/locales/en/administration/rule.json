@@ -20,5 +20,26 @@
     "text": {
         "ruleNotInUse": "This rule is not in use",
         "filter": "Filter"
+    },
+    "conditions": {
+        "quantity": "Total product quantity (units)",
+        "inStock": "Item in stock",
+        "dateRange": "Date range",
+        "timeRange": "Time range",
+        "customerName": "Customer name",
+        "taxRate": "Item with tax rate",
+        "adminOrder": "Order created by administrator",
+        "withoutTime": "Excluding timestamp",
+        "any": "At least one",
+        "greaterThanEquals": "Is greater than / equal to",
+        "equals": "Is equal to",
+        "isOneOf": "Is one of",
+        "no": "No"
+    },
+    "types": {
+        "price": "Price",
+        "shipping": "Shipping",
+        "payment": "Payment",
+        "flowBuilder": "Flow Builder"
     }
 }

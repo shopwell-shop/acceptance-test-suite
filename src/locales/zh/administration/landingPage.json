@@ -1,0 +1,29 @@
+{
+    "create": {
+        "title": "新建落地页",
+        "saveSuccess": "落地页已成功创建。",
+        "searchLayoutsPlaceholder": "搜索布局 ...",
+        "assignLayout": "分配布局",
+        "createNewLayout": "新建布局",
+        "selectLayout": "选择布局",
+        "applyLayout": "应用布局"
+    },
+    "detail": {
+        "name": "名称",
+        "active": "启用",
+        "salesChannel": "销售渠道",
+        "url": "URL"
+    },
+    "general": {
+        "name": "名称",
+        "save": "保存",
+        "active": "启用",
+        "salesChannels": "销售渠道",
+        "seoUrl": "SEO URL"
+    },
+    "layout": {
+        "layout": "布局",
+        "changeLayout": "修改布局",
+        "editInDesigner": "在设计器中编辑"
+    }
+}

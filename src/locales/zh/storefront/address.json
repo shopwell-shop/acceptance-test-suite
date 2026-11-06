@@ -1,0 +1,23 @@
+{
+    "common": {
+        "name": "姓名",
+        "company": "公司",
+        "department": "部门",
+        "street": "详细地址",
+        "postalCode": "邮编"
+    },
+    "actions": {
+        "editAddress": "编辑",
+        "useAsDefaultBilling": "设为默认账单地址",
+        "useAsDefaultShipping": "设为默认收货地址",
+        "addressOptions": "地址选项",
+        "deleteAddress": "删除地址"
+    },
+    "badges": {
+        "defaultBilling": "默认账单地址",
+        "defaultShipping": "默认收货地址"
+    },
+    "messages": {
+        "deliveryNotPossible": "该国家不支持配送。"
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "buttons": {
+        "agree": "同意",
+        "disableDataSharing": "停用数据共享",
+        "allowAll": "全部允许",
+        "rejectAll": "全部拒绝",
+        "savePreferences": "保存选择",
+        "declineUsageData": "拒绝",
+        "giveConsentUsageData": "同意"
+    },
+    "checkboxes": {
+        "shareStoreData": "共享店铺数据（匿名）",
+        "shareUsageData": "共享使用数据"
+    },
+    "headlines": {
+        "consentModal": "帮助我们改进 Shopwell",
+        "storeData": "店铺数据",
+        "usageData": "使用数据",
+        "dataConsent": "数据授权"
+    },
+    "links": {
+        "storeDataCollectionDetails": "此处",
+        "privacyPolicy": "隐私政策"
+    },
+    "messages": {
+        "storeData": "来自你 Shopwell 环境的匿名数据（如 订单、诊断数据 和 店铺数据）可帮助我们改进功能。所有数据概览和协议详情请见此处。",
+        "usageData": "我们使用你在后台操作中的个人使用数据来持续改进易用性。详情请见我们的隐私政策。",
+        "sharingData": "您正在与我们共享数据",
+        "termsAgreement": "点击“同意”即表示您确认已获授权代表公司签订此协议。"
+    }
+}

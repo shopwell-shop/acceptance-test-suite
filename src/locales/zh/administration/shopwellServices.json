@@ -1,0 +1,23 @@
+{
+    "headings": {
+        "futureProofStore": "用 Shopwell 云服务让你的商店保持领先"
+    },
+    "buttons": {
+        "activateServices": "启用",
+        "grantPermissions": "授予权限",
+        "deactivate": "禁用",
+        "exploreNow": "立即探索"
+    },
+    "modals": {
+        "deactivateServices": "停用"
+    },
+    "messages": {
+        "accessDenied": "访问被拒绝"
+    },
+    "links": {
+        "shopwellServices": "云服务"
+    },
+    "dashboard": {
+        "shopwellServicesIntroduction": "探索云服务"
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "listing": {
+        "addManufacturer": "添加制造商"
+    },
+    "create": {
+        "name": "名称",
+        "website": "网站",
+        "save": "保存",
+        "cancel": "取消"
+    },
+    "detail": {
+        "customFields": "自定义字段"
+    },
+    "actions": {
+        "edit": "编辑",
+        "delete": "删除",
+        "cancel": "取消"
+    },
+    "dialogs": {
+        "warning": "警告"
+    }
+}

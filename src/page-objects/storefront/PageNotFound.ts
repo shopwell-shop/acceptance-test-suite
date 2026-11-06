@@ -15,7 +15,7 @@ export class PageNotFound implements PageObject {
         this.pageNotFoundImage = page.getByAltText(translate("storefront:pageNotFound:title"));
         this.headline = page.getByRole("heading", { name: translate("storefront:pageNotFound:title") });
         this.pageNotFoundMessage = page.getByText(translate("storefront:pageNotFound:message"));
-        this.backToShopButton = page.getByRole("link", { name: translate("storefront:pageNotFound:backToShop") });
+        this.backToShopButton = page.getByRole("main").getByRole("link", { name: translate("storefront:pageNotFound:backToShop") });
     }
 
     url() {

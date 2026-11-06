@@ -1,0 +1,18 @@
+{
+    "title": "购物车",
+    "emptyCart": "您的购物车为空",
+    "quantity": "数量",
+    "remove": "移除",
+    "subtotal": "小计",
+    "goToCart": "前往购物车",
+    "continueShopping": "继续购物",
+    "addedToCart": "已加入购物车",
+    "general": {
+        "title": "购物车"
+    },
+    "buttons": {
+        "goToCheckout": "去结算",
+        "goToCart": "查看购物车",
+        "continueShopping": "继续购物"
+    }
+}

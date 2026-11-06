@@ -1,0 +1,27 @@
+{
+    "title": "联系我们",
+    "link": {
+        "contactForm": "联系我们"
+    },
+    "form": {
+        "contact": "联系我们",
+        "gender": "性别",
+        "name": "姓名",
+        "email": "您的邮箱",
+        "phone": "手机号",
+        "subject": "主题",
+        "comment": "留言内容",
+        "submit": "发送",
+        "privacyPolicy": "选择继续即表示您确认已阅读并同意我们的",
+        "emailAddress": "邮箱"
+    },
+    "email": {
+        "from": "doNotReply@localhost.com",
+        "subject": "您的注册"
+    },
+    "revocation": {
+        "button": "申请退换",
+        "privacyNotice": "我们的隐私政策见",
+        "privacyLink": "此处"
+    }
+}

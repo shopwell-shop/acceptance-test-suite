@@ -47,8 +47,8 @@ export class AccountAddresses extends BaseAccount {
     private buildAddressRegex(data: Partial<Address>): RegExp {
         const parts = [data.name, data.street, data.zipcode, data.city].filter(Boolean);
 
-        const pattern = parts.map((p) => this.escapeRegex(p!)).join(".*");
-        return new RegExp(pattern);
+        const pattern = parts.map((p) => `(?=.*${this.escapeRegex(p!)})`).join("");
+        return new RegExp(pattern, "s");
     }
 
     private escapeRegex(text: string): string {

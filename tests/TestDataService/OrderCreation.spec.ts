@@ -8,11 +8,12 @@ test("Order creation with TestDataService", async ({ TestDataService, AdminApiCo
     const customer = await TestDataService.createCustomer({ name: "Luke Skywalker" });
     expect(customer.name).toEqual("Luke Skywalker");
 
+    const firstPromoCode = `code1234+${TestDataService.IdProvider.getIdPair().id}`;
     const promotionWithCode = await TestDataService.createPromotionWithCode({
-        code: "code1234",
+        code: firstPromoCode,
         discounts: [{ scope: "cart", type: "absolute", value: 10, considerAdvancedRules: false }],
     });
-    expect(promotionWithCode.code).toEqual("code1234");
+    expect(promotionWithCode.code).toEqual(firstPromoCode);
     expect(promotionWithCode.discounts[0].type).toEqual("absolute");
 
     const promoCode = `myCode+${TestDataService.IdProvider.getIdPair().id}`;

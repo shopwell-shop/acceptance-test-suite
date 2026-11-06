@@ -1,6 +1,5 @@
 {
     "common": {
-        "salutation": "Salutation",
         "name": "Name",
         "company": "Company",
         "department": "Department",

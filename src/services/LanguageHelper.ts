@@ -4,7 +4,7 @@ import type { TranslationKey, I18nextInstance } from "../types/TranslationTypes"
 import { BUNDLED_RESOURCES } from "../locales";
 import { getLocale } from "./ShopwellDataHelpers";
 
-// Map a raw input (e.g. "en-GB,fr;q=0.8") to a folder like "en" / "de"
+// Map a raw input (e.g. "en-GB,fr;q=0.8") to a folder like "en" / "zh"
 function normalizeLanguage(input?: string) {
     if (!input) return "en";
     const first = input
@@ -123,7 +123,7 @@ function fallbackTranslate(key: TranslationKey, customResources?: typeof BUNDLED
     const [area, namespace, ...keyPath] = key.split(":");
 
     const language = getLocale();
-    const normalizedLang = language.toLowerCase().startsWith("de") ? "de" : "en";
+    const normalizedLang = language.toLowerCase().startsWith("zh") ? "zh" : "en";
 
     const resources = customResources?.[normalizedLang] || BUNDLED_RESOURCES[normalizedLang];
 

@@ -1,0 +1,44 @@
+{
+    "listing": {
+        "addPromotion": "添加促销活动"
+    },
+    "create": {
+        "title": "新建促销活动",
+        "saveSuccess": "促销活动已成功创建。"
+    },
+    "detail": {
+        "name": "名称",
+        "active": "启用",
+        "code": "代码",
+        "discountType": "折扣类型",
+        "value": "值",
+        "validFrom": "生效时间",
+        "validUntil": "失效时间"
+    },
+    "actions": {
+        "save": "保存",
+        "cancel": "取消",
+        "addPromotion": "新建促销活动",
+        "edit": "编辑",
+        "delete": "删除",
+        "duplicate": "复制",
+        "addDiscount": "添加折扣"
+    },
+    "fields": {
+        "priority": "优先级"
+    },
+    "tabs": {
+        "general": "通用",
+        "conditions": "条件",
+        "discounts": "折扣"
+    },
+    "headings": {
+        "promotionCodes": "促销代码"
+    },
+    "cards": {
+        "preConditions": "前提条件"
+    },
+    "sidebar": {
+        "refresh": "刷新"
+    }
+}

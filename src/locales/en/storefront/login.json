@@ -8,7 +8,7 @@
     "successfulLogout": "Successfully logged out.",
     "passwordUpdated": "Your password has been updated.",
     "register": {
-        "salutation": "Salutation",
+        "gender": "Gender",
         "name": "Name",
         "company": "Company",
         "department": "Department",

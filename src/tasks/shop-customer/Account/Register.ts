@@ -14,7 +14,6 @@ export const Register = base.extend<{ Register: Task }, FixtureTypes>({
         const defaultRegistrationData: RegistrationData = {
             isCommercial: false,
             isGuest: false,
-            salutation: "Mr.",
             name: "Jeff Goldblum",
             email: `${IdProvider.getIdPair().uuid}@test.com`,
             password: "shopwell",
@@ -36,15 +35,19 @@ export const Register = base.extend<{ Register: Task }, FixtureTypes>({
 
                 registeredEmail = registrationData.email;
 
-                await ShopCustomer.presses(StorefrontAccountLogin.salutationSelect);
-                await StorefrontAccountLogin.salutationSelect.selectOption(registrationData.salutation);
-                await ShopCustomer.fillsIn(StorefrontAccountLogin.nameInput, registrationData.name);
+                const pathname = new URL(StorefrontAccountLogin.page.url()).pathname.replace(/\/+$/, "");
+                const addressRequired = !/\/account\/(login|register)$/.test(pathname);
 
-                // Deprecation warning for the 'isCommercial' argument
-                if (registrationData.isCommercial || isCommercial) {
-                    await ShopCustomer.fillsIn(StorefrontAccountLogin.companyInput, registrationData.company);
-                    await ShopCustomer.fillsIn(StorefrontAccountLogin.departmentInput, registrationData.department);
-                    await ShopCustomer.fillsIn(StorefrontAccountLogin.vatRegNoInput, registrationData.vatRegNo);
+                if (addressRequired) {
+                    await ShopCustomer.fillsIn(StorefrontAccountLogin.nameInput, registrationData.name);
+                    if (registrationData.gender) {
+                        await StorefrontAccountLogin.genderSelect.selectOption(registrationData.gender);
+                    }
+                    if (registrationData.isCommercial || isCommercial) {
+                        await ShopCustomer.fillsIn(StorefrontAccountLogin.companyInput, registrationData.company);
+                        await ShopCustomer.fillsIn(StorefrontAccountLogin.departmentInput, registrationData.department);
+                        await ShopCustomer.fillsIn(StorefrontAccountLogin.vatRegNoInput, registrationData.vatRegNo);
+                    }
                 }
 
                 await ShopCustomer.fillsIn(StorefrontAccountLogin.registerEmailInput, registrationData.email);
@@ -53,11 +56,13 @@ export const Register = base.extend<{ Register: Task }, FixtureTypes>({
                     await ShopCustomer.fillsIn(StorefrontAccountLogin.registerPasswordInput, registrationData.password);
                 }
 
-                await ShopCustomer.fillsIn(StorefrontAccountLogin.streetAddressInput, registrationData.street);
-                await ShopCustomer.fillsIn(StorefrontAccountLogin.postalCodeInput, registrationData.postalCode);
-                await ShopCustomer.fillsIn(StorefrontAccountLogin.cityInput, registrationData.city);
-                await ShopCustomer.presses(StorefrontAccountLogin.countryInput);
-                await StorefrontAccountLogin.countryInput.selectOption({ label: registrationData.country });
+                if (addressRequired) {
+                    await ShopCustomer.fillsIn(StorefrontAccountLogin.streetAddressInput, registrationData.street);
+                    await ShopCustomer.fillsIn(StorefrontAccountLogin.postalCodeInput, registrationData.postalCode);
+                    await ShopCustomer.fillsIn(StorefrontAccountLogin.cityInput, registrationData.city);
+                    await ShopCustomer.presses(StorefrontAccountLogin.countryInput);
+                    await StorefrontAccountLogin.countryInput.selectOption({ label: registrationData.country });
+                }
 
                 await ShopCustomer.presses(StorefrontAccountLogin.registerButton);
 

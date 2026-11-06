@@ -1,0 +1,48 @@
+{
+    "general": {
+        "name": "名称",
+        "active": "启用",
+        "save": "保存",
+        "cancel": "取消",
+        "delete": "删除",
+        "customFields": "自定义字段"
+    },
+    "actions": {
+        "createCategory": "创建分类",
+        "addLandingPage": "添加着陆页",
+        "configureHomePage": "配置首页",
+        "newCategoryAfter": "在下方新建分类"
+    },
+    "tabs": {
+        "general": "通用",
+        "products": "商品",
+        "layout": "布局",
+        "seo": "SEO"
+    },
+    "fields": {
+        "categoryType": "分类类型",
+        "linkType": "链接类型",
+        "entity": "实体",
+        "openInNewTab": "在新标签页打开"
+    },
+    "types": {
+        "link": "链接",
+        "page": "页面 / 列表",
+        "folder": "结构元素 / 入口点"
+    },
+    "linkTypes": {
+        "internal": "内部",
+        "external": "外部"
+    },
+    "headings": {
+        "landingPages": "落地页"
+    },
+    "errors": {
+        "entityTypeNotFound": "未找到实体类型"
+    },
+    "entities": {
+        "category": "分类",
+        "product": "商品",
+        "landingPage": "落地页"
+    }
+}

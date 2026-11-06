@@ -1,0 +1,21 @@
+{
+    "dataSharing": {
+        "agree": "同意",
+        "notAtTheMoment": "暂时不用",
+        "acceptMessage": "感谢您的参与！",
+        "notAtTheMomentMessage": "您可以随时同意此协议，参与并受益于我们服务的持续改进。",
+        "agreementText": "点击“同意”即表示您确认已获授权代表公司签订此协议。"
+    },
+    "shopwellServices": {
+        "close": "关闭",
+        "exploreNow": "立即探索"
+    },
+    "userMenu": {
+        "logout": "退出登录",
+        "offCanvasToggle": "展开菜单"
+    },
+    "order": {
+        "orderTitle": "订单",
+        "orderOverview": "销售订单"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "buttons": {
+        "uploadFile": "上传文件",
+        "addNewFolder": "添加新文件夹"
+    },
+    "search": {
+        "placeholder": "搜索当前文件夹 ..."
+    },
+    "actions": {
+        "rename": "重命名",
+        "delete": "删除"
+    }
+}

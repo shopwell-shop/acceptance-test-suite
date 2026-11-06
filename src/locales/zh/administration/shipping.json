@@ -1,0 +1,20 @@
+{
+    "common": {
+        "name": "名称",
+        "availabilityRule": "可用性规则"
+    },
+    "listing": {
+        "addShippingMethod": "新建配送方式"
+    },
+    "detail": {},
+    "methods": {
+        "standard": "标准",
+        "express": "快递",
+        "customShippingMethod": "自定义配送方式"
+    },
+    "dialogs": {
+        "warning": "警告",
+        "cancel": "取消",
+        "delete": "删除"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "listing": {
+        "addDocument": "新建文档"
+    },
+    "types": {
+        "invoice": "发票"
+    },
+    "detail": {
+        "displayDocumentInMyAccount": "在“我的账户”中显示单据",
+        "displayDocumentInMyAccountSwitch": "\"我的账户\" 中的文档",
+        "save": "保存"
+    }
+}

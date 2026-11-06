@@ -55,7 +55,16 @@ export const CreateFlow = base.extend<{ CreateFlow: Task }, FixtureTypes>({
                 //await (await AdminFlowBuilderCreate.getSelectFieldListitem(AdminFlowBuilderCreate.trueBlockActionSelectField, `${flowConfig.trueAction}`)).click();
                 await ShopAdmin.expects(AdminFlowBuilderCreate.mailSendModal).toBeVisible();
                 // todo: As soon as mailSendModalTemplateSelectField is migrated to Meteor, remove the following three lines and use the commented line instead.
+                const mailTemplatesLoaded = AdminFlowBuilderCreate.page.waitForResponse(
+                    (response) => response.url().includes("/search/mail-template") && response.request().method() === "POST"
+                );
                 await AdminFlowBuilderCreate.mailSendModalTemplateSelectField.click();
+                ShopAdmin.expects((await mailTemplatesLoaded).ok()).toBeTruthy();
+                const mailTemplateSearched = AdminFlowBuilderCreate.page.waitForResponse(
+                    (response) => response.url().includes("/search/mail-template") && response.request().postDataJSON()?.term === flowConfig.trueActionIdentifier
+                );
+                await AdminFlowBuilderCreate.mailSendModalTemplateSelectField.locator("input").fill(flowConfig.trueActionIdentifier);
+                ShopAdmin.expects((await mailTemplateSearched).ok()).toBeTruthy();
                 await AdminFlowBuilderCreate.resultListItem.waitFor({ state: "visible" });
                 await AdminFlowBuilderCreate.resultListItem
                     .getByRole("listitem")
@@ -97,7 +106,9 @@ export const CreateFlow = base.extend<{ CreateFlow: Task }, FixtureTypes>({
                 // enough result list it can visually overlap and intercept the Add button below.
                 await AdminFlowBuilderCreate.tagModalTagsSelectField.press("Escape");
                 await AdminFlowBuilderCreate.modalAddButton.click();
-                await ShopAdmin.expects(AdminFlowBuilderCreate.falseBlockActionDescription).toContainText(`Tag: ${flowConfig.falseActionIdentifier}`);
+                await ShopAdmin.expects(AdminFlowBuilderCreate.falseBlockActionDescription).toContainText(
+                    translate("administration:flowBuilder:actions.labelTag", { tagNames: flowConfig.falseActionIdentifier })
+                );
                 await AdminFlowBuilderCreate.saveButton.click();
                 await ShopAdmin.expects(AdminFlowBuilderDetail.successMessage).toBeVisible();
                 const flowURL = AdminFlowBuilderDetail.page.url();

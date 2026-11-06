@@ -15,7 +15,7 @@ export const SaveProduct = base.extend<{ SaveProduct: Task }, FixtureTypes>({
                 // Assertions
                 expect(response.ok()).toBeTruthy();
                 await ShopAdmin.expects(AdminProductDetail.savePhysicalProductButton).toBeVisible();
-                await ShopAdmin.expects(AdminProductDetail.savePhysicalProductButton).toContainText("Save");
+                await ShopAdmin.expects(AdminProductDetail.savePhysicalProductButton).toContainText(translate("administration:product:buttons.save"));
                 await ShopAdmin.expects(AdminProductDetail.saveButtonCheckMark).toBeHidden();
                 await ShopAdmin.expects(AdminProductDetail.saveButtonLoadingSpinner).toBeHidden();
                 await ShopAdmin.expects(AdminProductDetail.page.getByText(translate("administration:product:errors.followingErrorOccurred"))).toBeHidden();
