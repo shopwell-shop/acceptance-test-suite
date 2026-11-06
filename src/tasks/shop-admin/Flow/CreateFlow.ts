@@ -55,7 +55,16 @@ export const CreateFlow = base.extend<{ CreateFlow: Task }, FixtureTypes>({
                 //await (await AdminFlowBuilderCreate.getSelectFieldListitem(AdminFlowBuilderCreate.trueBlockActionSelectField, `${flowConfig.trueAction}`)).click();
                 await ShopAdmin.expects(AdminFlowBuilderCreate.mailSendModal).toBeVisible();
                 // todo: As soon as mailSendModalTemplateSelectField is migrated to Meteor, remove the following three lines and use the commented line instead.
+                const mailTemplatesLoaded = AdminFlowBuilderCreate.page.waitForResponse(
+                    (response) => response.url().includes("/search/mail-template") && response.request().method() === "POST"
+                );
                 await AdminFlowBuilderCreate.mailSendModalTemplateSelectField.click();
+                ShopAdmin.expects((await mailTemplatesLoaded).ok()).toBeTruthy();
+                const mailTemplateSearched = AdminFlowBuilderCreate.page.waitForResponse(
+                    (response) => response.url().includes("/search/mail-template") && response.request().postDataJSON()?.term === flowConfig.trueActionIdentifier
+                );
+                await AdminFlowBuilderCreate.mailSendModalTemplateSelectField.locator("input").fill(flowConfig.trueActionIdentifier);
+                ShopAdmin.expects((await mailTemplateSearched).ok()).toBeTruthy();
                 await AdminFlowBuilderCreate.resultListItem.waitFor({ state: "visible" });
                 await AdminFlowBuilderCreate.resultListItem
                     .getByRole("listitem")

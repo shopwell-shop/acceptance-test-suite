@@ -9,6 +9,29 @@ test("CreateFlow retains the configured condition, email and tag with localized 
     CreateFlow,
     Translate,
 }) => {
+    const mailTemplateId = IdProvider.getIdPair().uuid;
+    const mailTemplateTypeId = IdProvider.getIdPair().uuid;
+    const mailTemplateName = `flow-mail-${IdProvider.getIdPair().id}`;
+    const mailTemplateResponse = await AdminApiContext.post("mail-template", {
+        data: {
+            id: mailTemplateId,
+            mailTemplateTypeId,
+            mailTemplateType: {
+                id: mailTemplateTypeId,
+                technicalName: `flow_contract_${mailTemplateTypeId}`,
+                name: mailTemplateName,
+                availableEntities: { order: "order" },
+            },
+            description: mailTemplateName,
+            senderName: "Flow contract",
+            subject: mailTemplateName,
+            contentHtml: "<p>Flow contract</p>",
+            contentPlain: "Flow contract",
+        },
+    });
+    expect(mailTemplateResponse.ok()).toBeTruthy();
+    TestDataService.addCreatedRecord("mail_template", mailTemplateId);
+    TestDataService.addCreatedRecord("mail_template_type", mailTemplateTypeId);
     const tag = await TestDataService.createTag(`flow-tag-${IdProvider.getIdPair().id}`);
     const rule = await TestDataService.createBasicRule();
     const name = `flow-${IdProvider.getIdPair().id}`;
@@ -23,7 +46,7 @@ test("CreateFlow retains the configured condition, email and tag with localized 
             triggerLabel: (["checkout", "order", "placed"] as const).map((part) => Translate(`administration:flowBuilder:triggers.${part}`)).join(" / "),
             condition: rule.name,
             trueAction: Translate("administration:flowBuilder:actions.mailSend"),
-            trueActionIdentifier: "Order confirmation",
+            trueActionIdentifier: mailTemplateName,
             falseAction: Translate("administration:flowBuilder:actions.addTag"),
             falseActionIdentifier: tag.name,
         })
@@ -41,7 +64,7 @@ test("CreateFlow retains the configured condition, email and tag with localized 
     expect(saved[0].sequences).toEqual(
         expect.arrayContaining([
             expect.objectContaining({ ruleId: rule.id }),
-            expect.objectContaining({ actionName: "action.mail.send", trueCase: true, config: expect.objectContaining({ mailTemplateId: expect.any(String) }) }),
+            expect.objectContaining({ actionName: "action.mail.send", trueCase: true, config: expect.objectContaining({ mailTemplateId }) }),
             expect.objectContaining({ actionName: "action.add.order.tag", trueCase: false, config: expect.objectContaining({ entity: "order", tagIds: { [tag.id]: tag.name } }) }),
         ])
     );
