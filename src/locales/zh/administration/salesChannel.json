@@ -6,6 +6,10 @@
         "analytics": "分析"
     },
     "buttons": {
-        "addDomain": "添加域名"
+        "addDomain": "添加域名",
+        "installExtension": "安装扩展"
+    },
+    "fields": {
+        "defaultPaymentMethod": "默认支付方式"
     }
 }

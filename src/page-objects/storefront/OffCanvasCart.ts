@@ -1,6 +1,7 @@
 import type { Page, Locator } from "playwright-core";
 import type { PageObject } from "../../types/PageObject";
 import { translate } from "../../services/LanguageHelper";
+import { getLanguageCode } from "../../services/ShopwellDataHelpers";
 
 export class OffCanvasCart implements PageObject {
     public readonly headline: Locator;
@@ -25,7 +26,7 @@ export class OffCanvasCart implements PageObject {
         this.continueShoppingButton = page.getByRole("button", { name: translate("storefront:checkout:cart.continueShopping") });
         this.enterPromoInput = page.locator('input[id="addPromotionOffcanvasCartInput"]');
         this.submitDiscountButton = page.locator("#addPromotionOffcanvasCart");
-        this.subTotalPrice = page.locator('dt:has-text("Subtotal") + dd:visible');
+        this.subTotalPrice = getLanguageCode() === "zh-CN" ? page.locator(".offcanvas-summary dd.summary-total:visible") : page.locator('dt:has-text("Subtotal") + dd:visible');
         this.shippingCosts = page.locator('dt:has-text("Shipping costs") + dd:visible');
         this.cartQuantityNumber = page.getByLabel(translate("storefront:product:quantity"), { exact: true });
     }

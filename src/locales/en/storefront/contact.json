@@ -17,5 +17,10 @@
     "email": {
         "from": "doNotReply@localhost.com",
         "subject": "Your sign-up"
+    },
+    "revocation": {
+        "button": "Revoke a contract",
+        "privacyNotice": "Our Privacy Notice is available",
+        "privacyLink": "here"
     }
 }

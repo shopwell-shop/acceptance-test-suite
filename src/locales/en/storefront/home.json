@@ -11,7 +11,8 @@
         "cookiePreferences": "Cookie preferences",
         "marketing": "Marketing",
         "statistics": "Statistics",
-        "save": "Save"
+        "save": "Save",
+        "description": "This website uses cookies to ensure the best experience possible."
     },
     "cookie": {
         "wishlist": {
@@ -26,7 +27,8 @@
         "resetAll": "Reset all",
         "freeShipping": "Add filter: Free shipping",
         "rating": "minimum rating",
-        "minRating": "min. {{rating}}/5"
+        "minRating": "min. {{rating}}/5",
+        "labelTemplate": "Filter by {{filterName}}"
     },
     "listing": {
         "addToShoppingCart": "Add to shopping cart"

@@ -11,10 +11,28 @@
         "title": "Title",
         "text": "Your review",
         "emptyText": "No reviews found. Share your insights with others.",
-        "submitMessage": "Thank you for submitting your review. We will examine the review and eventually unlock it, please be patient."
+        "submitMessage": "Thank you for submitting your review. We will examine the review and eventually unlock it, please be patient.",
+        "rating1": "Unsatisfactory",
+        "rating2": "Acceptable",
+        "rating3": "Good",
+        "rating4": "Very good",
+        "rating5": "Excellent",
+        "teaserTitle": "Leave a review!",
+        "teaserButton": "Write review",
+        "existsTitle": "You have already reviewed this product!",
+        "existsButton": "Edit review"
     },
     "listing": {
         "sorting": "Sorting",
         "noProductsFound": "No products found."
+    },
+    "pricing": {
+        "quantity": "Quantity",
+        "unitPrice": "Unit price",
+        "to": "To",
+        "from": "From",
+        "regulationPrice": "Lowest price (last 30 days): {{price}}",
+        "saving": "({{price}}% saved)",
+        "details": "Details"
     }
 }

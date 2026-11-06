@@ -20,7 +20,7 @@
         "promoCode": "优惠券码",
         "emptyCart": "购物车为空。",
         "quantity": "数量",
-        "stockReached": "仅剩 1 件可用"
+        "stockReached": "仅剩 1 件"
     },
     "confirm": {
         "confirmOrder": "确认订单",

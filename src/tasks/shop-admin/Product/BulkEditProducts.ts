@@ -2,6 +2,20 @@ import { test as base, expect } from "@playwright/test";
 import type { Task } from "../../../types/Task";
 import type { FixtureTypes } from "../../../types/FixtureTypes";
 import type { Product } from "../../../types/ShopwellTypes";
+import type { TranslationKey } from "../../../types/TranslationTypes";
+import { translate } from "../../../services/LanguageHelper";
+
+const methodTranslationKeys: Record<string, TranslationKey> = {
+    Overwrite: "administration:product:bulkEdit.methods.overwrite",
+    Clear: "administration:product:bulkEdit.methods.clear",
+    Add: "administration:product:bulkEdit.methods.add",
+    Remove: "administration:product:bulkEdit.methods.remove",
+};
+
+function getMethodLabel(method: string): string {
+    const key = methodTranslationKeys[method];
+    return key ? translate(key) : method;
+}
 
 interface Change {
     value: string;
@@ -70,7 +84,7 @@ export const BulkEditProducts = base.extend<{ BulkEditProducts: Task }, FixtureT
                 if (changes["stock"] != null) {
                     await AdminProductBulkEdit.changeStockCheckbox.click();
                     await AdminProductBulkEdit.stockChangeMethodDropdown.click();
-                    await (await AdminProductBulkEdit.getDropdownEntry(changes["stock"].method)).click();
+                    await (await AdminProductBulkEdit.getDropdownEntry(getMethodLabel(changes["stock"].method))).click();
                     if (changes["stock"].method != "Clear") {
                         await AdminProductBulkEdit.stockInput.fill(changes["stock"].value);
                     }
@@ -79,7 +93,7 @@ export const BulkEditProducts = base.extend<{ BulkEditProducts: Task }, FixtureT
                 if (changes["restockTime"] != null) {
                     await AdminProductBulkEdit.changeRestockTimeCheckbox.click();
                     await AdminProductBulkEdit.restockTimeChangeMethodDropdown.click();
-                    await (await AdminProductBulkEdit.getDropdownEntry(changes["restockTime"].method)).click();
+                    await (await AdminProductBulkEdit.getDropdownEntry(getMethodLabel(changes["restockTime"].method))).click();
                     if (changes["restockTime"].method != "Clear") {
                         await AdminProductBulkEdit.restockTimeInput.fill(changes["restockTime"].value);
                     }
@@ -88,7 +102,7 @@ export const BulkEditProducts = base.extend<{ BulkEditProducts: Task }, FixtureT
                 if (changes["tags"] != null) {
                     await AdminProductBulkEdit.changeTagsCheckbox.click();
                     await AdminProductBulkEdit.tagsChangeMethodDropdown.click();
-                    await (await AdminProductBulkEdit.getDropdownEntry(changes["tags"].method)).click();
+                    await (await AdminProductBulkEdit.getDropdownEntry(getMethodLabel(changes["tags"].method))).click();
                     if (changes["tags"].method != "Clear") {
                         // Opening the select loads an unfiltered first page; wait for it before typing so the term search is not dropped.
                         const initialLoad = AdminProductBulkEdit.page.waitForResponse(
@@ -116,7 +130,7 @@ export const BulkEditProducts = base.extend<{ BulkEditProducts: Task }, FixtureT
                 if (changes["saleschannel"] != null) {
                     await AdminProductBulkEdit.changeSalesChannelCheckbox.click();
                     await AdminProductBulkEdit.salesChannelChangeMethodDropdown.click();
-                    await (await AdminProductBulkEdit.getDropdownEntry(changes["saleschannel"].method)).click();
+                    await (await AdminProductBulkEdit.getDropdownEntry(getMethodLabel(changes["saleschannel"].method))).click();
                     if (changes["saleschannel"].method != "Clear") {
                         // Opening the select loads an unfiltered first page; wait for it before typing so the term search is not dropped.
                         const initialLoad = AdminProductBulkEdit.page.waitForResponse(

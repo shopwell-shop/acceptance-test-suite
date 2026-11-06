@@ -25,6 +25,15 @@
         "entity": "实体",
         "openInNewTab": "在新标签页打开"
     },
+    "types": {
+        "link": "链接",
+        "page": "页面 / 列表",
+        "folder": "结构元素 / 入口点"
+    },
+    "linkTypes": {
+        "internal": "内部",
+        "external": "外部"
+    },
     "headings": {
         "landingPages": "落地页"
     },

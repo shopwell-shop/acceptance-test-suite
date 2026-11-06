@@ -20,6 +20,7 @@
         "settings": "设置",
         "blocks": "区块",
         "navigator": "导航器",
-        "layoutAssignment": "布局分配"
+        "layoutAssignment": "布局分配",
+        "duplicate": "复制"
     }
 }

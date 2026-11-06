@@ -37,6 +37,24 @@
         "title": "标题",
         "text": "使用感受",
         "emptyText": "暂无评价，快来分享您的体验。",
-        "submitMessage": "感谢评价，我们将审核后发布。"
+        "submitMessage": "感谢评价，我们将审核后发布。",
+        "rating1": "很差",
+        "rating2": "一般",
+        "rating3": "还行",
+        "rating4": "满意",
+        "rating5": "很满意",
+        "teaserTitle": "评价此商品！",
+        "teaserButton": "写评价",
+        "existsTitle": "您已评价过此商品！",
+        "existsButton": "编辑评价"
+    },
+    "pricing": {
+        "quantity": "数量",
+        "unitPrice": "单价",
+        "to": "至",
+        "from": "起",
+        "regulationPrice": "过去 30 天最低价：{{price}}",
+        "saving": "（省 {{price}}%）",
+        "details": "详情"
     }
 }

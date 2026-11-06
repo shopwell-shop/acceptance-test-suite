@@ -26,7 +26,7 @@
         "changeEmail": "修改邮箱",
         "emailConfirmation": "确认邮箱",
         "emailUpdated": "邮箱修改成功",
-        "invalidEmail": "邮箱地址无效。",
+        "invalidEmail": "邮箱格式不正确，应为 \"user@example.com\"",
         "emailUpdateFailure": "邮箱修改失败",
         "passwordTooShort": "内容过短",
         "passwordUpdateFailure": "密码修改失败"
@@ -78,7 +78,7 @@
         "defaultPaymentMethod": "默认支付方式",
         "defaultBillingAddress": "默认账单地址",
         "defaultShippingAddress": "默认收货地址",
-        "customerGroupAccessRequested": "已申请加入客户组“{{customerGroup}}”。"
+        "customerGroupAccessRequested": "已提交加入客户组“{{customerGroup}}”的申请。"
     },
     "navigation": {
         "overview": "概览",

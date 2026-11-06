@@ -16,7 +16,9 @@
         "description": "Description"
     },
     "variants": {
-        "properties": "Properties"
+        "properties": "Properties",
+        "added": "will be added,",
+        "deleted": "will be deleted."
     },
     "flows": {
         "tag": "Tag:"
@@ -27,7 +29,13 @@
     "bulkEdit": {
         "applyChanges": "Apply changes",
         "success": "Bulk edit - Success",
-        "close": "Close"
+        "close": "Close",
+        "methods": {
+            "overwrite": "Overwrite",
+            "clear": "Clear",
+            "add": "Add",
+            "remove": "Remove"
+        }
     },
     "listing": {
         "addProduct": "Add product",

@@ -11,7 +11,8 @@
         "cookiePreferences": "Cookie 偏好",
         "marketing": "营销 Cookie",
         "statistics": "统计 Cookie",
-        "save": "保存"
+        "save": "保存",
+        "description": "本站使用 Cookie 以提供最佳体验。"
     },
     "cookie": {
         "wishlist": {
@@ -26,7 +27,8 @@
         "resetAll": "全部重置",
         "freeShipping": "添加筛选：包邮",
         "rating": "最低评分",
-        "minRating": "最低 {{rating}}/5"
+        "minRating": "最低 {{rating}}/5",
+        "labelTemplate": "按 {{filterName}} 筛选"
     },
     "listing": {
         "addToShoppingCart": "加入购物车"

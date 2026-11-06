@@ -20,5 +20,26 @@
     "text": {
         "ruleNotInUse": "此规则未被使用",
         "filter": "筛选"
+    },
+    "conditions": {
+        "quantity": "商品总量 (件)",
+        "inStock": "带库存的项目",
+        "dateRange": "日期范围",
+        "timeRange": "时间范围",
+        "customerName": "客户姓名",
+        "taxRate": "带税率的项目",
+        "adminOrder": "管理员创建的订单",
+        "withoutTime": "不含时间戳",
+        "any": "至少一个",
+        "greaterThanEquals": "大于/等于",
+        "equals": "等于",
+        "isOneOf": "是其中之一",
+        "no": "否"
+    },
+    "types": {
+        "price": "价格",
+        "shipping": "配送方式",
+        "payment": "支付方式",
+        "flowBuilder": "流程构建器"
     }
 }

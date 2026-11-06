@@ -3,7 +3,8 @@
         "searchLayoutsPlaceholder": "Search layouts...",
         "assignLayout": "Assign layout",
         "createNewLayout": "Create new layout",
-        "selectLayout": "Select layout"
+        "selectLayout": "Select layout",
+        "applyLayout": "Save"
     },
     "general": {
         "name": "Name",

@@ -5,7 +5,8 @@
         "searchLayoutsPlaceholder": "搜索布局 ...",
         "assignLayout": "分配布局",
         "createNewLayout": "新建布局",
-        "selectLayout": "选择布局"
+        "selectLayout": "选择布局",
+        "applyLayout": "应用布局"
     },
     "detail": {
         "name": "名称",

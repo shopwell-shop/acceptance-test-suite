@@ -3,6 +3,18 @@
 ## 14.0.2 (2026-11-06)
 
 - Match the Chinese street label in the shared address resources so the public address creation task and address editor can save real storefront addresses.
+- Match complete addresses independently of their country-specific display order.
+- Align Chinese email-validation, password-recovery, customer bulk-edit and checkout-tax locators with the current platform.
+- Translate link-category option labels at the task boundary while preserving its English semantic parameters.
+
+- Match Chinese cart subtotals, filter names, stock warnings, consent descriptions and customer-group notices.
+- Preserve English bulk-edit method parameters while selecting localized controls and asserting localized product saves.
+- Scope layout assignment, not-found navigation and the Chinese footer contact link to their exact actions.
+- Match the sales-order navigation and custom-field assignment labels in Chinese.
+- Match Chinese review login and rating filters, including complete rating labels with counts.
+- Assert the configured flow tag through its localized label.
+- Identify the Chinese invoice configuration by its exact document type, independently of configurable names.
+- Add paired public translation keys used by platform acceptance tests.
 
 ## 14.0.1 (2026-11-06)
 

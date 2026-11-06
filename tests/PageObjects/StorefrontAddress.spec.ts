@@ -26,8 +26,18 @@ test("Customers can create and edit a postal address through the public page obj
     await ShopCustomer.goesTo(StorefrontAccountAddresses.url());
     await ShopCustomer.attemptsTo(AddNewAddress(address));
 
-    const savedAddress = await StorefrontAccountAddresses.getAvailableAddress({ name: address.name });
+    const savedAddress = await StorefrontAccountAddresses.getAvailableAddress(address);
     await ShopCustomer.expects(savedAddress.address).toContainText(address.street);
+    for (const field of ["name", "street", "zipcode", "city"] as const) {
+        const mismatch = await StorefrontAccountAddresses.getAvailableAddress({ ...address, [field]: `${address[field]} missing` });
+        await ShopCustomer.expects(mismatch.address).toHaveCount(0);
+    }
+    await ShopCustomer.presses(savedAddress.addressActions);
+    await ShopCustomer.presses(savedAddress.useAsDefaultBillingButton);
+    await ShopCustomer.expects(await StorefrontAccountAddresses.getDefaultBillingAddress(address)).toBeVisible();
+    await ShopCustomer.presses(savedAddress.addressActions);
+    await ShopCustomer.presses(savedAddress.useAsDefaultShippingButton);
+    await ShopCustomer.expects(await StorefrontAccountAddresses.getDefaultShippingAddress(address)).toBeVisible();
     await ShopCustomer.presses(savedAddress.addressActions);
     await ShopCustomer.presses(savedAddress.editAddressButton);
 
@@ -47,7 +57,8 @@ test("Customers can create and edit a postal address through the public page obj
     const editedStreet = `${address.street} 2`;
     await ShopCustomer.fillsIn(StorefrontAccountAddressDetails.streetInput, editedStreet);
     await ShopCustomer.presses(StorefrontAccountAddressDetails.saveAddressButton);
-    await ShopCustomer.expects(savedAddress.address).toContainText(editedStreet);
+    const editedCard = await StorefrontAccountAddresses.getAvailableAddress({ ...address, street: editedStreet });
+    await ShopCustomer.expects(editedCard.address).toContainText(editedStreet);
 
     const editedAddress = await TestDataService.getCustomerAddress(addressId);
     expect(editedAddress).toMatchObject({

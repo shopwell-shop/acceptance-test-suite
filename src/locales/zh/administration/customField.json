@@ -14,7 +14,7 @@
     "create": {
         "title": "新建自定义字段",
         "saveSuccess": "自定义字段已成功创建。",
-        "assignTo": "分配给",
+        "assignTo": "用于",
         "save": "保存",
         "cancel": "取消"
     },

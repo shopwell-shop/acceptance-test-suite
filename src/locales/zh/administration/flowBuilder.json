@@ -32,6 +32,17 @@
         "createNewFlowFromTemplate": "从模板创建新流程"
     },
     "messages": {
-        "deleteConfirmation": "删除此流程后，将不再为该触发器执行操作。确定要删除此流程吗？"
+        "deleteConfirmation": "删除此流程后，将不再为该触发器执行操作。确定要删除此流程吗？",
+        "templateReadOnly": "流程模板无法编辑。"
+    },
+    "triggers": {
+        "checkout": "结账",
+        "order": "订单",
+        "placed": "已下单"
+    },
+    "actions": {
+        "mailSend": "发送邮件",
+        "addTag": "分配标签",
+        "labelTag": "标签: {{tagNames}}"
     }
 }

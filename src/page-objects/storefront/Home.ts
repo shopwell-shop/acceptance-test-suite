@@ -1,6 +1,7 @@
 import type { Page, Locator } from "playwright-core";
 import type { PageObject } from "../../types/PageObject";
 import { translate } from "../../services/LanguageHelper";
+import { getLanguageCode } from "../../services/ShopwellDataHelpers";
 import { satisfies } from "compare-versions";
 import type { HelperFixtureTypes } from "../../fixtures/HelperFixtures";
 
@@ -135,7 +136,10 @@ export class Home implements PageObject {
 
         this.offcanvasBackdrop = page.locator(".offcanvas-backdrop");
         this.mainNavigationLink = page.locator(".main-navigation-link-text");
-        this.contactFormLink = this.page.getByRole("listitem").getByTitle(translate("storefront:contact:link.contactForm"), { exact: true });
+        this.contactFormLink =
+            getLanguageCode() === "zh-CN"
+                ? this.page.locator(".footer-contact-form").getByTitle(translate("storefront:contact:link.contactForm"), { exact: true })
+                : this.page.getByRole("listitem").getByTitle(translate("storefront:contact:link.contactForm"), { exact: true });
 
         //wishlist
         this.wishlistIcon = page.locator(".header-wishlist-icon");
@@ -171,7 +175,11 @@ export class Home implements PageObject {
     }
 
     async getFilterButtonByFilterName(filterName: string): Promise<Locator> {
-        return this.filterMultiSelect.getByRole("button", { name: `${translate("storefront:home:filters.labelPrefix").concat(filterName)}` });
+        const name =
+            getLanguageCode() === "zh-CN"
+                ? translate("storefront:home:filters.labelTemplate", { filterName })
+                : `${translate("storefront:home:filters.labelPrefix").concat(filterName)}`;
+        return this.filterMultiSelect.getByRole("button", { name });
     }
 
     async getMenuItemByCategoryName(categoryName: string): Promise<Record<string, Locator>> {

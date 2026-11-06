@@ -1,7 +1,7 @@
 {
     "title": "联系我们",
     "link": {
-        "contactForm": "联系表单"
+        "contactForm": "联系我们"
     },
     "form": {
         "contact": "联系我们",
@@ -18,5 +18,10 @@
     "email": {
         "from": "doNotReply@localhost.com",
         "subject": "您的注册"
+    },
+    "revocation": {
+        "button": "申请退换",
+        "privacyNotice": "我们的隐私政策见",
+        "privacyLink": "此处"
     }
 }

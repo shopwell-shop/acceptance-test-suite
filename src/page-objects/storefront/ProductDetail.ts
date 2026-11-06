@@ -2,6 +2,7 @@ import type { Page, Locator } from "playwright-core";
 import type { PageObject } from "../../types/PageObject";
 import type { Product } from "../../types/ShopwellTypes";
 import { translate } from "../../services/LanguageHelper";
+import { getLanguageCode } from "../../services/ShopwellDataHelpers";
 
 export class ProductDetail implements PageObject {
     public readonly addToCartButton: Locator;
@@ -85,7 +86,8 @@ export class ProductDetail implements PageObject {
         this.offCanvasCart = page.getByRole("dialog");
         this.offCanvasCartGoToCheckoutButton = page.getByRole("link", { name: translate("storefront:checkout:cart.goToCheckout") });
         this.offCanvasLineItemImages = page.locator(".line-item-img-link");
-        this.offCanvasSummaryTotalPrice = page.locator(".offcanvas-summary").locator('dt:has-text("Subtotal") + dd');
+        this.offCanvasSummaryTotalPrice =
+            getLanguageCode() === "zh-CN" ? page.locator(".offcanvas-summary dd.summary-total") : page.locator(".offcanvas-summary").locator('dt:has-text("Subtotal") + dd');
         this.offCanvasLineItemLabel = (productName: string) => page.getByRole("link", { name: productName });
         this.offCanvasLineItemProductNumber = (productNumber: string) => page.getByText(productNumber);
         this.offCanvasLineItemDeliveryDate = page.locator(".line-item-delivery-date");
@@ -120,8 +122,14 @@ export class ProductDetail implements PageObject {
         this.reviewEmptyListingText = this.page.getByText(translate("storefront:product:review.emptyText"));
         this.reviewLoginForm = this.page.locator(".product-detail-review-login");
         this.forgottenPasswordLink = this.page.getByRole("link", { name: translate("storefront:account:login.forgotPassword") });
-        this.reviewLoginButton = this.page.getByRole("button", { name: translate("storefront:account:login.logIn") });
-        this.reviewEmailInput = this.page.getByLabel(translate("storefront:account:login.email"));
+        this.reviewLoginButton =
+            getLanguageCode() === "zh-CN"
+                ? this.reviewLoginForm.getByRole("button", { name: translate("storefront:account:login.logIn"), exact: true })
+                : this.page.getByRole("button", { name: translate("storefront:account:login.logIn") });
+        this.reviewEmailInput =
+            getLanguageCode() === "zh-CN"
+                ? this.reviewLoginForm.getByLabel(translate("storefront:login:emailAddress"))
+                : this.page.getByLabel(translate("storefront:account:login.email"));
         this.reviewPasswordInput = this.page.getByLabel(translate("storefront:account:login.password"));
         this.reviewForm = this.page.locator(".product-detail-review-form");
         this.reviewTitleInput = this.page.getByLabel(translate("storefront:product:review.title"));
@@ -138,8 +146,13 @@ export class ProductDetail implements PageObject {
     }
 
     async getReviewFilterRowOptionsByName(filterOptionName: string) {
-        const rowLocators = this.page.locator(".product-detail-review-filter").filter({ hasText: filterOptionName });
-        const reviewFilterOptionCheckbox = rowLocators.getByLabel(filterOptionName);
+        const chineseFilterName = new RegExp(`^${filterOptionName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?:\\s*\\(\\d+\\))?$`);
+        const rowLocators =
+            getLanguageCode() === "zh-CN"
+                ? this.page.locator(".product-detail-review-filter").filter({ has: this.page.getByRole("checkbox", { name: chineseFilterName }) })
+                : this.page.locator(".product-detail-review-filter").filter({ hasText: filterOptionName });
+        const reviewFilterOptionCheckbox =
+            getLanguageCode() === "zh-CN" ? rowLocators.getByRole("checkbox", { name: chineseFilterName }) : rowLocators.getByLabel(filterOptionName);
         const reviewFilterOptionText = rowLocators.locator(".custom-control-label");
         const reviewFilterOptionPercentage = rowLocators.locator(".product-detail-review-share");
 

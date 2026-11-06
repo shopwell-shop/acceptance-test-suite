@@ -45,14 +45,14 @@ export class LandingPageCreate implements PageObject {
         this.layoutTab = page.getByRole("tab", { name: translate("administration:landingPage:layout.layout") });
         const layoutCardPreview = page.locator(".sw-category-layout-card__preview");
         this.layoutEmptyState = layoutCardPreview.locator(".is--empty");
-        this.assignLayoutButton = page.getByRole("button", { name: translate("administration:landingPage:create.assignLayout") });
+        this.assignLayoutButton = page.getByRole("button", { name: translate("administration:landingPage:create.assignLayout"), exact: true });
         this.createNewLayoutButton = page.getByRole("button", { name: translate("administration:landingPage:create.createNewLayout") });
         const layoutModal = page.getByRole("dialog", { name: translate("administration:landingPage:create.selectLayout") });
         this.searchLayoutInput = layoutModal.getByPlaceholder(translate("administration:landingPage:create.searchLayoutsPlaceholder"));
         this.layoutItems = layoutModal.locator(".sw-cms-list-item");
         const layoutTable = layoutModal.locator(".sw-data-grid__body");
         this.layoutCheckboxes = layoutTable.locator(".sw-field--checkbox__content");
-        this.layoutSaveButton = layoutModal.getByRole("button", { name: translate("administration:landingPage:general.save") });
+        this.layoutSaveButton = layoutModal.getByRole("button", { name: translate("administration:landingPage:create.applyLayout") });
     }
 
     url() {

@@ -97,7 +97,9 @@ export const CreateFlow = base.extend<{ CreateFlow: Task }, FixtureTypes>({
                 // enough result list it can visually overlap and intercept the Add button below.
                 await AdminFlowBuilderCreate.tagModalTagsSelectField.press("Escape");
                 await AdminFlowBuilderCreate.modalAddButton.click();
-                await ShopAdmin.expects(AdminFlowBuilderCreate.falseBlockActionDescription).toContainText(`Tag: ${flowConfig.falseActionIdentifier}`);
+                await ShopAdmin.expects(AdminFlowBuilderCreate.falseBlockActionDescription).toContainText(
+                    translate("administration:flowBuilder:actions.labelTag", { tagNames: flowConfig.falseActionIdentifier })
+                );
                 await AdminFlowBuilderCreate.saveButton.click();
                 await ShopAdmin.expects(AdminFlowBuilderDetail.successMessage).toBeVisible();
                 const flowURL = AdminFlowBuilderDetail.page.url();

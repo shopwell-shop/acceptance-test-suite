@@ -5,7 +5,7 @@
         "startBulkEdit": "开始批量修改",
         "cancel": "取消",
         "delete": "删除",
-        "bulkEditItemsSelected": "批量编辑 - 已选择 {{count}} 项"
+        "bulkEditItemsSelected": "批量修改 - 已选 {{count}} 个元素"
     },
     "detail": {
         "edit": "编辑",

@@ -37,7 +37,9 @@
         "followingErrorOccurred": "发生以下错误："
     },
     "variants": {
-        "properties": "属性"
+        "properties": "属性",
+        "added": "正在创建，",
+        "deleted": "将被删除。"
     },
     "flows": {
         "tag": "标签："
@@ -45,7 +47,13 @@
     "bulkEdit": {
         "applyChanges": "应用更改",
         "success": "批量修改 - 成功",
-        "close": "关闭"
+        "close": "关闭",
+        "methods": {
+            "overwrite": "覆盖",
+            "clear": "清空",
+            "add": "添加",
+            "remove": "移除"
+        }
     },
     "tabs": {
         "specifications": "规格",
