@@ -1,5 +1,12 @@
 # Changelog
 
+## [14.0.5](https://github.com/shopwell-shop/acceptance-test-suite/compare/v14.0.4...v14.0.5) (2026-11-07)
+
+
+### Bug Fixes
+
+* **acceptance:** align Chinese footer contact navigation ([7cf40e8](https://github.com/shopwell-shop/acceptance-test-suite/commit/7cf40e8607221c5077292d8b50e3ce58ae4aca76))
+
 ## 14.0.3 (2026-11-06)
 
 - Search customer groups before bulk-edit selection, including results beyond the first page.
