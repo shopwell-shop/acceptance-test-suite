@@ -14,6 +14,7 @@ import { CustomerListing } from "../src/page-objects/administration/CustomerList
 import { CustomerBulkEdit } from "../src/page-objects/administration/CustomerBulkEdit";
 import { CustomerDetail } from "../src/page-objects/administration/CustomerDetail";
 import { ContactForm } from "../src/page-objects/storefront/ContactForm";
+import { Footer } from "../src/page-objects/storefront/Footer";
 import { ProductDetail } from "../src/page-objects/storefront/ProductDetail";
 import { OffCanvasCart } from "../src/page-objects/storefront/OffCanvasCart";
 import { Home } from "../src/page-objects/storefront/Home";
@@ -338,6 +339,24 @@ test.describe("Chinese public contracts match rendered platform markup", () => {
 });
 
 for (const language of ["zh-CN", "en-GB"]) {
+    test(`${language} footer contact link opens the rendered contact form`, async ({ page }) => {
+        const label = language === "zh-CN" ? "联系我们" : "contact form";
+        await page.setContent(
+            `<footer><div class="footer-contact-form"><a href="/contact" onclick="event.preventDefault();this.dataset.clicked='true'">${label}</a></div></footer>`
+        );
+        const context = {};
+        LanguageHelper.setForContext(context, await LanguageHelper.createInstance(language));
+        setCurrentContext(context);
+        try {
+            const footer = new Footer(page);
+            await expect(footer.footerContactFormLink).toHaveAttribute("href", "/contact", { timeout: 1000 });
+            await footer.footerContactFormLink.click({ timeout: 1000 });
+            await expect(footer.footerContactFormLink).toHaveAttribute("data-clicked", "true");
+        } finally {
+            setCurrentContext(null);
+        }
+    });
+
     test(`${language} customer bulk-edit page locates its actual heading`, async ({ page }) => {
         const count = language === "zh-CN" ? 2 : 1;
         const heading = language === "zh-CN" ? "批量修改：2 位客户" : "Bulk edit: 1 customer";
