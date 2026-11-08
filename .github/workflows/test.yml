@@ -51,7 +51,7 @@ jobs:
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
               with:
                   repository: shopwell-shop/shopwell
-                  ref: 692e0dbe2747886c451ea23b8bd9277290b2bcfe
+                  ref: 69fec5243bce19717330702b4e8ee5abd9314398
                   path: .shopwell-platform
                   persist-credentials: false
 

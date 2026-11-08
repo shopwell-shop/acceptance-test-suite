@@ -18,7 +18,8 @@ import {
     type ProductReview,
     type User,
     type AclRole,
-    type CmsPage,
+    type ContentLayout,
+    type LandingPageContentLayout,
     type LandingPage,
     type SalesChannel,
 } from "../../src";
@@ -87,26 +88,31 @@ test("Data Service", async ({ TestDataService, AdminApiContext }) => {
     await TestDataService.assignManufacturerProduct(manufacturer.id, product.id);
     expect(product.manufacturerId).toBeDefined();
 
-    const cmsType = "product_detail";
-    const cmsPageName = "Custom product detail page";
-    const cmsPage = await TestDataService.createBasicPageLayout(cmsType, { name: cmsPageName });
-    expect(cmsPage.name).toEqual(cmsPageName);
-    expect(cmsPage.type).toEqual(cmsType);
+    const productLayout = await TestDataService.createBasicPageLayout("product", { name: "Custom product detail page" });
+    expect(productLayout.name).toEqual("Custom product detail page");
+    expect(productLayout.rootSource).toEqual("product");
 
-    const landingPageType = "landingpage";
-    const landingPageName = "Custom landing page";
-    const landingPageLayout = await TestDataService.createBasicPageLayout(landingPageType, { name: landingPageName });
-    expect(landingPageLayout.name).toEqual(landingPageName);
-    expect(landingPageLayout.type).toEqual(landingPageType);
+    const landingPageLayout = await TestDataService.createBasicPageLayout("landing_page", { name: "Custom landing page" });
+    expect(landingPageLayout.name).toEqual("Custom landing page");
+    expect(landingPageLayout.rootSource).toEqual("landing_page");
 
-    const customCategoryWithLandingPage = await TestDataService.createCategory({ name: "Category with landing page", cmsPageId: landingPageLayout.id });
-    expect(customCategoryWithLandingPage.cmsPageId).toEqual(landingPageLayout.id);
-    expect(customCategoryWithLandingPage.name).toEqual("Category with landing page");
+    const categoryLayout = await TestDataService.createBasicPageLayout("category", { name: "Custom category layout" });
+    const customCategory = await TestDataService.createCategory({ name: "Category with content layout" });
+    const categoryAssignmentId = TestDataService.IdProvider.getIdPair().uuid;
+    const categoryAssignmentResponse = await AdminApiContext.post("category-content-layout?_response=detail", {
+        data: { id: categoryAssignmentId, categoryId: customCategory.id, contentLayoutId: categoryLayout.id, salesChannelId: null },
+    });
+    expect(categoryAssignmentResponse.ok()).toBeTruthy();
+    TestDataService.addCreatedRecord("category_content_layout", categoryAssignmentId);
+    expect((await categoryAssignmentResponse.json()).data).toMatchObject({ categoryId: customCategory.id, contentLayoutId: categoryLayout.id });
+    expect(customCategory.name).toEqual("Category with content layout");
 
     const landingPage = await TestDataService.createLandingPage({ name: "Landing page with assigned layout" });
     const assignedLandingPage = await TestDataService.assignLandingPageLayout(landingPage.id, landingPageLayout.id);
-    expect(assignedLandingPage.id).toEqual(landingPage.id);
-    expect(assignedLandingPage.cmsPageId).toEqual(landingPageLayout.id);
+    expect(assignedLandingPage.landingPageId).toEqual(landingPage.id);
+    expect(assignedLandingPage.contentLayoutId).toEqual(landingPageLayout.id);
+    const reassignedLandingPage = await TestDataService.assignLandingPageLayout(landingPage.id, landingPageLayout.id);
+    expect(reassignedLandingPage.id).toEqual(assignedLandingPage.id);
 
     const parentProduct = await TestDataService.createBasicProduct();
     const propertyGroupColor = await TestDataService.createColorPropertyGroup();
@@ -215,14 +221,18 @@ test("Data Service", async ({ TestDataService, AdminApiContext }) => {
     const { data: databaseAclRole } = (await aclRoleResponse.json()) as { data: AclRole };
     expect(databaseAclRole.id).toBe(aclRole.id);
 
-    const cmsPageResponse = await AdminApiContext.get(`./cms-page/${cmsPage.id}?_response=detail`);
-    const { data: databaseCmsPage } = (await cmsPageResponse.json()) as { data: CmsPage };
-    expect(databaseCmsPage.id).toBe(cmsPage.id);
+    const contentLayoutResponse = await AdminApiContext.get(`./content-layout/${productLayout.id}?_response=detail`);
+    const { data: databaseContentLayout } = (await contentLayoutResponse.json()) as { data: ContentLayout };
+    expect(databaseContentLayout).toMatchObject({ id: productLayout.id, rootSource: "product" });
 
     const landingPageResponse = await AdminApiContext.get(`./landing-page/${landingPage.id}?_response=detail`);
     const { data: databaseLandingPage } = (await landingPageResponse.json()) as { data: LandingPage };
     expect(databaseLandingPage.id).toBe(landingPage.id);
-    expect(databaseLandingPage.cmsPageId).toBe(landingPageLayout.id);
+    const assignmentResponse = await AdminApiContext.get(`landing-page-content-layout/${assignedLandingPage.id}`);
+    const { data: databaseAssignment } = (await assignmentResponse.json()) as { data: LandingPageContentLayout };
+    expect(databaseAssignment).toMatchObject({ landingPageId: landingPage.id, contentLayoutId: landingPageLayout.id });
+    const categoryAssignmentRead = await AdminApiContext.get(`category-content-layout/${categoryAssignmentId}`);
+    expect((await categoryAssignmentRead.json()).data).toMatchObject({ categoryId: customCategory.id, contentLayoutId: categoryLayout.id });
 
     // Test data clean-up with activated cleansing process
     TestDataService.setCleanUp(true);
@@ -240,7 +250,9 @@ test("Data Service", async ({ TestDataService, AdminApiContext }) => {
     expect(cleanUpDeleteOperations["deleted"]["property_group"]).toBeDefined();
     expect(cleanUpDeleteOperations["deleted"]["property_group_option"]).toBeDefined();
     expect(cleanUpDeleteOperations["deleted"]["product_manufacturer"]).toBeDefined();
-    expect(cleanUpDeleteOperations["deleted"]["cms_page"]).toBeDefined();
+    expect(cleanUpDeleteOperations["deleted"]["content_layout"]).toBeDefined();
+    expect((await AdminApiContext.get(`landing-page-content-layout/${assignedLandingPage.id}`)).status()).toBe(404);
+    expect((await AdminApiContext.get(`category-content-layout/${categoryAssignmentId}`)).status()).toBe(404);
     expect(cleanUpDeleteOperations["deleted"]["sales_channel_analytics"]).toBeDefined();
     expect(cleanUpDeleteOperations["deleted"]["tax"]).toBeDefined();
 

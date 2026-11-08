@@ -183,18 +183,21 @@ export class Home implements PageObject {
     }
 
     async getMenuItemByCategoryName(categoryName: string): Promise<Record<string, Locator>> {
-        const menuNavigationItem = this.page.locator(".nav-main").getByRole("link", { name: categoryName, exact: true });
+        const menuNavigationItem = this.page.locator(".sw-navbar").getByRole("link", { name: categoryName, exact: true });
         /** @deprecated - Remove, because it is obsolete.
          * The Offcanvas can only be tested on mobile viewport.
          * The content is only loaded if the navigation is triggered.
          */
         const offcanvasNavigationItem = this.page.locator(".js-navigation-offcanvas-initial-content").getByText(categoryName, { exact: true });
-        const breadcrumbNavigationItem = this.page.locator(".cms-breadcrumb").getByText(categoryName, { exact: true });
+        const breadcrumbNavigationItem = this.page.locator(".sw-breadcrumb").getByText(categoryName, { exact: true });
         const breadcrumbNavigationLinkItem = this.page
-            .locator(".breadcrumb-item")
+            .locator(".sw-breadcrumb .sw-breadcrumb__item")
             .filter({ has: this.page.getByText(categoryName, { exact: true }) })
             .getByRole("link");
-        const flyoutCategoryLink = this.page.locator(".nav-main").locator(".navigation-flyout-category-link").getByText(categoryName);
+        const flyoutCategoryLink = this.page
+            .locator(".sw-navbar__nav-item")
+            .filter({ has: this.page.getByRole("link", { name: categoryName, exact: true }).and(this.page.locator(".sw-navbar__nav-link")) })
+            .locator(".sw-flyout__show-all");
 
         return {
             menuNavigationItem: menuNavigationItem,

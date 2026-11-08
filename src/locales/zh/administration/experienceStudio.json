@@ -1,0 +1,16 @@
+{
+    "title": "体验工作室",
+    "createNewLayout": "新建布局",
+    "layoutName": "布局名称",
+    "startEditing": "开始编辑",
+    "layoutTypes": {
+        "product": "商品",
+        "category": "分类",
+        "landing_page": "落地页"
+    },
+    "assignments": "布局分配",
+    "assignmentTitle": "布局分配",
+    "saveLayout": "保存布局",
+    "save": "保存",
+    "cancel": "取消"
+}

@@ -7,7 +7,9 @@ import type {
     Address,
     BasicRuleCondition,
     Category,
-    CmsPage,
+    ContentLayout,
+    ContentRootSource,
+    LandingPageContentLayout,
     Country,
     Currency,
     Customer,
@@ -987,24 +989,14 @@ export class TestDataService {
         return rule;
     }
 
-    /**
-     * Creates a new basic page layout.
-     *
-     * @param cmsPageType - The type of the cms page layout (page/landingpage/product_detail/product_list).
-     * @param overrides - Specific data overrides that will be applied to the cms page layout data struct.
-     */
-    async createBasicPageLayout(cmsPageType: string, overrides: Partial<CmsPage> = {}): Promise<CmsPage> {
-        const basicLayout = this.getBasicCmsStruct(cmsPageType, overrides);
-
-        const layoutResponse = await this.AdminApiClient.post("cms-page?_response=detail", {
-            data: basicLayout,
+    /** Creates and tracks a Content System layout for the given root source. */
+    async createBasicPageLayout(rootSource: ContentRootSource, overrides: Partial<Omit<ContentLayout, "rootSource">> = {}): Promise<ContentLayout> {
+        const layoutResponse = await this.AdminApiClient.post("content-layout?_response=detail", {
+            data: this.getBasicContentLayoutStruct(rootSource, overrides),
         });
         expect(layoutResponse.ok()).toBeTruthy();
-
-        const { data: layout } = (await layoutResponse.json()) as { data: CmsPage };
-
-        this.addCreatedRecord("cms_page", layout.id);
-
+        const { data: layout } = (await layoutResponse.json()) as { data: ContentLayout };
+        this.addCreatedRecord("content_layout", layout.id);
         return layout;
     }
 
@@ -1029,23 +1021,30 @@ export class TestDataService {
         return landingPage;
     }
 
-    /**
-     * Assigns a CMS landing page layout to a landing page category
-     *
-     * @param landingPageId - The uuid of the landing page category.
-     * @param cmsPageId - The uuid of the CMS landing page layout.
-     */
-    async assignLandingPageLayout(landingPageId: string, cmsPageId: string): Promise<LandingPage> {
-        const response = await this.AdminApiClient.patch(`landing-page/${landingPageId}?_response=detail`, {
+    /** Assigns a layout to a landing page in the exact sales-channel scope. */
+    async assignLandingPageLayout(landingPageId: string, contentLayoutId: string, salesChannelId: string | null = null): Promise<LandingPageContentLayout> {
+        const searchResponse = await this.AdminApiClient.post("search/landing-page-content-layout", {
             data: {
-                cmsPageId: cmsPageId,
+                filter: [
+                    { type: "equals", field: "landingPageId", value: landingPageId },
+                    { type: "equals", field: "salesChannelId", value: salesChannelId },
+                ],
             },
         });
+        expect(searchResponse.ok()).toBeTruthy();
+        const { data: assignments } = (await searchResponse.json()) as { data: LandingPageContentLayout[] };
+        expect(assignments.length, "A landing page must have at most one assignment per sales channel").toBeLessThanOrEqual(1);
+        const existing = assignments[0];
+        const assignment = { id: existing?.id ?? this.IdProvider.getIdPair().uuid, landingPageId, contentLayoutId, salesChannelId };
+        const response = existing
+            ? await this.AdminApiClient.patch(`landing-page-content-layout/${existing.id}?_response=detail`, { data: assignment })
+            : await this.AdminApiClient.post("landing-page-content-layout?_response=detail", { data: assignment });
         expect(response.ok()).toBeTruthy();
-
-        const { data: landingPage } = (await response.json()) as { data: LandingPage };
-
-        return landingPage;
+        const { data: saved } = (await response.json()) as { data: LandingPageContentLayout };
+        if (!this.createdRecords.some((record) => record.resource === "landing_page_content_layout" && record.payload.id === saved.id)) {
+            this.addCreatedRecord("landing_page_content_layout", saved.id);
+        }
+        return saved;
     }
 
     /**
@@ -2110,6 +2109,8 @@ export class TestDataService {
             return null;
         }
 
+        await this.cleanUpContentLayoutAssignments();
+
         const deleteUserIds: string[] = [];
         const deleteAclRolesIds: string[] = [];
         const deleteOperations: Record<string, SyncApiOperation> = {};
@@ -2130,6 +2131,7 @@ export class TestDataService {
         await this.deleteOrderDocuments(createdOrderIds);
 
         this.createdRecords.forEach((record) => {
+            if (["landing_page_content_layout", "category_content_layout", "product_content_layout"].includes(record.resource)) return;
             if (record.resource === "user") {
                 if (!deleteUserIds.includes(record.payload.id)) {
                     deleteUserIds.push(record.payload.id);
@@ -2210,6 +2212,30 @@ export class TestDataService {
         }
 
         return deleteOperationsResponse;
+    }
+
+    /** Layout assignments restrict deletion, including assignments created through the editor. */
+    private async cleanUpContentLayoutAssignments(): Promise<void> {
+        const layoutIds = this.createdRecords.filter((record) => record.resource === "content_layout").map((record) => record.payload.id);
+        const operations: Record<string, SyncApiOperation> = {};
+        for (const entity of ["landing_page_content_layout", "category_content_layout", "product_content_layout"]) {
+            const ids = new Set(this.createdRecords.filter((record) => record.resource === entity).map((record) => record.payload.id));
+            if (layoutIds.length > 0) {
+                for (let page = 1; ; page++) {
+                    const response = await this.AdminApiClient.post(`search/${entity.replaceAll("_", "-")}`, {
+                        data: { filter: [{ type: "equalsAny", field: "contentLayoutId", value: layoutIds }], limit: 100, page },
+                    });
+                    expect(response.ok()).toBeTruthy();
+                    const { data } = (await response.json()) as { data: { id: string }[] };
+                    data.forEach((assignment) => ids.add(assignment.id));
+                    if (data.length < 100) break;
+                }
+            }
+            if (ids.size > 0) operations[`delete-${entity}`] = { entity, action: "delete", payload: [...ids].map((id) => ({ id })) };
+        }
+        if (Object.keys(operations).length === 0) return;
+        const response = await this.AdminApiClient.post("_action/sync", { data: operations });
+        expect(response.ok()).toBeTruthy();
     }
 
     /**
@@ -2661,7 +2687,7 @@ export class TestDataService {
             id: aclRoleUuid,
             name: aclRoleName,
             privileges: [
-                "cms_page:read",
+                "content_layout:read",
                 "custom_field:read",
                 "custom_field_set_relation:read",
                 "language:read",
@@ -3030,41 +3056,22 @@ export class TestDataService {
         return Object.assign({}, basicPromotion, overrides);
     }
 
-    getBasicCmsStruct(cmsType: string, overrides: Partial<CmsPage>): Partial<CmsPage> {
-        const cmsPageUuid = this.IdProvider.getIdPair().uuid;
-        const cmsPageName = `${this.namePrefix}Cms-${cmsPageUuid}${this.nameSuffix}`;
-
-        const basicCmsPage = {
-            id: cmsPageUuid,
-            type: cmsType,
-            name: cmsPageName,
-            sections: [
+    getBasicContentLayoutStruct(rootSource: ContentRootSource, overrides: Partial<Omit<ContentLayout, "rootSource">> = {}): ContentLayout {
+        const id = this.IdProvider.getIdPair().uuid;
+        return {
+            id,
+            name: `${this.namePrefix}ContentLayout-${id}${this.nameSuffix}`,
+            version: "1.0.0",
+            layout: [
                 {
                     id: this.IdProvider.getIdPair().uuid,
-                    pageId: this.IdProvider.getIdPair().uuid,
-                    position: 0,
-                    type: "full_width",
-                    blocks: [
-                        {
-                            id: this.IdProvider.getIdPair().uuid,
-                            sectionId: this.IdProvider.getIdPair().uuid,
-                            type: "text",
-                            position: 0,
-                            slots: [
-                                {
-                                    id: this.IdProvider.getIdPair().uuid,
-                                    type: "text",
-                                    blockId: this.IdProvider.getIdPair().uuid,
-                                    slot: "content",
-                                },
-                            ],
-                        },
-                    ],
+                    component: "Sw:Content:Text",
+                    properties: { text: rootSource === "none" ? "<h1>Content</h1>" : `<h1>{{map:${rootSource}.name}}</h1>` },
                 },
             ],
+            ...overrides,
+            rootSource,
         };
-
-        return Object.assign({}, basicCmsPage, overrides);
     }
 
     getBasicLandingPageStruct(salesChannelId: string, overrides: Partial<LandingPage> = {}) {
