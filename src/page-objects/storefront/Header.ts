@@ -21,6 +21,7 @@ export class Header implements PageObject {
 
     //cart
     public readonly cartTotal: Locator;
+    public readonly cartButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -41,6 +42,14 @@ export class Header implements PageObject {
 
         //cart
         this.cartTotal = page.getByRole("link", { name: translate("storefront:header:shoppingCart") });
+        this.cartButton = page
+            .locator('header.sw-header button.sw-cart-widget[data-component="Sw:Header:CartWidget"]')
+            .and(page.getByRole("button", { name: translate("storefront:header:shoppingCart"), exact: true }))
+            .or(
+                page
+                    .locator('header.header-main .header-cart a.header-cart-btn[data-cart-widget="true"]')
+                    .and(page.getByRole("link", { name: translate("storefront:header:shoppingCart") }))
+            );
     }
 
     url() {

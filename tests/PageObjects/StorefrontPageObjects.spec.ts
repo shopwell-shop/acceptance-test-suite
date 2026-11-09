@@ -35,7 +35,7 @@ test("Storefront page objects", async ({
     await ShopCustomer.attemptsTo(CheckVisibilityInHome(product.name));
     await ShopCustomer.expects(StorefrontCategory.sortingSelect).toBeVisible();
 
-    await ShopCustomer.expects(StorefrontHeader.cartTotal).toBeVisible();
+    await ShopCustomer.expects(StorefrontHeader.cartButton).toBeVisible();
 
     const searchTerm = "product";
     await ShopCustomer.goesTo(StorefrontSearch.url(searchTerm));
@@ -219,4 +219,58 @@ componentTest("Component contract: missing result total fails explicitly", async
         '<div class="search-page"><h1 class="search-headline">42 products for Contract99</h1><div class="product-listing-row" data-aria-live-text="No numeric count"></div></div>'
     );
     await expect(new Search(page).getTotalSearchResultCount()).rejects.toThrow(/count/i);
+});
+
+test("Component contract: cart affordances preserve header region, role, name and uniqueness on both surfaces", async ({
+    ShopCustomer,
+    StorefrontHeader,
+    StorefrontHome,
+    StorefrontSearch,
+    Translate,
+}) => {
+    const cartName = Translate("storefront:header:shoppingCart");
+    for (const surface of ["component", "legacy"] as const) {
+        await ShopCustomer.goesTo(surface === "component" ? StorefrontHome.url() : StorefrontSearch.url("CartContract42"));
+        await expect(StorefrontHeader.cartButton).toHaveCount(1);
+        await expect(StorefrontHeader.cartButton).toBeVisible();
+        await expect(StorefrontHeader.cartButton).toHaveRole(surface === "component" ? "button" : "link");
+        await expect(StorefrontHeader.cartButton).toHaveAccessibleName(surface === "component" ? cartName : new RegExp(cartName));
+        if (surface === "legacy") {
+            await expect(StorefrontHeader.cartButton).toHaveAttribute("href", /\/checkout\/cart$/);
+        }
+
+        await StorefrontHeader.cartButton.evaluate((cart) => {
+            const header = cart.closest("header");
+            if (!header) throw new Error("Cart has no header region.");
+            const outside = document.createElement("aside");
+            outside.dataset.cartContractDecoy = "outside";
+            const outsideRegion = cart.cloneNode(true) as HTMLElement;
+            if (header.classList.contains("header-main")) {
+                outside.innerHTML = '<div class="header-cart"></div>';
+                outside.querySelector(".header-cart")!.append(outsideRegion);
+            } else {
+                outside.append(outsideRegion);
+            }
+            document.body.append(outside);
+            for (const defect of ["role", "name"]) {
+                const decoy = cart.cloneNode(true) as HTMLElement;
+                decoy.dataset.cartContractDecoy = defect;
+                if (defect === "role") decoy.setAttribute("role", cart.tagName === "BUTTON" ? "link" : "button");
+                else {
+                    decoy.removeAttribute("aria-labelledby");
+                    decoy.setAttribute("aria-label", "Unrelated account control");
+                }
+                cart.parentElement!.append(decoy);
+            }
+        });
+        await expect(StorefrontHeader.cartButton).toHaveCount(1);
+        await StorefrontHeader.cartButton.evaluate((cart) => {
+            const duplicate = cart.cloneNode(true) as HTMLElement;
+            duplicate.dataset.cartContractDecoy = "duplicate";
+            cart.parentElement!.append(duplicate);
+        });
+        await expect(StorefrontHeader.cartButton).toHaveCount(2);
+        await ShopCustomer.page.locator("[data-cart-contract-decoy]").evaluateAll((decoys) => decoys.forEach((decoy) => decoy.remove()));
+        await expect(StorefrontHeader.cartButton).toHaveCount(1);
+    }
 });
