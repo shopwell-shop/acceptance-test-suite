@@ -7,8 +7,14 @@ export const SearchForTerm = base.extend<{ SearchForTerm: Task }, FixtureTypes>(
         const task = (searchTerm: string) => {
             return async function SearchForTerm() {
                 await ShopCustomer.fillsIn(StorefrontSearchSuggest.searchInput, searchTerm);
-                const encodedSearchTerm = encodeURIComponent(searchTerm);
-                await StorefrontSearchSuggest.page.waitForResponse((response) => response.url().includes(`suggest?search=${encodedSearchTerm}`) && response.ok());
+                const isSearchUrl = (url: URL) => url.pathname.endsWith("/search") && url.searchParams.get("search") === searchTerm;
+                await Promise.all([
+                    StorefrontSearchSuggest.page.waitForURL(isSearchUrl),
+                    StorefrontSearchSuggest.page.waitForResponse(
+                        (response) => response.request().isNavigationRequest() && response.request().method() === "GET" && isSearchUrl(new URL(response.url())) && response.ok()
+                    ),
+                    ShopCustomer.presses(StorefrontSearchSuggest.searchInput, "Enter"),
+                ]);
             };
         };
 

@@ -5,7 +5,7 @@ import administrationCustomField from "./en/administration/customField.json" wit
 import administrationDataSharing from "./en/administration/dataSharing.json" with { type: "json" };
 import administrationDocument from "./en/administration/document.json" with { type: "json" };
 import administrationLandingPage from "./en/administration/landingPage.json" with { type: "json" };
-import administrationLayout from "./en/administration/layout.json" with { type: "json" };
+import administrationExperienceStudio from "./en/administration/experienceStudio.json" with { type: "json" };
 import administrationLogin from "./en/administration/login.json" with { type: "json" };
 import administrationFlowBuilder from "./en/administration/flowBuilder.json" with { type: "json" };
 import administrationDashboard from "./en/administration/dashboard.json" with { type: "json" };
@@ -52,7 +52,7 @@ import zhAdministrationDocument from "./zh/administration/document.json" with { 
 import zhAdministrationFirstRunWizard from "./zh/administration/firstRunWizard.json" with { type: "json" };
 import zhAdministrationFlowBuilder from "./zh/administration/flowBuilder.json" with { type: "json" };
 import zhAdministrationLandingPage from "./zh/administration/landingPage.json" with { type: "json" };
-import zhAdministrationLayout from "./zh/administration/layout.json" with { type: "json" };
+import zhAdministrationExperienceStudio from "./zh/administration/experienceStudio.json" with { type: "json" };
 import zhAdministrationLogin from "./zh/administration/login.json" with { type: "json" };
 import zhAdministrationManufacturer from "./zh/administration/manufacturer.json" with { type: "json" };
 import zhAdministrationMedia from "./zh/administration/media.json" with { type: "json" };
@@ -95,7 +95,7 @@ export const BUNDLED_RESOURCES = {
         "administration/dataSharing": administrationDataSharing,
         "administration/document": administrationDocument,
         "administration/landingPage": administrationLandingPage,
-        "administration/layout": administrationLayout,
+        "administration/experienceStudio": administrationExperienceStudio,
         "administration/login": administrationLogin,
         "administration/flowBuilder": administrationFlowBuilder,
         "administration/dashboard": administrationDashboard,
@@ -143,7 +143,7 @@ export const BUNDLED_RESOURCES = {
         "administration/firstRunWizard": zhAdministrationFirstRunWizard,
         "administration/flowBuilder": zhAdministrationFlowBuilder,
         "administration/landingPage": zhAdministrationLandingPage,
-        "administration/layout": zhAdministrationLayout,
+        "administration/experienceStudio": zhAdministrationExperienceStudio,
         "administration/login": zhAdministrationLogin,
         "administration/manufacturer": zhAdministrationManufacturer,
         "administration/media": zhAdministrationMedia,
@@ -180,13 +180,13 @@ export const BUNDLED_RESOURCES = {
 // Export namespaces for type generation (reused in TranslationTypes.ts)
 export const baseNamespaces = {
     administration: {
+        experienceStudio: administrationExperienceStudio,
         category: administrationCategory,
         customer: administrationCustomer,
         customField: administrationCustomField,
         dataSharing: administrationDataSharing,
         document: administrationDocument,
         landingPage: administrationLandingPage,
-        layout: administrationLayout,
         login: administrationLogin,
         flowBuilder: administrationFlowBuilder,
         dashboard: administrationDashboard,

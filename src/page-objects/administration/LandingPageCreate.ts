@@ -14,17 +14,8 @@ export class LandingPageCreate implements PageObject {
     public readonly loadingSpinner: Locator;
     public readonly seoUrlInput: Locator;
 
-    /**
-     * Layout
-     */
     public readonly layoutTab: Locator;
-    public readonly assignLayoutButton: Locator;
-    public readonly searchLayoutInput: Locator;
-    public readonly layoutItems: Locator;
-    public readonly layoutSaveButton: Locator;
-    public readonly layoutEmptyState: Locator;
-    public readonly createNewLayoutButton: Locator;
-    public readonly layoutCheckboxes: Locator;
+    public readonly experienceStudioButton: Locator;
     public readonly page: Page;
 
     constructor(page: Page) {
@@ -41,18 +32,8 @@ export class LandingPageCreate implements PageObject {
             .locator(".sw-select-selection-list");
         this.filtersResultPopoverItemList = page.locator(".sw-select-result-list__content").getByRole("listitem");
         this.seoUrlInput = page.getByLabel(translate("administration:landingPage:general.seoUrl"));
-        //Layout
         this.layoutTab = page.getByRole("tab", { name: translate("administration:landingPage:layout.layout") });
-        const layoutCardPreview = page.locator(".sw-category-layout-card__preview");
-        this.layoutEmptyState = layoutCardPreview.locator(".is--empty");
-        this.assignLayoutButton = page.getByRole("button", { name: translate("administration:landingPage:create.assignLayout"), exact: true });
-        this.createNewLayoutButton = page.getByRole("button", { name: translate("administration:landingPage:create.createNewLayout") });
-        const layoutModal = page.getByRole("dialog", { name: translate("administration:landingPage:create.selectLayout") });
-        this.searchLayoutInput = layoutModal.getByPlaceholder(translate("administration:landingPage:create.searchLayoutsPlaceholder"));
-        this.layoutItems = layoutModal.locator(".sw-cms-list-item");
-        const layoutTable = layoutModal.locator(".sw-data-grid__body");
-        this.layoutCheckboxes = layoutTable.locator(".sw-field--checkbox__content");
-        this.layoutSaveButton = layoutModal.getByRole("button", { name: translate("administration:landingPage:create.applyLayout") });
+        this.experienceStudioButton = page.getByRole("button", { name: translate("administration:experienceStudio:title"), exact: true });
     }
 
     url() {

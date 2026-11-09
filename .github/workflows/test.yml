@@ -7,6 +7,7 @@ env:
     LANG: zh_CN.UTF-8
 jobs:
     lint:
+        if: ${{ vars.SHOPWELL_ACCEPTANCE_TESTS_ENABLED != 'false' }}
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v7
@@ -19,6 +20,7 @@ jobs:
             - run: npm run typecheck
 
     build:
+        if: ${{ vars.SHOPWELL_ACCEPTANCE_TESTS_ENABLED != 'false' }}
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v7
@@ -31,6 +33,7 @@ jobs:
             - run: npm pack --dry-run
 
     test:
+        if: ${{ vars.SHOPWELL_ACCEPTANCE_TESTS_ENABLED != 'false' }}
         name: test platform customer contract
         timeout-minutes: 35
         runs-on: ubuntu-latest
@@ -51,7 +54,7 @@ jobs:
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
               with:
                   repository: shopwell-shop/shopwell
-                  ref: 692e0dbe2747886c451ea23b8bd9277290b2bcfe
+                  ref: 84d781302b84840c99abcf2a51cf46b5aeb399d7
                   path: .shopwell-platform
                   persist-credentials: false
 
@@ -103,7 +106,7 @@ jobs:
                   retention-days: 7
 
     test-saas:
-        if: ${{ vars.SAAS_TESTS_ENABLED == 'true' }}
+        if: ${{ vars.SHOPWELL_ACCEPTANCE_TESTS_ENABLED != 'false' && (vars.SAAS_TESTS_ENABLED == 'true') }}
         timeout-minutes: 15
         runs-on: ubuntu-latest
         concurrency: saas # only allow one job at a time

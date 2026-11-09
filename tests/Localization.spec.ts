@@ -21,6 +21,7 @@ import { Home } from "../src/page-objects/storefront/Home";
 import { Account } from "../src/page-objects/storefront/Account";
 import { PageNotFound } from "../src/page-objects/storefront/PageNotFound";
 import { LandingPageCreate } from "../src/page-objects/administration/LandingPageCreate";
+import { ExperienceStudio } from "../src/page-objects/administration/ExperienceStudio";
 import { DataSharingConsentModal } from "../src/page-objects/administration/DataSharingConsentModal";
 import { FirstRunWizard } from "../src/page-objects/administration/FirstRunWizard";
 import { BUNDLED_RESOURCES } from "../src/locales";
@@ -233,9 +234,9 @@ test.describe("Chinese public contracts match rendered platform markup", () => {
         await expect(await new Account(page, instanceMeta).getCustomerGroupAlert("企业客户")).toHaveText("已提交加入客户组“企业客户”的申请。", { timeout: 1000 });
     });
 
-    test("assign layout selects the exact action instead of the unassigned preview", async ({ page }) => {
-        await page.setContent('<div role="button" tabindex="0">未分配布局</div><button>分配布局</button>');
-        await expect(new LandingPageCreate(page).assignLayoutButton).toHaveText("分配布局", { timeout: 1000 });
+    test("landing page layout opens Experience Studio", async ({ page }) => {
+        await page.setContent("<button>体验工作室</button>");
+        await expect(new LandingPageCreate(page).experienceStudioButton).toHaveText("体验工作室", { timeout: 1000 });
     });
 
     test("not-found navigation selects the content link instead of the header logo", async ({ page }) => {
@@ -309,9 +310,9 @@ test.describe("Chinese public contracts match rendered platform markup", () => {
         );
         await expect(new Home(page, instanceMeta).contactFormLink).toHaveAttribute("href", "/contact", { timeout: 1000 });
     });
-    test("layout selection applies the chosen layout through its modal action", async ({ page }) => {
-        await page.setContent('<button>保存</button><div role="dialog" aria-label="选择布局"><button>取消</button><button>应用布局</button></div>');
-        await expect(new LandingPageCreate(page).layoutSaveButton).toHaveText("应用布局", { timeout: 1000 });
+    test("Studio assignment save is scoped to its own modal", async ({ page }) => {
+        await page.setContent('<button>保存</button><div role="dialog" aria-label="布局分配"><button>取消</button><button>保存</button></div>');
+        await expect(new ExperienceStudio(page).assignmentSaveButton).toHaveText("保存", { timeout: 1000 });
     });
     test("review login locates its own Chinese email field", async ({ page }) => {
         await page.setContent('<form class="product-detail-review-login"><label>邮箱<input type="email"></label></form><form><label>邮箱<input type="email"></label></form>');

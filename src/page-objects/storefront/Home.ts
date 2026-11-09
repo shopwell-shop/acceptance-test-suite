@@ -88,7 +88,7 @@ export class Home implements PageObject {
         this.accountMenuButton = page.getByLabel(translate("storefront:home:account.yourAccount"));
         this.closeGuestSessionButton = page.locator(".account-aside-btn");
         this.productImages = page.locator(".product-image-wrapper");
-        this.productListItems = page.locator(".product-box");
+        this.productListItems = page.locator(".sw-product-listing__grid .sw-product-card, .search-page .product-listing-row .product-box");
         this.languagesDropdown = page.locator(".top-bar-language").filter({ has: page.getByRole("button") });
         this.languagesMenuOptions = page.locator(".top-bar-language").filter({ has: page.getByRole("list") });
         this.currenciesDropdown = page.locator(".top-bar-currency").filter({ has: page.getByRole("button") });
@@ -161,8 +161,8 @@ export class Home implements PageObject {
 
         this.loader = page.locator(".has-element-loader");
 
-        this.productList = page.locator(".cms-listing-row");
-        this.productItemNames = this.productList.locator(".product-name");
+        this.productList = page.locator(".sw-product-listing__grid, .search-page .product-listing-row");
+        this.productItemNames = this.productListItems.locator(".sw-product-card__title-link, .product-name");
         this.productVariantCharacteristicsOptions = page.locator(".product-variant-characteristics-option");
     }
 
@@ -183,18 +183,21 @@ export class Home implements PageObject {
     }
 
     async getMenuItemByCategoryName(categoryName: string): Promise<Record<string, Locator>> {
-        const menuNavigationItem = this.page.locator(".nav-main").getByRole("link", { name: categoryName, exact: true });
+        const menuNavigationItem = this.page.locator(".sw-navbar").getByRole("link", { name: categoryName, exact: true });
         /** @deprecated - Remove, because it is obsolete.
          * The Offcanvas can only be tested on mobile viewport.
          * The content is only loaded if the navigation is triggered.
          */
         const offcanvasNavigationItem = this.page.locator(".js-navigation-offcanvas-initial-content").getByText(categoryName, { exact: true });
-        const breadcrumbNavigationItem = this.page.locator(".cms-breadcrumb").getByText(categoryName, { exact: true });
+        const breadcrumbNavigationItem = this.page.locator(".sw-breadcrumb").getByText(categoryName, { exact: true });
         const breadcrumbNavigationLinkItem = this.page
-            .locator(".breadcrumb-item")
+            .locator(".sw-breadcrumb .sw-breadcrumb__item")
             .filter({ has: this.page.getByText(categoryName, { exact: true }) })
             .getByRole("link");
-        const flyoutCategoryLink = this.page.locator(".nav-main").locator(".navigation-flyout-category-link").getByText(categoryName);
+        const flyoutCategoryLink = this.page
+            .locator(".sw-navbar__nav-item")
+            .filter({ has: this.page.getByRole("link", { name: categoryName, exact: true }).and(this.page.locator(".sw-navbar__nav-link")) })
+            .locator(".sw-flyout__show-all");
 
         return {
             menuNavigationItem: menuNavigationItem,
@@ -210,15 +213,15 @@ export class Home implements PageObject {
      * @deprecated - use getListingItemByProductName instead
      */
     async getListingItemByProductId(productId: string): Promise<Record<string, Locator>> {
-        const listingItem = this.page.getByRole("listitem").filter({ has: this.page.locator(`[value="${productId}"]`) });
+        const listingItem = this.productListItems.filter({ has: this.page.locator(`[value="${productId}"]`) });
         const productImage = listingItem.locator(".product-image-link");
         const productRating = listingItem.locator(".product-rating");
         const productVariantCharacteristics = listingItem.locator(".product-variant-characteristics");
-        const productDescription = listingItem.locator(".product-description");
+        const productDescription = listingItem.locator(".sw-product-card__description, .product-description");
         const productPriceUnit = listingItem.locator(".product-price-unit");
         const productCheapestPrice = listingItem.locator(".product-cheapest-price");
-        const productPrice = listingItem.locator(".product-price");
-        const productName = listingItem.locator(".product-name");
+        const productPrice = listingItem.locator(".sw-product-price-display__price, .product-price");
+        const productName = listingItem.locator(".sw-product-card__title-link, .product-name");
         const productAddToShoppingCart = listingItem.getByRole("button", {
             name: "Add to shopping cart",
         });
@@ -247,15 +250,15 @@ export class Home implements PageObject {
     }
 
     async getListingItemByProductName(productListingName: string): Promise<Record<string, Locator>> {
-        const listingItem = this.page.getByRole("listitem").filter({ hasText: productListingName });
+        const listingItem = this.productListItems.filter({ hasText: productListingName });
         const productImage = listingItem.locator(".product-image-link");
         const productRating = listingItem.locator(".product-rating");
         const productVariantCharacteristics = listingItem.locator(".product-variant-characteristics");
-        const productDescription = listingItem.locator(".product-description");
+        const productDescription = listingItem.locator(".sw-product-card__description, .product-description");
         const productPriceUnit = listingItem.locator(".product-price-unit");
         const productCheapestPrice = listingItem.locator(".product-cheapest-price");
-        const productPrice = listingItem.locator(".product-price");
-        const productName = listingItem.locator(".product-name");
+        const productPrice = listingItem.locator(".sw-product-price-display__price, .product-price");
+        const productName = listingItem.locator(".sw-product-card__title-link, .product-name");
         const productAddToShoppingCart = listingItem.getByRole("button", { name: translate("storefront:home:listing.addToShoppingCart") });
         const productListingPrice = listingItem.locator(".list-price-price");
         const productListingPricePercentage = listingItem.locator(".list-price-percentage");

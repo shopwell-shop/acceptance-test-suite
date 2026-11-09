@@ -20,7 +20,7 @@ export class SearchSuggest extends Home implements PageObject {
         super(page, instanceMeta);
         this.page = page;
         this.searchSuggestLineItemImages = page.locator(".search-suggest-product-image-container");
-        this.searchInput = page.locator(".header-search-input");
+        this.searchInput = page.locator(".sw-search__input, body.is-active-route-frontend-search-page header.header-main .header-search-form .header-search-input");
         this.searchIcon = page.locator(".header-search-icon");
         this.searchSuggestNoResult = page.locator(".search-suggest-no-result");
         this.searchSuggestLineItemName = page.locator(".search-suggest-product-name");

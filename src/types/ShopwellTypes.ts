@@ -81,7 +81,10 @@ export interface ProductPrice {
     quantityEnd: number | null;
 }
 
-export type Product = Omit<components["schemas"]["Product"], "price" | "prices" | "options" | "tags" | "visibilities" | "variantListingConfig"> & {
+export type Product = Omit<
+    components["schemas"]["Product"],
+    "price" | "prices" | "options" | "tags" | "visibilities" | "variantListingConfig" | "cmsPage" | "cmsPageId" | "cmsPageVersionId" | "slotConfig"
+> & {
     id: string;
     price: Price[];
     prices?: ProductPrice[];
@@ -124,7 +127,7 @@ export type PropertyGroup = components["schemas"]["PropertyGroup"] & {
     id: string;
 };
 
-export type Category = components["schemas"]["Category"] & {
+export type Category = Omit<components["schemas"]["Category"], "cmsPage" | "cmsPageId" | "cmsPageVersionId" | "slotConfig"> & {
     id: string;
 };
 
@@ -256,11 +259,31 @@ export type DeliveryTime = components["schemas"]["DeliveryTime"] & {
     id: string;
 };
 
-export type CmsPage = components["schemas"]["CmsPage"] & {
-    id: string;
-};
+export type ContentRootSource = "product" | "category" | "landing_page" | "none";
 
-export type LandingPage = components["schemas"]["LandingPage"] & {
+export interface ContentElement {
+    id: string;
+    component: string;
+    properties: Record<string, unknown>;
+    [key: string]: unknown;
+}
+
+export interface ContentLayout {
+    id: string;
+    name: string;
+    version: string;
+    rootSource: ContentRootSource;
+    layout: ContentElement[];
+}
+
+export interface LandingPageContentLayout {
+    id: string;
+    landingPageId: string;
+    contentLayoutId: string;
+    salesChannelId: string | null;
+}
+
+export type LandingPage = Omit<components["schemas"]["LandingPage"], "cmsPage" | "cmsPageId" | "cmsPageVersionId" | "slotConfig"> & {
     id: string;
 };
 

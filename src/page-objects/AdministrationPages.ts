@@ -47,9 +47,7 @@ import { YourProfile } from "./administration/YourProfile";
 import { ThemesListing } from "./administration/ThemesListing";
 import { ThemesDetail } from "./administration/ThemesDetail";
 import { MediaListing } from "./administration/MediaListing";
-import { LayoutListing } from "./administration/LayoutListing";
-import { LayoutCreate } from "./administration/LayoutCreate";
-import { ListingPageLayoutDetail } from "./administration/ListingPageLayoutDetail";
+import { ExperienceStudio } from "./administration/ExperienceStudio";
 import { SalesChannelDetail } from "./administration/SalesChannelDetail";
 import { OrderListing } from "./administration/OrderListing";
 import { DataSharingConsentModal } from "./administration/DataSharingConsentModal";
@@ -102,9 +100,7 @@ export interface AdministrationPageTypes {
     AdminThemesListing: ThemesListing;
     AdminThemesDetail: ThemesDetail;
     AdminMediaListing: MediaListing;
-    AdminLayoutListing: LayoutListing;
-    AdminListingPageLayoutDetail: ListingPageLayoutDetail;
-    AdminLayoutCreate: LayoutCreate;
+    AdminExperienceStudio: ExperienceStudio;
     AdminOrderListing: OrderListing;
     AdminDataSharingConsentModal: DataSharingConsentModal;
 }
@@ -157,9 +153,7 @@ export const AdminPageObjects = {
     ThemesListing,
     ThemesDetail,
     MediaListing,
-    LayoutListing,
-    ListingPageLayoutDetail,
-    LayoutCreate,
+    ExperienceStudio,
     OrderListing,
     DataSharingConsentModal,
 };
@@ -348,16 +342,8 @@ export const test = base.extend<FixtureTypes>({
         await use(new MediaListing(AdminPage));
     },
 
-    AdminLayoutListing: async ({ AdminPage }, use) => {
-        await use(new LayoutListing(AdminPage));
-    },
-
-    AdminListingPageLayoutDetail: async ({ AdminPage, InstanceMeta }, use) => {
-        await use(new ListingPageLayoutDetail(AdminPage, InstanceMeta));
-    },
-
-    AdminLayoutCreate: async ({ AdminPage }, use) => {
-        await use(new LayoutCreate(AdminPage));
+    AdminExperienceStudio: async ({ AdminPage }, use) => {
+        await use(new ExperienceStudio(AdminPage));
     },
 
     AdminSalesChannelDetail: async ({ AdminPage }, use) => {

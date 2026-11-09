@@ -72,11 +72,11 @@ export class ProductDetail implements PageObject {
     constructor(page: Page) {
         this.page = page;
         this.addToCartButton = page.getByRole("button", { name: translate("storefront:product:addToCart") });
-        const form = page.locator(".buy-widget:not(.d-none)");
+        const form = page.locator('form[data-component="Sw:Product:BuyButton"]:visible');
         this.quantitySelect = form.getByLabel(translate("storefront:product:quantity"), { exact: true });
         this.productSingleImage = page.locator(".gallery-slider-single-image");
-        this.productSinglePrice = page.locator(".product-detail-price");
-        this.productPriceRangesRow = page.locator(".product-block-prices-row");
+        this.productSinglePrice = page.getByRole("main").locator(".sw-product-price-display:not(.sw-product-card *) .sw-product-price-display__price");
+        this.productPriceRangesRow = page.locator(".sw-product-advanced-prices");
         this.productListingPriceBadge = page.locator(".list-price-badge");
         this.productListingPrice = page.locator(".list-price-price");
         this.productListingPricePercentage = page.locator(".list-price-percentage");

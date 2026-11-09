@@ -1,0 +1,16 @@
+{
+    "title": "Experience Studio",
+    "createNewLayout": "Create new layout",
+    "layoutName": "Layout name",
+    "startEditing": "Start editing",
+    "layoutTypes": {
+        "product": "Product",
+        "category": "Category",
+        "landing_page": "Landing page"
+    },
+    "assignments": "Assignments",
+    "assignmentTitle": "Layout assignments",
+    "saveLayout": "Save layout",
+    "save": "Save",
+    "cancel": "Cancel"
+}
