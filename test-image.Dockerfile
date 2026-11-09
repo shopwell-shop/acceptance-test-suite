@@ -9,7 +9,7 @@ ARG COMPOSER_VERSION=2.10.2
 ARG COMPOSER_SHA256=5ee7125f8a30a34d246cefdc0bc85b8a783b28f2aec968994118512350d28027
 
 USER root
-RUN apk add --no-cache bash git nodejs npm unzip \
+RUN apk add --no-cache bash git nodejs npm patch unzip \
     && install -d -o www-data -g www-data /src /tmp/.composer /tmp/.npm \
     && curl --fail --location --retry 5 --retry-all-errors \
         "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" \
