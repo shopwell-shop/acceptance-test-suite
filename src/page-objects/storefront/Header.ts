@@ -28,8 +28,8 @@ export class Header implements PageObject {
         this.topBarNav = page.getByRole("navigation", { name: translate("storefront:header:topBarNav") });
         this.languagesDropdown = this.topBarNav.locator(".top-bar-language").getByRole("button", { name: translate("storefront:header:languageDropdown") });
         this.languagesMenuOptions = this.topBarNav.locator(".top-bar-language").getByRole("list");
-        this.currenciesDropdown = this.topBarNav.locator(".top-bar-currency").getByRole("button", { name: translate("storefront:header:currencyDropdown") });
-        this.currenciesMenuOptions = this.topBarNav.locator(".top-bar-currency").getByRole("list");
+        this.currenciesDropdown = page.locator(".sw-currency-select > button[data-bs-toggle=dropdown]");
+        this.currenciesMenuOptions = page.locator(".sw-currency-select__form");
         this.searchInput = page.getByLabel(translate("storefront:header:searchInputAriaLabel"));
 
         //skip links
